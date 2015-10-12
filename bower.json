@@ -1,0 +1,24 @@
+{
+  "name": "js-justdoit",
+  "version": "0.1.0",
+  "homepage": "https://github.com/Eugene-Alll/js-justdoit",
+  "authors": [
+    "Eugene_Alll <l.k.bayete@gmail.com>"
+  ],
+  "description": "This app use MEAN stack",
+  "main": "server.js",
+  "moduleType": [
+    "node"
+  ],
+  "keywords": [
+    "MEAN",
+    "machine",
+    "learning",
+    "js"
+  ],
+  "license": "ISC",
+  "dependencies": {
+    "bootstrap": "~3.3.5",
+    "AngularJS": "angular-latest#~1.4.7"
+  }
+}
