@@ -1,0 +1,20 @@
+<section id="users-auth">
+	<div class="container">
+		<form class="users-auth-form">
+			<h2>Have an account? Sign in</h2>
+			<div class="form-group">
+				<label for="exampleInputEmail1">Email address</label>
+				<input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email" ng-model="formLoginData.email" required>
+			</div>
+			<div class="form-group">
+				<label for="exampleInputPassword1">Password</label>
+				<input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" ng-model="formLoginData.password" required>
+			</div>
+			<button type="submit" class="btn btn-default">Submit</button>
+			<div class="form-group">
+				<p>Don't have an account?</p>
+				<a ui-sref="registration">Create</a>
+			</div>
+		</form>
+	</div>
+</section>

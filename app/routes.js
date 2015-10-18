@@ -4,7 +4,20 @@ module.exports = function(app, passport) {
 
     // show the home page (will also have our login links)
     app.get('/', function(req, res) {
-        res.render('index.ejs');
+        res.json({ a: "test" });
+    });
+
+    app.get('/api/test', function(req, res) {
+        res.json({ b: "another test" });
+    });
+
+    app.get('/reg', function(req, res) {
+        res.json({ b: "another test" });
+    });
+    
+    // redirect all others to the index (HTML5 history)
+    app.all('/*', function(req, res) {
+        res.sendFile('public/index.html');
     });
 
     // PROFILE SECTION =========================
@@ -26,10 +39,6 @@ module.exports = function(app, passport) {
 
     // locally --------------------------------
         // LOGIN ===============================
-        // show the login form
-        app.get('/login', function(req, res) {
-            res.render('login.ejs', { message: req.flash('loginMessage') });
-        });
 
         // process the login form
         app.post('/login', passport.authenticate('local-login', {
@@ -39,11 +48,6 @@ module.exports = function(app, passport) {
         }));
 
         // SIGNUP =================================
-        // show the signup form
-        app.get('/signup', function(req, res) {
-            res.render('signup.ejs', { message: req.flash('signupMessage') });
-        });
-
         // process the signup form
         app.post('/signup', passport.authenticate('local-signup', {
             successRedirect : '/profile', // redirect to the secure profile section
@@ -101,18 +105,6 @@ module.exports = function(app, passport) {
                 failureRedirect : '/'
             }));
 
-    // twitter --------------------------------
-
-        // send to twitter to do the authentication
-        app.get('/connect/twitter', passport.authorize('twitter', { scope : 'email' }));
-
-        // handle the callback after twitter has authorized the user
-        app.get('/connect/twitter/callback',
-            passport.authorize('twitter', {
-                successRedirect : '/profile',
-                failureRedirect : '/'
-            }));
-
 
     // google ---------------------------------
 
@@ -152,15 +144,6 @@ module.exports = function(app, passport) {
         });
     });
 
-    // twitter --------------------------------
-    app.get('/unlink/twitter', isLoggedIn, function(req, res) {
-        var user           = req.user;
-        user.twitter.token = undefined;
-        user.save(function(err) {
-            res.redirect('/profile');
-        });
-    });
-
     // google ---------------------------------
     app.get('/unlink/google', isLoggedIn, function(req, res) {
         var user          = req.user;
@@ -177,6 +160,6 @@ module.exports = function(app, passport) {
 function isLoggedIn(req, res, next) {
     if (req.isAuthenticated())
         return next();
-
-    res.redirect('/');
+    else 
+        res.send(401);
 }

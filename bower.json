@@ -18,7 +18,9 @@
   ],
   "license": "ISC",
   "dependencies": {
-    "bootstrap": "~3.3.5",
-    "AngularJS": "angular-latest#~1.4.7"
+    "bootstrap-sass": "~3.3.5",
+    "angular": "1.4.7",
+    "angular-route": "~1.4.7",
+    "angular-ui-router": "~0.2.15"
   }
 }

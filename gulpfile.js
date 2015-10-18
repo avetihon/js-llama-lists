@@ -9,11 +9,15 @@ var gulp       = require('gulp'),
     sass       = require('gulp-sass');
  
 gulp.task('sass', function () {
-  gulp.src('sass/**/*.scss')
+  gulp.src('public/**/*.scss')
     .pipe(sass.sync().on('error', sass.logError))
-    .pipe(gulp.dest('./css'));
+    .pipe(gulp.dest('./public'));
 });
  
 gulp.task('sass:watch', function () {
-  gulp.watch('sass/**/*.scss', ['sass']);
+  gulp.watch('public/**/*.scss', ['sass']);
 });
+
+// gulp.task('sass:watch', function () {
+//   gulp.watch('../public/scripts/core/*.scss', ['sass']);
+// });

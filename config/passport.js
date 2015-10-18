@@ -88,8 +88,9 @@ module.exports = function(passport) {
 
                     // check to see if theres already a user with that email
                     if (user) {
-                        return done(null, false, req.flash('signupMessage', 'That email is already taken.'));
+                        console.log('That email is already taken.');
                     } else {
+
 
                         // create the user
                         var newUser            = new User();
@@ -115,7 +116,7 @@ module.exports = function(passport) {
                         return done(err);
                     
                     if (user) {
-                        return done(null, false, req.flash('loginMessage', 'That email is already taken.'));
+                        console.log('That email is already taken');
                         // Using 'loginMessage instead of signupMessage because it's used by /connect/local'
                     } else {
                         var user = req.user;
