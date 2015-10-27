@@ -1,165 +1,177 @@
-module.exports = function(app, passport) {
+// load up the user model
+var User    = require('../app/models/user');
+var jwt     = require('jsonwebtoken'); // used to create, sign, and verify tokens
+var express = require("express");
+
+// module.exports = function(app, passport) {
+module.exports = function(app) {
 
 // normal routes ===============================================================
 
     // show the home page (will also have our login links)
-    app.get('/', function(req, res) {
-        res.json({ a: "test" });
+    // app.get('/', function(req, res) {
+    //     res.json({ a: "test" });
+    // });
+
+
+    app.post('/registration', function (req, res) {
+
+        if (typeof req.body.username === "undefined" || typeof req.body.password === "undefined") {
+
+            console.log("Registration failed.")
+            res.json({ success: false, message: 'Registration failed.' });
+        } else {
+
+            var newUser = new User({ 
+                name: req.body.username, 
+                password: req.body.password
+            });
+
+            newUser.save(function(err) {
+              if (err) return done(err);
+
+              console.log('User saved successfully');
+              res.json({ success: true });
+            });
+        }
     });
 
-    app.get('/api/test', function(req, res) {
-        res.json({ b: "another test" });
+    app.post('/authenticate', function(req, res) {
+
+      // find the user
+      User.findOne({
+        name: req.body.username
+      }, function(err, user) {
+
+        if (err) throw err;
+
+        if (!user) {
+            console.log('Authentication failed. User not found.')
+            return res.status(401).send({ 
+                success: false, 
+                message: 'Wrong user'
+            });
+        } else if (user) {
+          // check if password matches
+          if (user.password != req.body.password) {
+            console.log('Authentication failed. Wrong password.')
+            return res.status(401).send({ 
+                success: false, 
+                message: 'Wrong password'
+            });
+          } else {
+
+            console.log('user is found and password is right.');
+            // if user is found and password is right
+            // create a token
+            var token = jwt.sign(user, app.get('superSecret'), {
+              expiresIn: "1d" // expires in 24 hours
+            });
+
+            // return the information including token as JSON
+            res.json({ token: token });
+          }   
+        }
+
+      });
     });
 
-    app.get('/reg', function(req, res) {
-        res.json({ b: "another test" });
+
+    app.get('/api/restricted', function (req, res) {
+      res.json({
+        name: 'Entrance allowed'
+      });
     });
+
+    app.get('/api/account', function (req, res) {
+      res.json({ enter: "allowed"});
+    });
+
+    //testing function
+    app.get('/users', function(req, res) {
+      User.find({}, function(err, users) {
+        res.json(users);
+      });
+    });
+
+    // var apiRoutes = express.Router(); 
+
+    // app.get('/api/test', function(req, res) {
+    //     res.json({ b: "another test" });
+    // });
+
+    
+
+    //testing function
+    // app.get('/setup', function(req, res) {
+
+    //   // create a sample user
+    //   var eugene = new User({ 
+    //     name: 'eugene', 
+    //     password: '1111'
+    //   });
+
+    //   // // save the sample user
+    //   eugene.save(function(err) {
+    //     if (err) return done(err);
+
+    //     console.log('User saved successfully');
+    //     res.json({ success: true });
+    //   });
+    // });
+
+       
+
+    
+
+    // route to authenticate a user (POST http://localhost:8080/api/authenticate)
+    //...
+
+    // route middleware to verify a token
+    // apiRoutes.use(function(req, res, next) {
+    //     console.log(11111111)
+    //   // check header or url parameters or post parameters for token
+    //   var token = req.body.token || req.query.token || req.headers['x-access-token'];
+    //   console.log(token);
+    //   // decode token
+    //   if (token) {
+
+    //     // verifies secret and checks exp
+    //     jwt.verify(token, app.get('superSecret'), function(err, decoded) {      
+    //       if (err) {
+    //         return res.json({ success: false, message: 'Failed to authenticate token.' });    
+    //       } else {
+    //         // if everything is good, save to request for use in other routes
+    //         req.decoded = decoded;    
+    //         next();
+    //       }
+    //     });
+
+    //   } else {
+
+    //     // if there is no token
+    //     // return an error
+    //     return res.status(403).send({ 
+    //         success: false, 
+    //         message: 'No token provided.' 
+    //     });
+        
+    //   }
+    // });
+
+    // route to show a random message (GET http://localhost:8080/api/)
+    //...
+
+    // route to return all users (GET http://localhost:8080/api/users)
+    //...
+
+    // apply the routes to our application with the prefix /api
+    // app.use('/api', apiRoutes);
+
+    
     
     // redirect all others to the index (HTML5 history)
     app.all('/*', function(req, res) {
         res.sendFile('public/index.html');
     });
-
-    // PROFILE SECTION =========================
-    app.get('/profile', isLoggedIn, function(req, res) {
-        res.render('profile.ejs', {
-            user : req.user
-        });
-    });
-
-    // LOGOUT ==============================
-    app.get('/logout', function(req, res) {
-        req.logout();
-        res.redirect('/');
-    });
-
-// =============================================================================
-// AUTHENTICATE (FIRST LOGIN) ==================================================
-// =============================================================================
-
-    // locally --------------------------------
-        // LOGIN ===============================
-
-        // process the login form
-        app.post('/login', passport.authenticate('local-login', {
-            successRedirect : '/profile', // redirect to the secure profile section
-            failureRedirect : '/login', // redirect back to the signup page if there is an error
-            failureFlash : true // allow flash messages
-        }));
-
-        // SIGNUP =================================
-        // process the signup form
-        app.post('/signup', passport.authenticate('local-signup', {
-            successRedirect : '/profile', // redirect to the secure profile section
-            failureRedirect : '/signup', // redirect back to the signup page if there is an error
-            failureFlash : true // allow flash messages
-        }));
-
-    // facebook -------------------------------
-
-        // send to facebook to do the authentication
-        app.get('/auth/facebook', passport.authenticate('facebook', { scope : 'email' }));
-
-        // handle the callback after facebook has authenticated the user
-        app.get('/auth/facebook/callback',
-            passport.authenticate('facebook', {
-                successRedirect : '/profile',
-                failureRedirect : '/'
-            }));
-
-    // google ---------------------------------
-
-        // send to google to do the authentication
-        app.get('/auth/google', passport.authenticate('google', { scope : ['profile', 'email'] }));
-
-        // the callback after google has authenticated the user
-        app.get('/auth/google/callback',
-            passport.authenticate('google', {
-                successRedirect : '/profile',
-                failureRedirect : '/'
-            }));
-
-// =============================================================================
-// AUTHORIZE (ALREADY LOGGED IN / CONNECTING OTHER SOCIAL ACCOUNT) =============
-// =============================================================================
-
-    // locally --------------------------------
-        app.get('/connect/local', function(req, res) {
-            res.render('connect-local.ejs', { message: req.flash('loginMessage') });
-        });
-        app.post('/connect/local', passport.authenticate('local-signup', {
-            successRedirect : '/profile', // redirect to the secure profile section
-            failureRedirect : '/connect/local', // redirect back to the signup page if there is an error
-            failureFlash : true // allow flash messages
-        }));
-
-    // facebook -------------------------------
-
-        // send to facebook to do the authentication
-        app.get('/connect/facebook', passport.authorize('facebook', { scope : 'email' }));
-
-        // handle the callback after facebook has authorized the user
-        app.get('/connect/facebook/callback',
-            passport.authorize('facebook', {
-                successRedirect : '/profile',
-                failureRedirect : '/'
-            }));
-
-
-    // google ---------------------------------
-
-        // send to google to do the authentication
-        app.get('/connect/google', passport.authorize('google', { scope : ['profile', 'email'] }));
-
-        // the callback after google has authorized the user
-        app.get('/connect/google/callback',
-            passport.authorize('google', {
-                successRedirect : '/profile',
-                failureRedirect : '/'
-            }));
-
-// =============================================================================
-// UNLINK ACCOUNTS =============================================================
-// =============================================================================
-// used to unlink accounts. for social accounts, just remove the token
-// for local account, remove email and password
-// user account will stay active in case they want to reconnect in the future
-
-    // local -----------------------------------
-    app.get('/unlink/local', isLoggedIn, function(req, res) {
-        var user            = req.user;
-        user.local.email    = undefined;
-        user.local.password = undefined;
-        user.save(function(err) {
-            res.redirect('/profile');
-        });
-    });
-
-    // facebook -------------------------------
-    app.get('/unlink/facebook', isLoggedIn, function(req, res) {
-        var user            = req.user;
-        user.facebook.token = undefined;
-        user.save(function(err) {
-            res.redirect('/profile');
-        });
-    });
-
-    // google ---------------------------------
-    app.get('/unlink/google', isLoggedIn, function(req, res) {
-        var user          = req.user;
-        user.google.token = undefined;
-        user.save(function(err) {
-            res.redirect('/profile');
-        });
-    });
-
-
 };
-
-// route middleware to ensure user is logged in
-function isLoggedIn(req, res, next) {
-    if (req.isAuthenticated())
-        return next();
-    else 
-        res.send(401);
-}

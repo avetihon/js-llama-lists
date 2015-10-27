@@ -1,10 +1,10 @@
 <section id="users-auth">
 	<div class="container">
-		<form class="users-auth-form">
+		<form class="users-auth-form" ng-submit="submitData()">
 			<h2>Have an account? Sign in</h2>
 			<div class="form-group">
-				<label for="exampleInputEmail1">Email address</label>
-				<input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email" ng-model="formLoginData.email" required>
+				<label for="exampleInputEmail1">Name</label>
+				<input type="input" class="form-control" id="exampleInputName1" placeholder="Name" ng-model="formLoginData.username" required>
 			</div>
 			<div class="form-group">
 				<label for="exampleInputPassword1">Password</label>
@@ -16,5 +16,9 @@
 				<a ui-sref="registration">Create</a>
 			</div>
 		</form>
+		<div class="response-server">
+			<a ng-click="callRestricted()" href="">Shh, this is private!</a>
+			<div>{{message}}</div>
+		</div>
 	</div>
 </section>
