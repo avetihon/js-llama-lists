@@ -13,7 +13,6 @@ module.exports = function(app) {
     //     res.json({ a: "test" });
     // });
 
-
     app.post('/registration', function (req, res) {
 
         if (typeof req.body.username === "undefined" || typeof req.body.password === "undefined") {
@@ -79,7 +78,7 @@ module.exports = function(app) {
 
     app.get('/api/restricted', function (req, res) {
       res.json({
-        name: 'Entrance allowed'
+        name: 'Entrance allowed eeeeahhh'
       });
     });
 
@@ -171,7 +170,14 @@ module.exports = function(app) {
     
     
     // redirect all others to the index (HTML5 history)
+    // refactoring this ugly code
     app.all('/*', function(req, res) {
-        res.sendFile('public/index.html');
+        var cwd = process.cwd();
+        var indexFile = cwd + "/public/index.html";
+        res.sendFile(indexFile);
+        //res.sendFile('public/index.html');
+        //res.sendFile(path.join(__dirname, '../public/index.html'));
+        //res.sendFile('../public/index.html', { root: __dirname });
+        //res.sendFile(path.resolve(__dirname + 'public/index.html'));
     });
 };

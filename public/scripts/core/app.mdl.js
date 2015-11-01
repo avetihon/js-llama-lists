@@ -16,6 +16,12 @@
 		        url: "/",
 		        templateUrl: 'users-registration/users-registration.tpl.html',
 		        controller:'RegistrationCtrl'
+		    })
+		    .state('account', {
+		        url: "/account",
+		        templateUrl: 'user-account/user-account.tpl.html',
+		        controller: 'AccountCtrl',
+		        controllerAs: "account"
 		    });
 
 	    $urlRouterProvider.otherwise('/');

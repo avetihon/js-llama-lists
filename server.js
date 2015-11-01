@@ -7,6 +7,7 @@ var morgan       = require("morgan"),
 	expressJwt   = require('express-jwt'), // middleware that validates JsonWebTokens
 	port         = process.env.PORT || 3000,
 	app          = express();
+	var path = require('path');
 
 
 var configDB   = require('./config/database.js'); // connect to our database

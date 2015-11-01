@@ -1,22 +1,27 @@
 angular.module('meanJustDoIt')
-    .controller('AuthenticationCtrl', function ($scope, $http, $window) {
+    .controller('AuthenticationCtrl', function ($scope, $http, $window, $location, $state) {
         $scope.message = '';
         $scope.submitData = function() {
-            $scope.user = {
-                username: $scope.formLoginData.username,
-                password: $scope.formLoginData.password 
-            };
 
+            if (typeof $scope.formLoginData !== "undefined") {
+                $scope.user = {
+                    username: $scope.formLoginData.username,
+                    password: $scope.formLoginData.password
+                };
+            } else {
+                alert("Empty inputs");
+            }
+            
             $http
                 .post('/authenticate', $scope.user)
                 .success(function (data, status, headers, config) {
-                    console.log(status);
-                    $window.sessionStorage.token = data.token;
+                    $window.localStorage.token = data.token;
                     $scope.message = 'Welcome';
+                    $state.go('account');
                 })
                 .error(function (data, status, headers, config) {
                     // Erase the token if the user fails to log in
-                    delete $window.sessionStorage.token;
+                    delete $window.localStorage.token;
                     // Handle login errors here
                     $scope.message = 'Error: Invalid user or password';
             });
