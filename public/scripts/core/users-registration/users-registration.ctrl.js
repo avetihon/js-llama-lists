@@ -1,21 +1,26 @@
-angular.module('meanJustDoIt')
-  .controller('RegistrationCtrl', function ($scope, $http, $state) {
+(function() {
+  'use strict';
 
-    $scope.message = '';
-    $scope.submitData = function() {
+  angular.module('justDoIt')
+    .controller('justDoIt.core.registrationCtrl', function ($scope, $http, $state) {
 
-      $scope.user = {
-        username: $scope.formRegData.username,
-        password: $scope.formRegData.password 
-      };
+      $scope.message = '';
+      $scope.submitData = function() {
 
-      $http
-        .post('/registration', $scope.user)
-          .success(function (data, status, headers, config) {
-            $state.go('login');
-          })
-          .error(function (data, status, headers, config) {
-            // error
-          });
-    }
-  });
+        $scope.user = {
+          username: $scope.formRegData.username,
+          password: $scope.formRegData.password
+        };
+
+        $http
+          .post('/registration', $scope.user)
+            .success(function (data, status, headers, config) {
+              $state.go('login');
+            })
+            .error(function (data, status, headers, config) {
+              // error
+            });
+      }
+    });
+
+})();

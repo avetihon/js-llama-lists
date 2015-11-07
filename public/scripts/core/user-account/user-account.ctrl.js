@@ -2,11 +2,12 @@
   'use strict';
 
   angular
-    .module('meanJustDoIt')
-    .controller('AccountCtrl', AccountCtrl);
+    .module('justDoIt')
+    .controller('justDoIt.core.accountCtrl', AccountCtrl);
 
     function AccountCtrl($scope, $http, $state, $window) {
       var accountVm = this;
+      accountVm.showNewList = false;
 
       $http
         .get('/api/account')

@@ -15,6 +15,7 @@ mongoose.connect(configDB.url); // connect to database
 
 app.use(express.static(__dirname + '/public')); // sets the static files location to public
 app.use(express.static(__dirname + '/public/scripts/core'));
+app.use(express.static(__dirname + '/public/scripts/common'));
 
 app.use(morgan('dev')); // log every request to the console
 app.use(bodyParser.json()); // get information from html forms

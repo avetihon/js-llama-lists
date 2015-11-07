@@ -1,12 +1,13 @@
 // load the things we need
-var mongoose = require('mongoose');
-var bcrypt   = require('bcrypt-nodejs');
+var mongoose     = require('mongoose'),
+    bcrypt       = require('bcrypt-nodejs'),
+    listShema    = require("../../app/models/list"); // load List model
 
 var userSchema = mongoose.Schema({
   name:     String,
   email:    String,
   password: String,
-  list:     Array
+  list:     [listShema]
 });
 
 // generating a hash

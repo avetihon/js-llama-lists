@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-    .module('meanJustDoIt', ['ui.router'])
+    .module('justDoIt', ['ui.router'])
     .config(config);
 
   function config($locationProvider, $stateProvider, $urlRouterProvider) {
@@ -10,17 +10,17 @@
       .state('login', {
         url: "/",
         templateUrl: 'users-auth/users-auth.tpl.html',
-        controller: 'AuthenticationCtrl'
+        controller: 'justDoIt.core.authenticationCtrl'
       })
       .state('registration', {
         url: "/",
         templateUrl: 'users-registration/users-registration.tpl.html',
-        controller:'RegistrationCtrl'
+        controller:'justDoIt.core.registrationCtrl'
       })
       .state('account', {
         url: "/account",
         templateUrl: 'user-account/user-account.tpl.html',
-        controller: 'AccountCtrl',
+        controller: 'justDoIt.core.accountCtrl',
         controllerAs: "accountVm"
       });
 
