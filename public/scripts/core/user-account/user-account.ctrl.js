@@ -18,13 +18,36 @@
           alert(data);
         });
 
+      $http
+        .get("/api/lists")
+        .success(function (data, status, headers, config) {
+          console.table(data.lists)
+          accountVm.lists = data.lists;
+        })
+        .error(function (data, status, headers, config) {
+          console.log("error");
+        });
+
       accountVm.logOut = function() {
         delete $window.localStorage.token;
         $state.go("registration");
       }
 
       accountVm.createNewList = function() {
+        var date = new Date().toUTCString();
+        var listsData = {
+          title: accountVm.listTitle,
+          date: date
+        }
 
+        $http
+          .post("/api/lists", listsData)
+          .success(function (data, status, headers, config) {
+            accountVm.lastList = data.lastListData;
+          })
+          .error(function (data, status, headers, config) {
+            console.log("error");
+          });
       }
     };
 

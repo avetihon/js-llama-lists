@@ -67,9 +67,39 @@ module.exports = function(app) {
     });
   });
 
-  app.get('/api/account', function (req, res) {
+  app.get('/api/account', function(req, res) {
     res.json({
       enter: "allowed"
+    });
+  });
+
+  app.get("/api/lists", function(req, res) {
+    var query = { name: req.user.name };
+
+    User.findOne(query, function(err, user) {
+      if (err) throw err;
+
+      res.json({ lists: user.list });
+    });
+  });
+
+  app.post("/api/lists", function(req, res) {
+
+    var query = { name: req.user.name };
+    User.findOne(query, function(err, user) {
+      if (err) throw err;
+
+      user.list.push({
+        title: req.body.title,
+        date: req.body.date
+      });
+
+      user.save(function(err, done) {
+        if (err) return done(err);
+        var lengthLists = (done.list).length;
+
+        res.json({ lastListData: done.list[lengthLists - 1] });
+      });
     });
   });
 
