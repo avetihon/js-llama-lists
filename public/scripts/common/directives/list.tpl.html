@@ -1,0 +1,19 @@
+<div class="listToDo">
+  <div class="panel panel-default">
+  <!-- Default panel contents -->
+    <div class="panel-heading">{{ listData.title }}</div>
+    <div class="panel-body">
+      <div class="panel-icon-add" ng-click="showNewToDo = !showNewToDo">
+        <i class="fa fa-plus"></i> <span>add new to-do </span></div>
+      </div>
+      <div class="panel-add-new-list" ng-show="showNewToDo">
+        <input type="text" placeholder="Add a to-do..." ng-model="toDoTask">
+        <button type="button" class="btn btn-success" ng-click="addNewToDo()">Save</button>
+        <button type="button" class="btn btn-default" ng-click="showNewToDo = !showNewToDo">Cancel</button>
+      </div>
+      <!-- List group -->
+      <ul class="list-group" ng-repeat="toDo in toDos">
+        <li class="list-group-item">{{ toDo.task }}</li>
+      </ul>
+  </div>
+</div>

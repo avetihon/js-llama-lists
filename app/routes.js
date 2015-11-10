@@ -79,7 +79,10 @@ module.exports = function(app) {
     User.findOne(query, function(err, user) {
       if (err) throw err;
 
-      res.json({ lists: user.list });
+      if (user) {
+        res.json({ lists: user.list });
+      }
+
     });
   });
 
@@ -96,10 +99,41 @@ module.exports = function(app) {
 
       user.save(function(err, done) {
         if (err) return done(err);
-        var lengthLists = (done.list).length;
+        // var lengthLists = (done.list).length;
 
-        res.json({ lastListData: done.list[lengthLists - 1] });
+        // res.json({ lastListData: done.list[lengthLists - 1] });
+        res.json({ lists: done.list });
       });
+    });
+  });
+
+  app.post("/api/lists/toDo", function(req, res, next) {
+
+    var query = {
+      name: req.user.name
+    };
+
+    User.findOne(query, function(err, user) {
+      if (err) throw err;
+      var list = user.list.id(req.body.id);
+
+      list.toDo.push({
+        task: req.body.task,
+      });
+
+      user.save(function(err, done) {
+        if (err) return done(err);
+
+        // find list where been saved new to-do
+        for (i = 0; i < (done.list).length; i++) {
+          if (done.list[i]["_id"] == req.body.id) {
+            var resultFind = done.list[i];
+          }
+        }
+
+        res.json({ toDos: resultFind.toDo });
+      });
+
     });
   });
 

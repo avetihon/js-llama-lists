@@ -1,10 +1,11 @@
 // load the things we need
-var mongoose = require('mongoose');
+var mongoose   = require('mongoose')
+    toDoShema  = require("../../app/models/to-do").schema; // load to-do model;
 
 var listSchema = mongoose.Schema({
   title:     String,
   date:      String,
-  toDo:      String
+  toDo:      [toDoShema]
 });
 
 // create the model for list and expose it to our app

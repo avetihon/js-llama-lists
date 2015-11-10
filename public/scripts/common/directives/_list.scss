@@ -1,0 +1,23 @@
+.listToDo {
+  width: 60%;
+}
+
+.panel-icon-add {
+  cursor: pointer;
+  i {
+    font-size: 2.0rem;
+    padding-right: 5px;
+    vertical-align: middle;
+  }
+}
+
+.panel-add-new-list {
+  input[type="text"] {
+    display: block;
+    margin-left: 20px;
+  }
+
+  button {
+    margin: 10px 0 10px 20px;
+  }
+}

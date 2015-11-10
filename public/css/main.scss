@@ -1,5 +1,9 @@
 @import "../libs/bootstrap-sass/assets/stylesheets/bootstrap";
-
 @import "../scripts/core/users-auth/users-auth";
 @import "../scripts/core/users-registration/users-registration";
 @import "../scripts/core/user-account/user-account";
+@import "../scripts/common/directives/list";
+
+body {
+  font-family: 'Lato', sans-serif;
+}

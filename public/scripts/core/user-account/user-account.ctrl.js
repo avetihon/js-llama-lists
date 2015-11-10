@@ -1,16 +1,16 @@
 (function() {
-  'use strict';
+  "use strict";
 
   angular
-    .module('justDoIt')
-    .controller('justDoIt.core.accountCtrl', AccountCtrl);
+    .module("justDoIt")
+    .controller("justDoIt.core.accountCtrl", AccountCtrl);
 
     function AccountCtrl($scope, $http, $state, $window) {
       var accountVm = this;
       accountVm.showNewList = false;
 
       $http
-        .get('/api/account')
+        .get("/api/account")
         .success(function (data, status, headers, config) {
           accountVm.message = data.enter;
         })
@@ -21,7 +21,6 @@
       $http
         .get("/api/lists")
         .success(function (data, status, headers, config) {
-          console.table(data.lists)
           accountVm.lists = data.lists;
         })
         .error(function (data, status, headers, config) {
@@ -43,7 +42,7 @@
         $http
           .post("/api/lists", listsData)
           .success(function (data, status, headers, config) {
-            accountVm.lastList = data.lastListData;
+            accountVm.lists = data.lists;
           })
           .error(function (data, status, headers, config) {
             console.log("error");
