@@ -5821,6 +5821,21 @@ button.close {
   .hidden-print {
     display: none !important; } }
 
+/* main colors */
+body {
+  color: #3C3C3C;
+  font-family: 'Lato', sans-serif; }
+
+/* bootstrap !important */
+.navbar-default {
+  background-color: #FFF; }
+
+.navbar-default .navbar-nav > li > a {
+  color: #E67E22; }
+
+.navbar-default .navbar-nav > li > a:hover {
+  color: #D35400; }
+
 #users-auth .users-auth-form {
   width: 40%;
   margin: 0 auto; }
@@ -5882,6 +5897,3 @@ button.close {
 
 .panel-add-new-list button {
   margin: 10px 0 10px 20px; }
-
-body {
-  font-family: 'Lato', sans-serif; }

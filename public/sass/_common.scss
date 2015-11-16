@@ -1,0 +1,35 @@
+/* main colors */
+$white:        #FFF;
+$clouds:       #ecf0f1;
+$midnightBlue: #2C3E50;
+$pumpkin:      #D35400;
+$carrot:       #E67E22;
+$orange:       #F39C12;
+$silver:       #BDC3C7;
+$alizarin:     #E74C3C;
+$pomegranate:  #C0392B;
+
+$textColorActive: #3B3331;
+$textColorNav: #BDB6AE;
+$textColorMain: #3C3C3C;
+
+body {
+  color: $textColorMain;
+  font-family: 'Lato', sans-serif;
+}
+
+/* bootstrap !important */
+.navbar-default {
+  background-color: $white;
+}
+
+.navbar-default .navbar-nav > li > a {
+  color: $carrot;
+}
+
+.navbar-default .navbar-nav > li > a:hover {
+  color: $pumpkin;
+}
+
+
+

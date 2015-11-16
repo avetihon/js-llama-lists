@@ -1,6 +1,6 @@
 {
-  "name": "js-justdoit",
-  "version": "0.1.0",
+  "name": "js-llama-list",
+  "version": "0.5.0",
   "description": "This app use MEAN stack",
   "main": "server.js",
   "scripts": {
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Eugene-Alll/js-justdoit.git"
+    "url": "https://github.com/Eugene-Alll/js-llama-lists.git"
   },
   "keywords": [
     "MEAN",
@@ -19,9 +19,9 @@
   "author": "Eugene Tykhonov <l.k.bayete@gmail.com>",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Eugene-Alll/js-justdoit/issues"
+    "url": "https://github.com/Eugene-Alll/js-llama-lists/issues"
   },
-  "homepage": "https://github.com/Eugene-Alll/js-justdoit",
+  "homepage": "https://github.com/Eugene-Alll/js-llama-lists",
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.14.1",

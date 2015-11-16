@@ -15,6 +15,7 @@ module.exports = function(app) {
 
       var newUser = new User({
           name: req.body.username,
+          email: req.body.email,
           password: req.body.password
       });
 
@@ -136,18 +137,6 @@ module.exports = function(app) {
 
     });
   });
-
-  //testing function
-  app.get('/users', function(req, res) {
-    User.find({}, function(err, users) {
-      res.json(users);
-    });
-  });
-
-  // var apiRoutes = express.Router();
-
-  // apply the routes to our application with the prefix /api
-  // app.use('/api', apiRoutes);
 
   // redirect all others router to the index (HTML5 history)
   app.all('/*', function(req, res) {

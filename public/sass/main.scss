@@ -1,9 +1,14 @@
+// Import bootstrap and fontawesome
 @import "../libs/bootstrap-sass/assets/stylesheets/bootstrap";
+//@import "font-awesome";
+
+// Import common part
+@import "../sass/common";
+
+// Import style page
 @import "../scripts/core/users-auth/users-auth";
 @import "../scripts/core/users-registration/users-registration";
 @import "../scripts/core/user-account/user-account";
-@import "../scripts/common/directives/list";
+@import "../scripts/common/directives/list/list";
 
-body {
-  font-family: 'Lato', sans-serif;
-}
+

@@ -1,26 +1,32 @@
 (function() {
-  'use strict';
+  "use strict";
 
-  angular.module('justDoIt')
-    .controller('justDoIt.core.registrationCtrl', function ($scope, $http, $state) {
+  angular.module("llamaLists")
+    .controller("llamaLists.core.registrationCtrl", RegistrationCtrl);
 
-      $scope.message = '';
-      $scope.submitData = function() {
 
-        $scope.user = {
-          username: $scope.formRegData.username,
-          password: $scope.formRegData.password
+    RegistrationCtrl.$inject = ["$scope", "$http", "$state"];
+
+    function RegistrationCtrl($scope, $http, $state) {
+      var regVm = this;
+      regVm.message = "";
+      regVm.submitData = function() {
+
+        regVm.user = {
+          username: regVm.username,
+          email:    regVm.email,
+          password: regVm.password
         };
 
         $http
-          .post('/registration', $scope.user)
+          .post("/registration", regVm.user)
             .success(function (data, status, headers, config) {
-              $state.go('login');
+              $state.go("account");
             })
             .error(function (data, status, headers, config) {
               // error
             });
       }
-    });
+    }
 
 })();

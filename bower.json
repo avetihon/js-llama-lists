@@ -1,11 +1,11 @@
 {
   "name": "js-justdoit",
-  "version": "0.1.0",
-  "homepage": "https://github.com/Eugene-Alll/js-justdoit",
+  "version": "0.5.0",
+  "homepage": "https://github.com/Eugene-Alll/js-llama-lists",
   "authors": [
     "Eugene_Alll <l.k.bayete@gmail.com>"
   ],
-  "description": "This app use MEAN stack",
+  "description": "Create cool list for everybody",
   "main": "server.js",
   "moduleType": [
     "node"

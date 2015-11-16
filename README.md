@@ -1,6 +1,6 @@
-# JS-Barnyard MEAN Stack Single Page App
+# JS-Llama list MEAN Stack Single Page App
 
-To-do list for you, your girfrend, your friend and your dog. Just download and install and you have a good application to start to do something.
+To-do list for you, your girfrend, your friend and your llama. Just download and install and you have a good application to start to do something.
 
 ## Installation
 1. Download the repository

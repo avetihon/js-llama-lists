@@ -2,12 +2,14 @@
   "use strict";
 
   angular
-    .module("justDoIt")
-    .controller("justDoIt.core.accountCtrl", AccountCtrl);
+    .module("llamaLists")
+    .controller("llamaLists.core.accountCtrl", AccountCtrl);
 
-    function AccountCtrl($scope, $http, $state, $window) {
+    AccountCtrl.$inject = ["$scope", "$http", "$state", "$window", "$rootScope"];
+    function AccountCtrl($scope, $http, $state, $window, $rootScope) {
       var accountVm = this;
       accountVm.showNewList = false;
+      $rootScope.showLogout = true;
 
       $http
         .get("/api/account")
@@ -26,11 +28,6 @@
         .error(function (data, status, headers, config) {
           console.log("error");
         });
-
-      accountVm.logOut = function() {
-        delete $window.localStorage.token;
-        $state.go("registration");
-      }
 
       accountVm.createNewList = function() {
         var date = new Date().toUTCString();

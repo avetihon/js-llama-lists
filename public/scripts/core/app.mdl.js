@@ -1,26 +1,29 @@
 (function() {
-  'use strict';
+  "use strict";
 
   angular
-    .module('justDoIt', ['ui.router'])
-    .config(config);
+    .module("llamaLists", ["ui.router"])
+    .config(ConfigRoute);
 
-  function config($locationProvider, $stateProvider, $urlRouterProvider) {
+  ConfigRoute.$inject = ["$locationProvider", "$stateProvider", "$urlRouterProvider"];
+  function ConfigRoute($locationProvider, $stateProvider, $urlRouterProvider) {
     $stateProvider
-      .state('login', {
-        url: "/",
-        templateUrl: 'users-auth/users-auth.tpl.html',
-        controller: 'justDoIt.core.authenticationCtrl'
+      .state("login", {
+        url:          "/login",
+        templateUrl:  "users-auth/users-auth.tpl.html",
+        controller:   "llamaLists.core.authenticationCtrl",
+        controllerAs: "authVm"
       })
-      .state('registration', {
-        url: "/",
-        templateUrl: 'users-registration/users-registration.tpl.html',
-        controller:'justDoIt.core.registrationCtrl'
+      .state("registration", {
+        url:          "/registration",
+        templateUrl:  "users-registration/users-registration.tpl.html",
+        controller:   "llamaLists.core.registrationCtrl",
+        controllerAs: "regVm"
       })
-      .state('account', {
-        url: "/account",
-        templateUrl: 'user-account/user-account.tpl.html',
-        controller: 'justDoIt.core.accountCtrl',
+      .state("account", {
+        url:          "/account",
+        templateUrl:  "user-account/user-account.tpl.html",
+        controller:   "llamaLists.core.accountCtrl",
         controllerAs: "accountVm"
       });
 

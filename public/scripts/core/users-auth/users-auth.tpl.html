@@ -1,14 +1,14 @@
 <section id="users-auth">
 	<div class="container">
-		<form class="users-auth-form" ng-submit="submitData()">
+		<form class="users-auth-form" ng-submit="authVm.submitData()">
 			<h2>Have an account? Sign in</h2>
 			<div class="form-group">
-				<label for="exampleInputEmail1">Name</label>
-				<input type="input" class="form-control" id="exampleInputEmail1" placeholder="Name" ng-model="formLoginData.username" required>
+				<label for="inputUsername">Name</label>
+				<input type="input" class="form-control" id="inputUsername" placeholder="Name" ng-model="authVm.username" required>
 			</div>
 			<div class="form-group">
-				<label for="exampleInputPassword1">Password</label>
-				<input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" ng-model="formLoginData.password" required>
+				<label for="inputPassword">Password</label>
+				<input type="password" class="form-control" id="inputPassword" placeholder="Password" ng-model="authVm.password" required>
 			</div>
 			<button type="submit" class="btn btn-default">Submit</button>
 			<div class="form-group">
@@ -16,9 +16,5 @@
 				<a ui-sref="registration">Create</a>
 			</div>
 		</form>
-		<div class="response-server">
-			<a ng-click="callRestricted()" href="">Shh, this is private!</a>
-			<div>{{message}}</div>
-		</div>
 	</div>
 </section>

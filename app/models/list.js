@@ -1,6 +1,6 @@
 // load the things we need
 var mongoose   = require('mongoose')
-    toDoShema  = require("../../app/models/to-do").schema; // load to-do model;
+    toDoShema  = require("../../app/models/to-do").schema; // load to-do shema;
 
 var listSchema = mongoose.Schema({
   title:     String,
