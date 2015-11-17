@@ -13,11 +13,16 @@ module.exports = function(app) {
       res.json({ success: false, message: 'Registration failed.' });
     } else {
 
-      var newUser = new User({
-          name: req.body.username,
-          email: req.body.email,
-          password: req.body.password
-      });
+      // var newUser = new User({
+      //     name: req.body.username,
+      //     email: req.body.email,
+      //     password: newUser.generateHash(req.body.password)
+      // });
+
+      var newUser  = new User();
+      newUser.name = req.body.username;
+      newUser.email = req.body.email;
+      newUser.password = newUser.generateHash(req.body.password);
 
       newUser.save(function(err) {
         if (err) return done(err);
@@ -45,7 +50,9 @@ module.exports = function(app) {
           });
       } else if (user) {
         // check if password matches
-        if (user.password != req.body.password) {
+
+        //if (user.password != req.body.password) {
+        if (!user.validPassword(req.body.password)) {
           console.log('Authentication failed. Wrong password.')
           return res.status(401).send({
               success: false,

@@ -21,7 +21,7 @@
         $http
           .post("/registration", regVm.user)
             .success(function (data, status, headers, config) {
-              $state.go("account");
+              $state.go("login");
             })
             .error(function (data, status, headers, config) {
               // error
