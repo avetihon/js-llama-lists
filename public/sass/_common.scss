@@ -1,35 +1,94 @@
 /* main colors */
-$white:        #FFF;
-$clouds:       #ecf0f1;
-$midnightBlue: #2C3E50;
-$pumpkin:      #D35400;
-$carrot:       #E67E22;
-$orange:       #F39C12;
-$silver:       #BDC3C7;
-$alizarin:     #E74C3C;
-$pomegranate:  #C0392B;
 
-$textColorActive: #3B3331;
-$textColorNav: #BDB6AE;
-$textColorMain: #3C3C3C;
+$luckyRed: #f36;
+$mainText: #464d5d;
+$mainTextTwo: #828ea6;
+$littleGray: #7a7d81;
+
+
+/* list colors */
+$peterRiver: #3498db;
+$orange: #f39c12;
+$greenSea: #16a085;
+$amethyst: #9b59b6;
+$alizarin: #e74c3c;
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+}
 
 body {
-  color: $textColorMain;
+  background-color: #fff;
   font-family: 'Lato', sans-serif;
+  font-size: 16px;
+}
+
+input {
+  outline: none;
 }
 
 /* bootstrap !important */
+.navbar {
+  border: none;
+  // border-bottom: 1px solid #282a30;
+  border-bottom: 1px solid #30323d;
+  border-radius: 0;
+  margin-bottom: 0;
+}
+
 .navbar-default {
-  background-color: $white;
+  height: 65px;
+  background-color: #30323d;
+}
+
+.container-fluid {
+  margin-top: 6px;
 }
 
 .navbar-default .navbar-nav > li > a {
-  color: $carrot;
+  font-size: 1.25rem;
+  font-weight: 300;
+  color: #9ba0a6;
 }
 
 .navbar-default .navbar-nav > li > a:hover {
-  color: $pumpkin;
+  color: #fff;
 }
 
+#account .round-triangle {
+  background-image: url("../img/triangle.svg");
+  width: 100%;
+  height: 30px;
+  transform: scale(-1, -1);
+  margin-top: 9px;
+}
+
+
+// Clearfix
+//
+// For modern browsers
+// 1. The space content is one way to avoid an Opera bug when the
+//    contenteditable attribute is included anywhere else in the document.
+//    Otherwise it causes space to appear at the top and bottom of elements
+//    that are clearfixed.
+// 2. The use of `table` rather than `block` is only necessary if using
+//    `:before` to contain the top-margins of child elements.
+//
+// Source: http://nicolasgallagher.com/micro-clearfix-hack/
+
+@mixin clearfix() {
+  &:before,
+  &:after {
+    content: " "; // 1
+    display: table; // 2
+  }
+  &:after {
+    clear: both;
+  }
+}
 
 

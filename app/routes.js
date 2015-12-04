@@ -8,59 +8,84 @@ module.exports = function(app) {
 
   app.post('/registration', function (req, res) {
 
-    if (typeof req.body.username === "undefined" || typeof req.body.password === "undefined") {
-
-      res.json({ success: false, message: 'Registration failed.' });
+    if (!req.body.username) {
+      return res.status(401).send({
+        success: false,
+        message: "Ooops! Name is required",
+        type: 1
+      });
+    } else if (!req.body.email) {
+      return res.status(401).send({
+        success: false,
+        message: "Ooops! E-mail is required",
+        type: 2
+      });
+    } else if (!req.body.password) {
+      return res.status(401).send({
+        success: false,
+        message: "Ooops! Password is required",
+        type: 3
+      });
     } else {
+      User.findOne({
+        name: req.body.username
+      }, function(err, user) {
 
-      // var newUser = new User({
-      //     name: req.body.username,
-      //     email: req.body.email,
-      //     password: newUser.generateHash(req.body.password)
-      // });
+        if (err) throw err;
 
-      var newUser  = new User();
-      newUser.name = req.body.username;
-      newUser.email = req.body.email;
-      newUser.password = newUser.generateHash(req.body.password);
+        if (user) {
+          return res.status(401).send({
+              success: false,
+              message: "This name is already used",
+              type: 1
+          });
+        } else {
 
-      newUser.save(function(err) {
-        if (err) return done(err);
+          var newUser  = new User();
+          newUser.name = req.body.username;
+          newUser.email = req.body.email;
+          newUser.password = newUser.generateHash(req.body.password);
 
-        console.log('User saved successfully');
-        res.json({ success: true });
+          newUser.save(function(err) {
+            if (err) return done(err);
+
+            res.json({ success: true });
+          });
+        }
       });
     }
+
+
   });
 
   app.post('/authenticate', function(req, res) {
 
-    // find the user
-    User.findOne({
-      name: req.body.username
-    }, function(err, user) {
+    if (!req.body.username) {
+      return res.status(401).send({
+        success: false,
+        message: "Ooops! Name is required",
+        type: 1
+      });
+    } else if (!req.body.password) {
+      return res.status(401).send({
+        success: false,
+        message: "Ooops! Password is required",
+        type: 2
+      });
+    } else {
+      // find the user
+      User.findOne({
+        name: req.body.username
+      }, function(err, user) {
 
-      if (err) throw err;
+        if (err) throw err;
 
-      if (!user) {
-          console.log('Authentication failed. User not found.')
-          return res.status(401).send({
-              success: false,
-              message: 'Wrong user'
-          });
-      } else if (user) {
-        // check if password matches
-
-        //if (user.password != req.body.password) {
-        if (!user.validPassword(req.body.password)) {
-          console.log('Authentication failed. Wrong password.')
-          return res.status(401).send({
-              success: false,
-              message: 'Wrong password'
-          });
+        if (!user || !user.validPassword(req.body.password)) {
+            return res.status(401).send({
+                success: false,
+                message: 'Wrong username or password'
+            });
         } else {
-
-          console.log('user is found and password is right.');
           // if user is found and password is right
           // create a token
           var token = jwt.sign(user, app.get('mylittlesecret'), {
@@ -70,9 +95,9 @@ module.exports = function(app) {
           // return the information including token as JSON
           res.json({ token: token });
         }
-      }
 
-    });
+      });
+    }
   });
 
   app.get('/api/account', function(req, res) {

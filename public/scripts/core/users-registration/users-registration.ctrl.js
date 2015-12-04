@@ -9,23 +9,34 @@
 
     function RegistrationCtrl($scope, $http, $state) {
       var regVm = this;
-      regVm.message = "";
-      regVm.submitData = function() {
+      regVm.submitData = function(validation) {
+        regVm.submitted = true;
+        regVm.message = {};
 
-        regVm.user = {
-          username: regVm.username,
-          email:    regVm.email,
-          password: regVm.password
-        };
+        if (validation) {
+          regVm.user = {
+            username: regVm.userName,
+            email:    regVm.userEmail,
+            password: regVm.userPassword
+          };
 
-        $http
-          .post("/registration", regVm.user)
-            .success(function (data, status, headers, config) {
-              $state.go("login");
-            })
-            .error(function (data, status, headers, config) {
-              // error
-            });
+          $http
+            .post("/registration", regVm.user)
+              .success(function (data, status, headers, config) {
+                $state.go("login");
+              })
+              .error(function (data, status, headers, config) {
+                if (data.type == 1) {
+                  regVm.message.name = data.message;
+                } else if (data.type == 2) {
+                  regVm.message.email = data.message;
+                } else {
+                  regVm.message.pass = data.message;
+                }
+
+              });
+        }
+
       }
     }
 

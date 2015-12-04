@@ -1,18 +1,37 @@
 <section id="users-auth">
 	<div class="container">
-		<form class="users-auth-form" ng-submit="authVm.submitData()">
-			<h2>Have an account? Sign in</h2>
-			<div class="form-group">
+		<form name="authForm" class="users-auth-form" ng-submit="authVm.submitData(authForm.$valid)" novalidate>
+			<h2>Log in</h2>
+			<div class="form-group" ng-class="{ 'has-error': authForm.userName.$dirty && authForm.userName.$invalid || (authForm.userName.$pristine && authVm.submitted) }">
 				<label for="inputUsername">Name</label>
-				<input type="input" class="form-control" id="inputUsername" placeholder="Name" ng-model="authVm.username" required>
+				<input name="userName" type="input" id="inputUsername" ng-model="authVm.username" required>
+        <p
+          class="message"
+          ng-messages="authForm.userName.$error"
+          ng-show="(authForm.userName.$dirty && authForm.userName.$invalid) || (authForm.userName.$pristine && authVm.submitted)">
+          <span ng-message="required">Ooops! Name is requred</span>
+        </p>
+        <p class="message">
+          <span>{{ authVm.message }}</span>
+        </p>
 			</div>
-			<div class="form-group">
+			<div class="form-group" ng-class="{ 'has-error': authForm.userPassword.$dirty && authForm.userPassword.$invalid || (authForm.userPassword.$pristine && authVm.submitted) }">
 				<label for="inputPassword">Password</label>
-				<input type="password" class="form-control" id="inputPassword" placeholder="Password" ng-model="authVm.password" required>
+				<input name="userPassword" type="password" id="inputPassword" ng-model="authVm.password" required>
+        <p
+          class="message"
+          ng-messages="authForm.userPassword.$error"
+          ng-show="(authForm.userPassword.$dirty && authForm.userPassword.$invalid) || (authForm.userPassword.$pristine && authVm.submitted)"
+          >
+          <span ng-message="required">Ooops! Password is required</span>
+        </p>
+        <p class="message">
+          <span>{{ authVm.message }}</span>
+        </p>
 			</div>
-			<button type="submit" class="btn btn-default">Submit</button>
-			<div class="form-group">
-				<p>Don't have an account?</p>
+			<button type="submit">Submit</button>
+			<div class="have-an">
+				<span>Don't have an account?</span>
 				<a ui-sref="registration">Create</a>
 			</div>
 		</form>

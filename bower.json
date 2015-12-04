@@ -19,9 +19,10 @@
   "license": "ISC",
   "dependencies": {
     "bootstrap-sass": "~3.3.5",
-    "angular": "1.4.7",
-    "angular-route": "~1.4.7",
+    "angular": "1.4.8",
     "angular-ui-router": "~0.2.15",
-    "font-awesome": "~4.4.0"
+    "font-awesome": "~4.4.0",
+    "angular-messages": "~1.4.8",
+    "angular-animate": "~1.4.8"
   }
 }

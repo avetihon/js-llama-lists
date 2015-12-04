@@ -26,11 +26,16 @@
               post("/api/lists/toDo", toDoData)
               .success(function (data, status, headers, config) {
                 scope.toDos = data.toDos;
+                scope.toDoTask = null;
               })
               .error(function (data, status, headers, config) {
                 console.log("error");
               });
           };
+
+          scope.clearInput = function() {
+            scope.toDoTask = null;
+          }
         },
         controller: function($scope) {
           $scope.showNewToDo = false;

@@ -2,11 +2,12 @@
   "use strict";
 
   angular
-    .module("llamaLists", ["ui.router"])
-    .config(ConfigRoute);
+    .module("llamaLists", ["ui.router", "ngMessages", "ngAnimate"])
+    .config(configRoute)
+    .run(configRun);
 
-  ConfigRoute.$inject = ["$locationProvider", "$stateProvider", "$urlRouterProvider"];
-  function ConfigRoute($locationProvider, $stateProvider, $urlRouterProvider) {
+  configRoute.$inject = ["$locationProvider", "$stateProvider", "$urlRouterProvider"];
+  function configRoute($locationProvider, $stateProvider, $urlRouterProvider) {
     $stateProvider
       .state("login", {
         url:          "/login",
@@ -29,5 +30,13 @@
 
     $urlRouterProvider.otherwise('/');
     $locationProvider.html5Mode(true);
+  }
+
+  /* set body id for css style */
+  configRun.$inject = ["$rootScope"];
+  function configRun($rootScope) {
+    $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
+      document.body.id = toState.name;
+    });
   }
 })();
