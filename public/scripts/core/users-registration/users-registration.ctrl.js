@@ -11,7 +11,6 @@
       var regVm = this;
       regVm.submitData = function(validation) {
         regVm.submitted = true;
-        regVm.message = {};
 
         if (validation) {
           regVm.user = {
@@ -21,11 +20,12 @@
           };
 
           $http
-            .post("/registration", regVm.user)
+            .post("/signup", regVm.user)
               .success(function (data, status, headers, config) {
                 $state.go("login");
               })
               .error(function (data, status, headers, config) {
+                regVm.message = {};
                 if (data.type == 1) {
                   regVm.message.name = data.message;
                 } else if (data.type == 2) {

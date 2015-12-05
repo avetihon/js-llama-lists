@@ -11,15 +11,6 @@
       accountVm.showNewList = false;
 
       $http
-        .get("/api/account")
-        .success(function (data, status, headers, config) {
-          accountVm.message = data.enter;
-        })
-        .error(function (data, status, headers, config) {
-          console.log("error");
-        });
-
-      $http
         .get("/api/lists")
         .success(function (data, status, headers, config) {
           accountVm.lists = data.lists;
@@ -42,12 +33,14 @@
             .post("/api/lists", listsData)
             .success(function (data, status, headers, config) {
               accountVm.lists = data.lists;
+              accountVm.showNewList = false; // close popup
+              accountVm.listTitle = null; // clear popup input
+              $scope.listForm.$setPristine(); // set form pristine
+              accountVm.submitted = false; //
             })
             .error(function (data, status, headers, config) {
               console.log("error");
             });
-        } else {
-          console.log("error")
         }
       }
     };

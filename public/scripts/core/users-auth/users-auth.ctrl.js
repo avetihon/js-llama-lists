@@ -11,7 +11,6 @@
 
     authVm.submitData = function(validation) {
       authVm.submitted = true;
-      authVm.message = {};
 
       if (validation) {
         authVm.user = {
@@ -20,12 +19,13 @@
         };
 
         $http
-          .post("/authenticate", authVm.user)
+          .post("/login", authVm.user)
           .success(function (data, status, headers, config) {
             $window.localStorage.token = data.token;
             $state.go("account");
           })
           .error(function (data, status, headers, config) {
+            authVm.message = {};
             // Erase the token if the user fails to log in
             delete $window.localStorage.token;
             // Handle login errors here
