@@ -87,7 +87,7 @@ exports.login = function(req, res) {
       } else {
         // if user is found and password is right
         // create a token
-        var token = jwt.sign(user, app.app.get('mylittlesecret'), { // little stupid code, another ask i haven't found
+        var token = jwt.sign(user, app.app.get('mylittlesecret'), { // little stupid code, another question i haven't found
           expiresIn: "1d" // expires in 24 hours
         });
 

@@ -2,40 +2,39 @@
   "use strict";
 
   angular.module("llamaLists")
-    .controller("llamaLists.core.authenticationCtrl", AuthenticationCtrl);
+    .controller("llamaLists.core.user-login.loginPageCtrl", LoginPageCtrl);
 
-  AuthenticationCtrl.$inject = ["$scope", "$http", "$window", "$location", "$state"];
+  LoginPageCtrl.$inject = ["$scope", "$http", "$window", "$location", "$state"];
+  function LoginPageCtrl($scope, $http, $window, $location, $state) {
+    var loginVm = this;
 
-  function AuthenticationCtrl($scope, $http, $window, $location, $state) {
-    var authVm = this;
-
-    authVm.submitData = function(validation) {
-      authVm.submitted = true;
+    loginVm.submitData = function(validation) {
+      loginVm.submitted = true;
 
       if (validation) {
-        authVm.user = {
-          username: authVm.username,
-          password: authVm.password
+        loginVm.user = {
+          username: loginVm.username,
+          password: loginVm.password
         };
 
         $http
-          .post("/login", authVm.user)
+          .post("/login", loginVm.user)
           .success(function (data, status, headers, config) {
             $window.localStorage.token = data.token;
-            $state.go("account");
+            $state.go("home");
           })
           .error(function (data, status, headers, config) {
-            authVm.message = {};
+            loginVm.message = {};
             // Erase the token if the user fails to log in
             delete $window.localStorage.token;
             // Handle login errors here
-            authVm.message = data.message;
+            loginVm.message = data.message;
 
             $scope.$watchGroup(
-              ["authVm.username", "authVm.password"],
+              ["loginVm.username", "loginVm.password"],
               function handleInputChange(newValues, oldValues) {
                   if (!angular.equals(newValues,oldValues)) {
-                    authVm.message = null;
+                    loginVm.message = null;
                   }
               }
             );

@@ -15,8 +15,8 @@ module.exports = function(app) {
    * list stuff
    **/
   app.get("/api/lists", list.lists);
-  app.post("/api/lists", list.saveList);
-  app.post("/api/lists/toDo", list.saveTodo);
+  app.post("/api/lists", list.addList);
+  app.post("/api/lists/toDo", list.addTodo);
 
   // redirect all others router to the index (HTML5 history)
   app.all("/*", function(req, res) {

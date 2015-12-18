@@ -1,11 +1,12 @@
-#registration, #login {
+#signup-page,
+#login-page {
   background-image: url("../img/main-background.jpg");
   background-repeat: no-repeat;
   background-size: cover;
 }
 
-.users-registration-form,
-.users-auth-form {
+.user-signup-form,
+.user-login-form {
   width: 45%;
   margin: 5% auto;
   padding: 1% 5% 4%;

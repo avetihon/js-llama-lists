@@ -4,11 +4,12 @@
 
 // Import common part
 @import "../sass/common";
+@import "../sass/header";
 
 // Import style page
-@import "../scripts/core/users-auth/users-auth";
-@import "../scripts/core/users-registration/users-registration";
-@import "../scripts/core/user-account/user-account";
-@import "../scripts/common/directives/list/list";
-
+@import "../scripts/common/directives/user-list/user-list";
+@import "../scripts/core/user-login/user-login";
+@import "../scripts/core/user-signup/user-signup";
+@import "../scripts/core/user-home/user-home";
+@import "../scripts/core/popup/new-list";
 

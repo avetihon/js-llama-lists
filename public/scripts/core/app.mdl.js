@@ -11,21 +11,21 @@
     $stateProvider
       .state("login", {
         url:          "/login",
-        templateUrl:  "users-auth/users-auth.tpl.html",
-        controller:   "llamaLists.core.authenticationCtrl",
-        controllerAs: "authVm"
+        templateUrl:  "user-login/user-login.tpl.html",
+        controller:   "llamaLists.core.user-login.loginPageCtrl",
+        controllerAs: "loginVm"
       })
-      .state("registration", {
-        url:          "/registration",
-        templateUrl:  "users-registration/users-registration.tpl.html",
-        controller:   "llamaLists.core.registrationCtrl",
-        controllerAs: "regVm"
+      .state("signup", {
+        url:          "/signup",
+        templateUrl:  "user-signup/user-signup.tpl.html",
+        controller:   "llamaLists.core.user-signup.signupPageCtrl",
+        controllerAs: "signupVm"
       })
-      .state("account", {
-        url:          "/account",
-        templateUrl:  "user-account/user-account.tpl.html",
-        controller:   "llamaLists.core.accountCtrl",
-        controllerAs: "accountVm"
+      .state("home", {
+        url:          "/home",
+        templateUrl:  "user-home/user-home.tpl.html",
+        controller:   "llamaLists.core.user-home.homePageCtrl",
+        controllerAs: "homeVm"
       });
 
     $urlRouterProvider.otherwise('/');
@@ -36,7 +36,20 @@
   configRun.$inject = ["$rootScope"];
   function configRun($rootScope) {
     $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
-      document.body.id = toState.name;
+      document.body.id = toState.name + "-page";
+
+      switch (toState.name) {
+        case "home":
+          angular.element(document.querySelectorAll(".navbar-auth")).css("display", "none");
+
+          // reset
+          angular.element(document.querySelector(".dropdown")).css("display", "inline");
+          break;
+        case "signup":
+        case "login":
+          angular.element(document.querySelector(".dropdown")).css("display", "none");
+          break;
+      }
     });
   }
 })();

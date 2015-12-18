@@ -1,0 +1,31 @@
+<div class="popup-new-list" ng-show="homeVm.showNewList">
+  <h2>Create new list</h2>
+  <form name="homeVm.newListForm" class="form-group" novalidate>
+    <input
+      type="text"
+      name="listName"
+      placeholder="List name"
+      ng-model="homeVm.listTitle"
+      ng-class="{ 'has-error': (homeVm.newListForm.listName.$invalid && homeVm.newListForm.listName.$dirty) ||
+                               (homeVm.newListForm.listName.$pristine && homeVm.submitted) }"
+      required>
+    <p
+      class="error-new-list"
+      ng-show="(homeVm.newListForm.listName.$invalid && homeVm.newListForm.listName.$dirty) ||
+               (homeVm.newListForm.listName.$pristine && homeVm.submitted)">
+      Ooops! Empty list name
+    </p>
+    <p class="popup-member-title">List member</p>
+    <input type="text" placeholder="Name or email adress...">
+    <div class="popup-list-member">
+      <img src="../img/empty-avatar.jpg" alt="avatar">
+      <div class="popup-list-member-data">
+        <p class="popup-member-name">Tutti frutti</p>
+        <p class="popup-member-email">tuttisupper@gmail.com</p>
+      </div>
+    </div>
+    <!-- /.popup-list-member -->
+    <button type="submit" ng-click="homeVm.createNewList(homeVm.newListForm.$valid)">Save list</button>
+  </form>
+</div>
+<!-- /.popup-new-list -->

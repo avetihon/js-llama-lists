@@ -2,7 +2,13 @@
   "use strict";
 
   angular.module("llamaLists")
-    .factory('llamaLists.core.authInterceptor', function ($rootScope, $q, $window) {
+    .factory('llamaLists.common.service.authInterceptor', authInterceptor)
+    .config(function ($httpProvider) { //
+      $httpProvider.interceptors.push("llamaLists.common.service.authInterceptor");
+    });
+
+    authInterceptor.$inject = ["$rootScope", "$q", "$window"];
+    function authInterceptor($rootScope, $q, $window) {
       return {
         request: function (config) {
           config.headers = config.headers || {};
@@ -18,9 +24,5 @@
           return response || $q.when(response);
         }
       };
-    })
-    .config(function ($httpProvider) {
-      $httpProvider.interceptors.push("llamaLists.core.authInterceptor");
-    });
-
+    }
 })();

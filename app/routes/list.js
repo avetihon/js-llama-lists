@@ -18,7 +18,7 @@ exports.lists = function(req, res) {
 /**
  * save list request
  */
-exports.saveList = function(req, res) {
+exports.addList = function(req, res) {
   var query = { name: req.user.name };
 
   User.findOne(query, function(err, user) {
@@ -42,7 +42,7 @@ exports.saveList = function(req, res) {
 /**
  * save todo request
  */
-exports.saveTodo = function(req, res) {
+exports.addTodo = function(req, res) {
 
   var query = {
     name: req.user.name

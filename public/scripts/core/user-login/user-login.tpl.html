@@ -1,0 +1,39 @@
+<section id="users-auth">
+	<div class="container">
+		<form name="loginForm" class="user-login-form" ng-submit="loginVm.submitData(loginForm.$valid)" novalidate>
+			<h2>Log in</h2>
+			<div class="form-group" ng-class="{ 'has-error': loginForm.userName.$dirty && loginForm.userName.$invalid || (loginForm.userName.$pristine && loginVm.submitted) }">
+				<label for="inputUsername">Name</label>
+				<input name="userName" type="input" id="inputUsername" ng-model="loginVm.username" required>
+        <p
+          class="message"
+          ng-messages="loginForm.userName.$error"
+          ng-show="(loginForm.userName.$dirty && loginForm.userName.$invalid) || (loginForm.userName.$pristine && loginVm.submitted)">
+          <span ng-message="required">Ooops! Name is requred</span>
+        </p>
+        <p class="message">
+          <span>{{ loginVm.message }}</span>
+        </p>
+			</div>
+			<div class="form-group" ng-class="{ 'has-error': loginForm.userPassword.$dirty && loginForm.userPassword.$invalid || (loginForm.userPassword.$pristine && loginVm.submitted) }">
+				<label for="inputPassword">Password</label>
+				<input name="userPassword" type="password" id="inputPassword" ng-model="loginVm.password" required>
+        <p
+          class="message"
+          ng-messages="loginForm.userPassword.$error"
+          ng-show="(loginForm.userPassword.$dirty && loginForm.userPassword.$invalid) || (loginForm.userPassword.$pristine && loginVm.submitted)"
+          >
+          <span ng-message="required">Ooops! Password is required</span>
+        </p>
+        <p class="message">
+          <span>{{ loginVm.message }}</span>
+        </p>
+			</div>
+			<button type="submit">Submit</button>
+			<div class="have-an">
+				<span>Don't have an account?</span>
+				<a ui-sref="signup">Create</a>
+			</div>
+		</form>
+	</div>
+</section>

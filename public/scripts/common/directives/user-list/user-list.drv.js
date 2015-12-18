@@ -3,17 +3,17 @@
 
   angular
     .module("llamaLists")
-    .directive("list", ListDrv);
+    .directive("list", listDrv);
 
-    ListDrv.$inject = ["$http"];
-    function ListDrv($http) {
+    listDrv.$inject = ["$http"];
+    function listDrv($http) {
       return {
         restrict: "E",
         scope: {
           listData:"="
         },
         replace: true,
-        templateUrl: "scripts/common/directives/list/list.tpl.html",
+        templateUrl: "scripts/common/directives/user-list/user-list.tpl.html",
         link: function(scope, elem, attrs) {
 
           scope.addNewToDo = function() {

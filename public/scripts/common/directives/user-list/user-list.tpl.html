@@ -1,0 +1,35 @@
+<div class="list">
+  <!-- Default panel contents -->
+  <div class="list-edit" ng-click="editedState = !editedState" ng-class="{'list-edit-display': editedState}">
+    <object data="img/icon/edit.svg" type="image/svg+xml">
+    </object>
+  </div>
+  <!-- /.list-edit-state -->
+  <div class="list-remove" ng-show="editedState" ng-click="removeList()">
+    <span></span>
+  </div>
+  <!-- /.list-remove -->
+  <h2 class="list-title" ng-bind="listData.title"></h2>
+  <form name="todoForm" novalidate>
+    <input type="text" name="userToDo" placeholder="Add new to-do" ng-model="toDoTask" required>
+    <div ng-show="!todoForm.userToDo.$error.required" class="todo-button">
+      <button type="button" class="cancel" ng-click="clearInput()">Cancel</button>
+      <button type="button" class="done" ng-click="addNewToDo()">Done</button>
+    </div>
+  </form>
+  <div class="todo-wrapper">
+    <div class="todo-group" ng-repeat="toDo in toDos">
+      <span class="todo-change-position"></span>
+      <div class="todo-check"></div>
+      <p>{{ toDo.task }}</p>
+      <span class="todo-preference"></span>
+    </div>
+    <!-- /.todo-group -->
+  </div>
+  <!-- /.todo-wrapper -->
+  <div class="list-social">
+    <span>invite new people</span>
+    <span>social icon</span>
+  </div>
+  <!-- /.todo-social -->
+</div>

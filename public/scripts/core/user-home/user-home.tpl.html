@@ -1,0 +1,37 @@
+<section class="home-header">
+  <div class="container relative">
+    <p class="type-page">Lists</p>
+    <div class="button-create-list">
+      <button class="round-button" ng-click="homeVm.showNewList = !homeVm.showNewList"></button>
+    </div>
+  </div>
+</section>
+<!-- /.project-header -->
+<section>
+  <div class="container">
+    <ng-include src="'../popup/new-list.html'"></ng-include>
+    <div class="list-toolbar">
+      <div class="list-search">
+        <span class="icon-search"></span>
+        <input type="text" placeholder="Start typing to search lists...">
+        <span class="icon-close"></span>
+      </div>
+      <!-- /.list-search -->
+      <div class="list-sort">
+        <p class="sort-mylist">My lists</p>
+        <p class="sort-inbox">Inbox</p>
+        <p class="sort-recommended">Recommended</p>
+      </div>
+      <!-- /.list-sort -->
+    </div>
+    <!-- /.list-toolbar -->
+    <div class="lists-wrapper row">
+      <div class="col-sm-4" ng-repeat="list in homeVm.lists">
+        <list list-data="list"></list>
+      </div>
+      <!-- /.list-elemnt -->
+    </div>
+    <!-- /.lists-wrapper -->
+  </div>
+  <div id="fog" ng-show="homeVm.showNewList" ng-click="homeVm.showNewList = !homeVm.showNewList"></div>
+</section>
