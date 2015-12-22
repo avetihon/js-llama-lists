@@ -18,7 +18,7 @@
             <span ng-message="required">Ooops! Name is required</span>
           </p>
           <p class="message">
-            <span>{{ signupVm.message.name }}</span>
+            <span ng-bind="signupVm.message.name"></span>
           </p>
         </div>
         <div class="form-group"
@@ -33,7 +33,7 @@
             <span ng-message="email">Something wrong with email</span>
           </p>
           <p class="message">
-            <span>{{ signupVm.message.email }}</span>
+            <span ng-bind="signupVm.message.email"></span>
           </p>
         </div>
         <div class="form-group"
@@ -48,7 +48,7 @@
             <span ng-message="required">Ooops! Password is required</span>
           </p>
           <p class="message">
-            <span>{{ signupVm.message.pass }}</span>
+            <span ng-bind="signupVm.message.pass"></span>
           </p>
         </div>
         <button type="submit" >Create account</button>
