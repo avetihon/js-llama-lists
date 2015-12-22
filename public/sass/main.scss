@@ -7,6 +7,7 @@
 @import "../sass/header";
 
 // Import style page
+@import "../scripts/common/directives/user-task/user-task";
 @import "../scripts/common/directives/user-list/user-list";
 @import "../scripts/core/user-login/user-login";
 @import "../scripts/core/user-signup/user-signup";

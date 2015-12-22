@@ -1,6 +1,6 @@
 # JS-Llama list MEAN Stack Single Page App
 
-To-do list for you, your girfrend, your friend and your llama. Simple like banana. Just download and install and you have a good application to start to do something.
+Task list for you, your girfrend, your friend and your llama. Simple like banana. Just download, install and setup and you have a good application to start to do something.
 
 ## Installation
 1. Download the repository

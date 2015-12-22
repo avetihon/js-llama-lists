@@ -19,13 +19,54 @@
     padding: 0 5%;
   }
 
-  input[type="text"] {
+  .list-input-add-task {
+    position: relative;
     width: 100%;
     font-size: 0.95em;
     font-weight: 400;
     border: 0;
-    border-bottom: 1px solid #dadee6;
+    /*border-bottom: 1px solid #dadee6;*/
     color: #464d5d;
+    transform: translateZ(0);
+
+    &.is-dirty {
+      border: 1px solid #ddd;
+    }
+  }
+
+  .list-input-style-underline {
+    position: relative;
+    width: 100%;
+    display: inline-block;
+    vertical-align: middle;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    overflow: hidden;
+  }
+
+  .list-input-style-underline:before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    left: 50%;
+    right: 50%;
+    bottom: 0;
+    background: #2098d1;
+    height: 1px;
+    transition-property: left, right;
+    transition-duration: 0.3s;
+    transition-timing-function: ease-out;
+  }
+
+  .list-input-style-underline:hover:before,
+  .list-input-style-underline:focus:before,
+  .list-input-style-underline:active:before {
+    left: 0;
+    right: 0;
+  }
+
+  .list-input-style-underline:focus:before {
+    background: #9465ff;
   }
 
   .edit-place {
@@ -83,7 +124,7 @@
     width: 19px;
     height: 20px;
     display: inline-block;
-    background-image: url("../img/icon/delete.svg");
+    background-image: url("../img/icon/remove.svg");
     background-size: 100% 100%;
   }
 
@@ -97,13 +138,22 @@
   }
 }
 
+.list-header {
+  height: 100px;
+  background-position: 50% 50%;
+  background-size: cover;
+  background-image: url("../img/background-dog-optim.jpg");
+}
+
 .list-title {
-  // margin-top: 25px;
+  /*margin-top: 25px;*/
+  margin: 0;
+  padding: 0 5%;
+  line-height: 120px;
   text-align: left;
   font-size: 1.4em;
-  font-weight: 300;
-  color: $mainText;
-  padding: 0 5%;
+  font-weight: 400;
+  color: #fff;
 }
 
 .list:hover .list-settings {
@@ -122,100 +172,28 @@
   cursor: pointer;
 }
 
-.todo-button {
+.list-button-add-task {
   @include clearfix;
-  margin-top: 5px;
+  margin: 5px 0;
+
+
+  .done {
+    float: left;
+    padding: 3px 9px;
+    font-size: 1em;
+    font-weight: 400;
+    border: 0;
+    background: $luckyRed;
+    color: #fff;
+  }
 
   .cancel {
     float: left;
-    margin-top: 2px;
+    margin: 5px 0 0 10px;
     padding: 0;
     font-size: 0.8em;
     border: 0;
     background: transparent;
     color: $littleGray;
-  }
-
-  .done {
-    float: right;
-    padding: 0;
-    font-size: 1em;
-    border: 0;
-    background: transparent;
-    color: $luckyRed;
-  }
-}
-
-.todo-wrapper {
-  position: relative;
-
-  &:after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 45px;
-    display: block;
-    width: 2px;
-    height: 100%;
-    background-color: #e7e9ea;
-  }
-}
-
-.todo-group {
-  position: relative;
-  padding: 15px 5% 5px;
-  /*border-top: 1px solid #e6e6eb;
-  border-bottom: 1px solid #e6e6eb;*/
-  z-index: 2;
-
-  .todo-change-position {
-    position: relative;
-    top: 10px;
-    width: 20px;
-    height: 16px;
-    display: inline-block;
-    background-size: 20px 16px;
-    background-image: url("../img/icon/order.svg");
-    cursor: pointer;
-    display: none;
-  }
-
-  .todo-check {
-    position:relative;
-    left: 23px;
-    width: 12px;
-    height: 12px;
-    display: inline-block;
-    margin-top: 6px;
-    background-color: #ff3366;
-    border-radius: 50%;
-    vertical-align: top;
-  }
-
-  p {
-    position: relative;
-    display: inline-block;
-    width: 80%;
-    margin: 0 0 0 35px;
-    font-size: 0.95em;
-    color: #5e5e73;
-  }
-
-  &:hover .todo-preference{
-    display: inline-block;
-  }
-
-  .todo-preference {
-    position: absolute;
-    right: 0;
-    display: none;
-    width: 32px;
-    height: 14px;
-    margin-top: 6px;
-    background-image: url("../img/icon/preference.svg");
-    background-size: 32px 14px;
-    background-repeat: no-repeat;
-    transform: rotate(90deg);
-    cursor: pointer;
   }
 }

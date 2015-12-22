@@ -1,0 +1,10 @@
+<div>
+  <div class="task-main" ng-class="{'task-is-completed': taskData.completed}">
+    <span class="task-change-position"></span>
+    <div class="task-check" ng-click="setTaskCompleted()">
+      <span class="task-checked"></span>
+    </div>
+    <p ng-bind="taskData.task"></p>
+    <span class="task-preference"></span>
+  </div>
+</div>

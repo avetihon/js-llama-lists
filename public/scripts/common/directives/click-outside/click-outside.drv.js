@@ -23,6 +23,8 @@
                   .length > 0;
               var isClickedElementSelf = elem[0].contains(event.target),
                   clickedElementClass = event.target.className;
+
+              // console.log(angular.element(document.querySelector(".dropdown-menu")).find("*")); // find all children
               if(isClickedElementChild || isClickedElementSelf || clickedElementClass === classNotRemove) {
                 return;
               } else {
@@ -32,10 +34,10 @@
               }
             }
 
-            $document.on('click', eventHandler);
+            $document.on("click", eventHandler);
 
-            scope.$on('$destroy', function() {
-              $document.off('click', eventHandler);
+            scope.$on("$destroy", function() {
+              $document.off("click", eventHandler);
             });
         }
       }

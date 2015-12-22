@@ -16,7 +16,9 @@ module.exports = function(app) {
    **/
   app.get("/api/lists", list.lists);
   app.post("/api/lists", list.addList);
-  app.post("/api/lists/toDo", list.addTodo);
+  app.delete("/api/lists/:id", list.removeList);
+  app.post("/api/lists/:id/task", list.addTask);
+  app.put("/api/lists/:id_list/task/:id_task/completed", list.setTaskCompleted);
 
   // redirect all others router to the index (HTML5 history)
   app.all("/*", function(req, res) {
