@@ -1,5 +1,6 @@
 .task-wrapper {
   position: relative;
+  min-height: 1px;
   transform: translateZ(0);
 
   &.is-underlined {
@@ -51,15 +52,19 @@
   border: 0;
 }
 
+.task-group:hover .task-check {
+  transform: scale(1.2, 1.2);
+}
+
 .task-group {
   position: relative;
   padding: 10px 0;
   /*border-top: 1px solid #e6e6eb;
   border-bottom: 1px solid #e6e6eb;*/
 
-  &:hover {
+  /*&:hover {
     background-color: #f4f4f4;
-  }
+  }*/
 
   .task-change-position {
     position: relative;
@@ -86,10 +91,11 @@
     /*outline: #fff solid 4px;*/
     border-radius: 50%;
     vertical-align: top;
+    transition: all 300ms ease;
 
-    &:hover {
+    /*&:hover {
       background-color: #ff3366;
-    }
+    }*/
   }
 
   /*.task-checked {
@@ -137,9 +143,17 @@
   padding: 0 5%;
 }
 
+.task-group:hover .task-is-completed .task-check{
+  transform: scale(1,1);
+}
+
 .task-is-completed .task-check,
 .task-is-completed .task-check:hover,
 .task-is-completed .task-checked {
   border-color: #e7e9ea;
-  background-color: #e7e9ea;
+  background-color: #fff;
+}
+
+.task-is-completed p {
+  color: #a1a6ad;
 }

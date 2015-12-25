@@ -28,18 +28,32 @@
             date: date
           }
 
-          $http
-            .post("/api/lists", listsData)
-            .success(function (data, status, headers, config) {
-              homeVm.lists = data.lists;
+          $http({
+            method: 'POST',
+            url: "/api/lists",
+            data: listsData
+          }).then(function successCallback(response) {
+              homeVm.lists = response.data.lists;
               homeVm.showNewList = false; // close popup
               homeVm.listTitle = null; // clear popup input
               homeVm.newListForm.$setPristine(); // set form pristine
               homeVm.submitted = false; //
-            })
-            .error(function (data, status, headers, config) {
-              console.log("error");
+            }, function errorCallback(response) {
+              console.log("error " + response);
             });
+
+          // $http
+          //   .post("/api/lists", listsData)
+          //   .success(function (data, status, headers, config) {
+          //     homeVm.lists = data.lists;
+          //     homeVm.showNewList = false; // close popup
+          //     homeVm.listTitle = null; // clear popup input
+          //     homeVm.newListForm.$setPristine(); // set form pristine
+          //     homeVm.submitted = false; //
+          //   })
+          //   .error(function (data, status, headers, config) {
+          //     console.log("error");
+          //   });
         }
       }
     };

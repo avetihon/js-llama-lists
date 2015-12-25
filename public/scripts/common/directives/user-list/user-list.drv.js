@@ -39,7 +39,6 @@
               });
           };
 
-
           scope.clearInput = function() {
             scope.task = null;
           }
@@ -59,6 +58,9 @@
                 console.log("error");
               });
           }
+        },
+        controller: function($scope) {
+          this.listData = $scope.listData._id;
         }
       }
     }

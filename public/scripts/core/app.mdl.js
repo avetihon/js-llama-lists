@@ -2,7 +2,7 @@
   "use strict";
 
   angular
-    .module("llamaLists", ["ui.router", "ngMessages", "ngAnimate"])
+    .module("llamaLists", ["ui.router", "ngMessages", "ngAnimate", "exceptionOverride"])
     .config(configRoute)
     .run(configRun);
 

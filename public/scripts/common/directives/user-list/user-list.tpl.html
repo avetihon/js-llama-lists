@@ -32,14 +32,21 @@
   <div class="task-wrapper" ng-class="{'is-underlined': focused, 'is-dirty': !taskForm.userTask.$error.required}">
     <hr class="task-top-underline">
     <div class="task-group" ng-repeat="taskData in listData.task">
-      <user-task task-data="taskData" list-data-id="listData._id"></user-task> <!-- maybe its vary crap code, now i don't know -->
+      <user-task task-data="taskData"></user-task> <!-- maybe its vary crap code, now i don't know -->
     </div>
     <!-- /.task-group -->
   </div>
   <!-- /.task-wrapper -->
-  <div class="list-social">
-    <span>invite new people</span>
-    <span>social icon</span>
-  </div>
+  <footer class="list-footer">
+    <object data="img/icon/invite.svg" type="image/svg+xml" class="list-footer-svg-invite">
+      Invite new people
+    </object>
+    <object data="img/icon/share.svg" type="image/svg+xml" class="list-footer-svg-share">
+      Invite new people
+    </object>
+    <object data="img/icon/love.svg" type="image/svg+xml" class="list-footer-svg-love">
+      Invite new people
+    </object>
+  </footer>
   <!-- /.task-social -->
 </div>

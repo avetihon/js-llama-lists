@@ -16,3 +16,4 @@ If you have any questions or requests, email us at [l.k.bayete@gmail.com](mailto
 - Facebook, G+ registration
 - Recommendation system
 - Good design
+- Unit-test coverage ~40%
