@@ -5882,6 +5882,14 @@ input {
 **
 ** Source: http://nicolasgallagher.com/micro-clearfix-hack/
 */
+/*
+  Allow angular.js to be loaded in body, hiding cloaked elements until
+  templates compile.  The !important is important given that there may be
+  other selectors that are more specific or come later and might alter display.
+ */
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important; }
+
 .navbar-avatar {
   top: 8px;
   width: 36px;
@@ -5944,30 +5952,11 @@ input {
   position: relative;
   min-height: 1px;
   transform: translateZ(0); }
-  .task-wrapper.is-underlined {
-    border-top: 0; }
-  .task-wrapper.is-underlined:before {
-    left: 0;
-    right: 0;
-    background: #2098d1; }
-  .task-wrapper.is-dirty:before {
-    background: #9465ff; }
-  .task-wrapper:before {
-    content: "";
-    position: absolute;
-    z-index: 2;
-    left: 50%;
-    right: 50%;
-    top: 0;
-    height: 2px;
-    transition-property: left, right;
-    transition-duration: 0.3s;
-    transition-timing-function: ease-out; }
   .task-wrapper:after {
     content: "";
     position: absolute;
     top: 0;
-    left: 46px;
+    left: 47px;
     display: block;
     width: 2px;
     height: 95%;
@@ -5977,7 +5966,7 @@ input {
   position: absolute;
   top: 0;
   width: 100%;
-  height: 2px;
+  height: 1px;
   margin: 0;
   background-color: #e7e9ea;
   border: 0; }
@@ -6008,17 +5997,15 @@ input {
   }*/ }
   .task-group .task-change-position {
     position: relative;
-    top: 10px;
+    top: 3px;
     width: 20px;
     height: 16px;
     display: inline-block;
     background-size: 20px 16px;
     background-image: url("../img/icon/order.svg");
-    cursor: pointer;
-    display: none; }
+    cursor: pointer; }
   .task-group .task-check {
     position: relative;
-    left: 23px;
     width: 12px;
     height: 12px;
     display: inline-block;
@@ -6037,7 +6024,6 @@ input {
     position: relative;
     display: inline-block;
     width: 80%;
-    margin: 0 0 0 35px;
     font-size: 0.95em;
     color: #5e5e73; }
   .task-group:hover .task-preference {
@@ -6076,7 +6062,6 @@ input {
   vertical-align: top;
   width: 100%;
   margin-top: 2%;
-  padding: 0 0 4%;
   border-radius: 2px;
   background-color: #fff;
   transition: all 300ms ease;
@@ -6097,36 +6082,7 @@ input {
     /*border-bottom: 1px solid #dadee6;*/
     color: #464d5d;
     transform: translateZ(0); }
-    .list .list-input-add-task.is-dirty {
-      border: 1px solid #ddd; }
-  .list .list-input-style-underline {
-    position: relative;
-    width: 100%;
-    display: inline-block;
-    vertical-align: middle;
-    transform: translateZ(0);
-    backface-visibility: hidden;
-    overflow: hidden; }
-  .list .list-input-style-underline:before {
-    content: "";
-    position: absolute;
-    z-index: -1;
-    left: 50%;
-    right: 50%;
-    bottom: 0;
-    background: #2098d1;
-    height: 1px;
-    transition-property: left, right;
-    transition-duration: 0.3s;
-    transition-timing-function: ease-out; }
-  .list .list-input-style-underline:hover:before,
-  .list .list-input-style-underline:focus:before,
-  .list .list-input-style-underline:active:before {
-    left: 0;
-    right: 0; }
-  .list .list-input-style-underline:focus:before {
-    background: #9465ff; }
-  .list .edit-place, .list .list-edit, .list .list-remove {
+  .list .edit-place {
     position: absolute;
     display: flex;
     align-items: center;
@@ -6137,56 +6093,76 @@ input {
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.09);
     transition: all 300ms ease;
     cursor: pointer; }
-    .list .edit-place:hover, .list .list-edit:hover, .list .list-remove:hover {
+    .list .edit-place:hover {
       transform: scale(1.1, 1.1); }
 
-.list:hover > .list-edit {
+.list:hover .list-header-edited {
   opacity: 1; }
 
-.list-edit-display {
-  opacity: 1 !important; }
-
-.list-edit {
-  top: -10px;
-  right: -10px;
+.list-header-edited {
+  position: relative;
+  margin: 5px 10px 0 0;
+  float: right;
+  z-index: 1;
+  color: #ccc;
   opacity: 0;
-  background-color: #fff; }
-  .list-edit object {
-    position: relative;
-    top: 1px;
-    left: 2px;
-    width: 19px;
-    height: 20px;
-    display: inline-block;
-    pointer-events: none; }
+  transition: all 300ms ease; }
 
-.list-remove {
-  top: -10px;
-  left: -10px;
-  background-color: #ff6a7d; }
-  .list-remove span {
-    position: relative;
-    width: 19px;
-    height: 20px;
-    display: inline-block;
-    background-image: url("../img/icon/remove.svg");
-    background-size: 100% 100%; }
-  .list-remove.ng-hide-add, .list-remove.ng-hide-remove {
-    transition: opacity 300ms ease; }
-  .list-remove.ng-hide {
+.list-edited-icon {
+  position: absolute;
+  right: 0;
+  width: 38px;
+  opacity: 1;
+  transform: translate3d(0, 0, 0); }
+  .list-edited-icon.ng-hide-add, .list-edited-icon.ng-hide-remove {
+    transition: all 200ms ease; }
+  .list-edited-icon.ng-hide {
+    transform: translate3d(0, -20px, 0);
+    opacity: 0; }
+  .list-edited-icon > i:first-child {
+    margin-right: 4px; }
+
+.list-edited-icon i:hover {
+  color: #fff; }
+
+.list-preference-icon {
+  width: 20px; }
+  .list-preference-icon.ng-hide-remove {
+    transition: opacity 200ms ease;
+    transition-delay: 300ms; }
+  .list-preference-icon.ng-hide {
     opacity: 0; }
 
+.list-preference-icon svg {
+  width: 20px;
+  height: 20px;
+  transform: rotate(90deg);
+  transform-origin: 50% 50%; }
+  .list-preference-icon svg:hover * {
+    fill: #fff; }
+
 .list-header {
-  height: 100px;
+  position: relative;
+  height: 120px; }
+
+.list-header-image {
+  position: absolute;
+  width: 100%;
+  height: 100%;
   background-position: 50% 50%;
-  background-size: cover;
-  background-image: url("../img/background-dog-optim.jpg"); }
+  background-size: cover; }
+  .list-header-image:before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.45); }
 
 .list-title {
-  /*margin-top: 25px;*/
+  position: relative;
   margin: 0;
-  padding: 0 5%;
-  line-height: 120px;
+  padding: 0 4%;
+  line-height: 160px;
   text-align: left;
   font-size: 1.4em;
   font-weight: 400;
@@ -6231,21 +6207,106 @@ input {
     color: #7a7d81; }
 
 .list-footer {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 35px;
   margin-top: 10px;
-  padding: 0 18px; }
+  padding: 0 18px;
+  background-color: #f5f5f5; }
 
 .list-footer-svg-invite {
   width: 18px;
-  float: left;
   margin-right: 16px; }
 
 .list-footer-svg-share {
-  width: 16px;
-  float: left; }
+  width: 16px; }
 
 .list-footer-svg-love {
   width: 16px;
-  float: right; }
+  margin-left: auto; }
+
+/* overlay */
+#fog {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  opacity: 0;
+  opacity: 0.96;
+  background-color: #323A45; }
+  #fog.ng-hide-add, #fog.ng-hide-remove {
+    transition: opacity .2s; }
+  #fog.ng-hide {
+    opacity: 0; }
+
+.popup-list-change-background {
+  position: absolute;
+  top: 150px;
+  left: 0;
+  right: 0;
+  width: 380px;
+  margin: auto;
+  padding: 15px 30px 20px;
+  z-index: 11;
+  background: #fff;
+  border-radius: 2px;
+  opacity: 1;
+  transform: scale(1); }
+  .popup-list-change-background.ng-hide-add, .popup-list-change-background.ng-hide-remove {
+    transition: transform .2s, opacity .2s; }
+  .popup-list-change-background.ng-hide {
+    opacity: 0;
+    transform: scale(0); }
+  .popup-list-change-background h2 {
+    margin-bottom: 5%;
+    font-size: 1.3em;
+    text-align: center;
+    color: #464d5d; }
+  .popup-list-change-background .popup-close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: block;
+    width: 17px;
+    height: 17px;
+    background-size: 17px 17px;
+    background-image: url("../img/icon/plus-popup.svg");
+    cursor: pointer;
+    transform: rotate(45deg); }
+    .popup-list-change-background .popup-close:hover {
+      opacity: 0.7; }
+
+.list-background-wrapper {
+  margin: 2% 0; }
+
+.list-background {
+  display: inline-block;
+  width: 64px;
+  height: 64px;
+  border-radius: 5px;
+  background-size: cover;
+  background-position: top center; }
+  .list-background.is-choosen {
+    border: 2px solid #7ec58d; }
+
+.list-background-1 {
+  background-image: url("../img/list-background/sleeping-dog.jpg"); }
+
+.list-background-2 {
+  background-image: url("../img/list-background/mountain-top.jpg"); }
+
+.list-background-done {
+  width: 100%;
+  height: 3em;
+  font-size: 0.9em;
+  font-weight: 400;
+  text-transform: uppercase;
+  color: #fff;
+  border: 0;
+  background-color: #7ec58d; }
 
 /* this state use same style like in signup  */
 #signup-page,
@@ -6396,7 +6457,7 @@ input {
     padding: 0 30px 10px;
     font-size: 0.95em;
     font-weight: 400;
-    color: #fff;
+    color: #646f82;
     opacity: 0;
     border: 0;
     cursor: pointer;
@@ -6435,22 +6496,6 @@ input {
     cursor: pointer; }
   .list-sort p:not(:last-child) {
     margin-right: 20px; }
-
-/* overlay */
-#fog {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 10;
-  opacity: 0;
-  opacity: 0.96;
-  background-color: #323A45; }
-  #fog.ng-hide-add, #fog.ng-hide-remove {
-    transition: opacity .2s; }
-  #fog.ng-hide {
-    opacity: 0; }
 
 .popup-new-list {
   position: absolute;

@@ -2,14 +2,14 @@
   <div class="container relative">
     <p class="type-page">Lists</p>
     <div class="button-create-list">
-      <button class="round-button" ng-click="homeVm.showNewList = !homeVm.showNewList"></button>
+      <button class="round-button" ng-click="homeVm.createNewList()"></button>
     </div>
   </div>
 </section>
 <!-- /.project-header -->
 <section>
   <div class="container">
-    <ng-include src="'../popup/new-list.html'"></ng-include>
+    <ng-include src="'../popup/new-list/new-list.html'"></ng-include>
     <div class="list-toolbar">
       <div class="list-search">
         <span class="icon-search"></span>
@@ -33,6 +33,7 @@
     </div>
     <!-- /.lists-wrapper -->
   </div>
-
-  <div id="fog" ng-show="homeVm.showNewList" ng-click="homeVm.showNewList = !homeVm.showNewList"></div>
+  <change-task-data></change-task-data>
+  <list-background></list-background>
+  <fog></fog>
 </section>

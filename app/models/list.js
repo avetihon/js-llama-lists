@@ -5,6 +5,7 @@ var mongoose   = require('mongoose')
 var listSchema = mongoose.Schema({
   title:     String,
   date:      String,
+  image:     { type: String, default: "list-background-1" },
   task:      [taskShema]
 });
 

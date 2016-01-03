@@ -1,35 +1,43 @@
-<div class="list">
-  <!-- Default panel contents -->
-  <div class="list-edit" ng-click="editedState = !editedState" ng-class="{'list-edit-display': editedState}">
-    <object data="img/icon/edit.svg" type="image/svg+xml">
-    </object>
-  </div>
-  <!-- /.list-edit-state -->
-  <div class="list-remove" ng-show="editedState" ng-click="removeList()">
-    <span></span>
-  </div>
-  <!-- /.list-remove -->
+<div class="list" ng-mouseleave="editedState = false">
   <header class="list-header">
+    <div class="list-header-edited">
+      <div class="list-edited-icon" ng-show="editedState">
+        <i class="fa fa-picture-o" ng-click="changeBackground()"></i>
+        <i class="fa fa-trash" ng-click="removeList()"></i>
+      </div>
+      <div class="list-preference-icon" ng-click="editedState = true" ng-show="!editedState">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+           x="0px" y="0px"
+           width="408px" height="408px" viewBox="0 0 408 408" style="enable-background:new 0 0 408 408;" xml:space="preserve">
+          <g>
+            <path fill="#ccc" d="M204,102c28.05,0,51-22.95,51-51S232.05,0,204,0s-51,22.95-51,51S175.95,102,204,102z M204,153c-28.05,0-51,22.95-51,51
+              s22.95,51,51,51s51-22.95,51-51S232.05,153,204,153z M204,306c-28.05,0-51,22.95-51,51s22.95,51,51,51s51-22.95,51-51
+              S232.05,306,204,306z"/>
+          </g>
+        </svg>
+      </div>
+    </div>
+    <div class="list-header-image list-background-1"></div>
+    <!-- /.list-header-edited -->
     <h2 class="list-title" ng-bind="listData.title"></h2>
   </header>
+  <!-- /.list-header -->
   <form name="taskForm" novalidate>
-    <!-- <span class="list-input-style-underline"> -->
-      <input type="text"
-            class="list-input-add-task"
-            name="userTask"
-            placeholder="Add new to-do"
-            ng-model="task"
-            ng-focus="focused=true"
-            ng-blur="focused=false"
-            ng-class="{'is-dirty': !taskForm.userTask.$error.required}"
-            required>
-    <!-- </span> -->
+    <input type="text"
+          class="list-input-add-task"
+          name="userTask"
+          placeholder="Add new to-do"
+          ng-model="task"
+          ng-focus="focused=true"
+          ng-blur="focused=false"
+          ng-class="{'is-dirty': !taskForm.userTask.$error.required}"
+          required>
     <div ng-show="!taskForm.userTask.$error.required" class="list-button-add-task">
       <button type="button" class="done" ng-click="addNewTask()">Done</button>
       <button type="button" class="cancel" ng-click="clearInput()">Cancel</button>
     </div>
   </form>
-  <div class="task-wrapper" ng-class="{'is-underlined': focused, 'is-dirty': !taskForm.userTask.$error.required}">
+  <div class="task-wrapper">
     <hr class="task-top-underline">
     <div class="task-group" ng-repeat="taskData in listData.task">
       <user-task task-data="taskData"></user-task> <!-- maybe its vary crap code, now i don't know -->
@@ -48,5 +56,5 @@
       Invite new people
     </object>
   </footer>
-  <!-- /.task-social -->
+  <!-- /.list-footer -->
 </div>

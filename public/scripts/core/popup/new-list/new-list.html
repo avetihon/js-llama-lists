@@ -1,11 +1,11 @@
-<div class="popup-new-list" ng-show="homeVm.showNewList">
+<div class="popup-new-list" ng-show="homeVm.newListPopup">
   <h2>Create new list</h2>
   <form name="homeVm.newListForm" class="form-group" novalidate>
     <input
       type="text"
       name="listName"
       placeholder="List name"
-      ng-model="homeVm.listTitle"
+      ng-model="homeVm.newListTitle"
       ng-class="{ 'has-error': (homeVm.newListForm.listName.$invalid && homeVm.newListForm.listName.$dirty) ||
                                (homeVm.newListForm.listName.$pristine && homeVm.submitted) }"
       required>
@@ -25,7 +25,8 @@
       </div>
     </div>
     <!-- /.popup-list-member -->
-    <button type="submit" ng-click="homeVm.createNewList(homeVm.newListForm.$valid)">Save list</button>
+    <button type="submit" ng-click="homeVm.saveNewList(homeVm.newListForm.$valid)">Save list</button>
   </form>
+  <!-- /.form-group -->
 </div>
 <!-- /.popup-new-list -->

@@ -5,56 +5,49 @@
     .module("llamaLists")
     .controller("llamaLists.core.user-home.homePageCtrl", HomePageCtrl);
 
-    HomePageCtrl.$inject = ["$scope", "$http", "$state", "$window", "$rootScope"];
-    function HomePageCtrl($scope, $http, $state, $window, $rootScope) {
-      var homeVm = this;
-      homeVm.showNewList = false;
+    HomePageCtrl.$inject = ["$scope", "$http", "$state", "$window", "$rootScope", "listDataPrepService", "listDataService"];
+    function HomePageCtrl($scope, $http, $state, $window, $rootScope, listDataPrepService, listDataService) {
+      var homeVm = this,
+          listData = {};
+      homeVm.newListPopup; // check open popup
+      homeVm.newListSubmitted; // check press submit button
+      homeVm.createNewList = createNewList;
+      homeVm.saveNewList = saveNewList;
 
-      $http
-        .get("/api/lists")
-        .success(function (data, status, headers, config) {
-          homeVm.lists = data.lists;
-        })
-        .error(function (data, status, headers, config) {
-          console.log("error");
-        });
+      // fog broadcast
+      $scope.$on('closePopup', closePopup);
 
-      homeVm.createNewList = function(validation) {
-        var date = new Date().toUTCString();
-        homeVm.submitted = true;
+      // route resolve promises
+      homeVm.lists = listDataPrepService.lists;
+
+
+      function createNewList() {
+        homeVm.newListPopup = true;
+        $rootScope.$emit("showFogOverlay");
+      }
+
+      function saveNewList(validation) {
+        homeVm.newListSubmitted = true;
+
         if (validation) {
-          var listsData = {
-            title: homeVm.listTitle,
-            date: date
-          }
+          listData.title = homeVm.newListTitle;
 
-          $http({
-            method: 'POST',
-            url: "/api/lists",
-            data: listsData
-          }).then(function successCallback(response) {
-              homeVm.lists = response.data.lists;
-              homeVm.showNewList = false; // close popup
-              homeVm.listTitle = null; // clear popup input
-              homeVm.newListForm.$setPristine(); // set form pristine
-              homeVm.submitted = false; //
-            }, function errorCallback(response) {
-              console.log("error " + response);
-            });
+          listDataService.
+            saveNewList(listData)
+            .then(function (response) {
+              homeVm.lists = response.lists;
 
-          // $http
-          //   .post("/api/lists", listsData)
-          //   .success(function (data, status, headers, config) {
-          //     homeVm.lists = data.lists;
-          //     homeVm.showNewList = false; // close popup
-          //     homeVm.listTitle = null; // clear popup input
-          //     homeVm.newListForm.$setPristine(); // set form pristine
-          //     homeVm.submitted = false; //
-          //   })
-          //   .error(function (data, status, headers, config) {
-          //     console.log("error");
-          //   });
+              // end work with popup
+              $rootScope.$emit("hideFogOverlay");
+              homeVm.newListTitle = null;
+              homeVm.newListForm.$setPristine();
+              homeVm.newListSubmitted = false;
+            })
         }
+      }
+
+      function closePopup() {
+        homeVm.newListPopup = false;
       }
     };
 

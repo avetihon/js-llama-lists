@@ -16,12 +16,12 @@
         replace: true,
         templateUrl: "scripts/common/directives/user-list/user-list.tpl.html",
         link: function(scope, elem, attrs) {
-
           /**
            * This function add new task in list.
            * If successful, it show new task collection in list
            * and clear input
           **/
+          console.log(scope.allLists)
           scope.addNewTask = function() {
             var listId = scope.listData["_id"],
                 task = {
@@ -58,9 +58,14 @@
                 console.log("error");
               });
           }
+
         },
-        controller: function($scope) {
-          this.listData = $scope.listData._id;
+        controller: function($scope, listDataService) {
+          this.listData = $scope.listData._id; // send data to other directive
+
+          $scope.changeBackground = function() {
+            listDataService.openBackgroundPopup();
+          }
         }
       }
     }
