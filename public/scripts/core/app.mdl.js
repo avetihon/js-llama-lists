@@ -9,6 +9,9 @@
   configRoute.$inject = ["$locationProvider", "$stateProvider", "$urlRouterProvider"];
   function configRoute($locationProvider, $stateProvider, $urlRouterProvider) {
     $stateProvider
+      .state("index", {
+        url:          "/"
+      })
       .state("login", {
         url:          "/login",
         templateUrl:  "user-login/user-login.tpl.html",
@@ -43,19 +46,6 @@
   function configRun($rootScope) {
     $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
       document.body.id = toState.name + "-page";
-
-      switch (toState.name) {
-        case "home":
-          angular.element(document.querySelectorAll(".navbar-auth")).css("display", "none");
-
-          // reset
-          angular.element(document.querySelector(".dropdown")).css("display", "inline");
-          break;
-        case "signup":
-        case "login":
-          angular.element(document.querySelector(".dropdown")).css("display", "none");
-          break;
-      }
     });
   }
 })();

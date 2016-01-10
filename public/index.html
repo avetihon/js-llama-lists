@@ -20,7 +20,7 @@
       </div>
       <!-- /.navbar-header -->
       <div class="collapse navbar-collapse">
-        <ul class="nav navbar-nav navbar-left">
+        <ul class="nav navbar-nav navbar-left user-data">
           <li><a ui-sref="home">Lists</a></li>
           <li><a href="">Activity</a></li>
           <li><a href="">Frends</a></li>
@@ -28,11 +28,11 @@
         <ul class="nav navbar-nav navbar-right">
           <li class="navbar-auth"><a ui-sref="signup">Sign up</a></li>
           <li class="navbar-auth"><a ui-sref="login">Sign in</a></li>
-          <li class="navbar-avatar">
+          <li class="navbar-avatar user-data">
             <span>E</span>
             <img src="img/timon-avatar.jpg" alt="avatar" class="navbar-avatar-image">
           </li>
-          <li class="dropdown user-menu" ng-class="{'opening': showDropdownProfile}">
+          <li class="dropdown user-menu user-data" ng-class="{'opening': showDropdownProfile}">
             <a href="#" llama-click-outside llama-outside-if-not="dropdown-menu" ng-click="toggleDropdownProfile()">Profile <span class="caret"></span></a>
             <div class="dropdown-menu">
                 <ul class="dropdown-content">

@@ -5,6 +5,12 @@
   background-size: cover;
 }
 
+#index-page .user-data,
+#signup-page .user-data,
+#login-page .user-data {
+  display:none;
+}
+
 .user-signup-form,
 .user-login-form {
   width: 45%;
