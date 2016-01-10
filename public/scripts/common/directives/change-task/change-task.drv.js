@@ -59,6 +59,9 @@
         }
 
 
+        /**
+         * Close popup when clicked button done
+         */
         function closePopupButton() {
           $rootScope.$emit("hideFogOverlay");
           angular.element(document.querySelectorAll(".wrapper-task-color")).removeClass("active");
