@@ -3,70 +3,73 @@
 
   angular
     .module("llamaLists")
-    .directive("list", listDrv);
+    .directive("list", listDirective);
 
-    listDrv.$inject = ["$http"];
-    function listDrv($http) {
-      return {
+    listDirective.$inject = ["listDataService"];
+    function listDirective(listDataService) {
+
+      var directive = {
         restrict: "E",
-        scope: {
-          listData:"=", //get data from one list
-          allLists:"=" //get all lists in DB
-        },
         replace: true,
-        templateUrl: "scripts/common/directives/user-list/user-list.tpl.html",
-        link: function(scope, elem, attrs) {
-          /**
-           * This function add new task in list.
-           * If successful, it show new task collection in list
-           * and clear input
-          **/
-          console.log(scope.allLists)
-          scope.addNewTask = function() {
-            var listId = scope.listData["_id"],
-                task = {
-                  task: scope.task
-                };
-
-            $http.
-              post("/api/lists/" + listId + "/task", task)
-              .success(function (data, status, headers, config) {
-                scope.listData.task = data.taskList;
-                scope.task = null;
-              })
-              .error(function (data, status, headers, config) {
-                console.log("error");
-              });
-          };
-
-          scope.clearInput = function() {
-            scope.task = null;
-          }
-
-          /**
-           * This function remove list.
-           * If successful, it show new list collection
-          **/
-          scope.removeList = function() {
-            var listId = scope.listData["_id"];
-            $http.
-              delete("/api/lists/" + listId)
-              .success(function (data, status, headers, config) {
-                scope.allLists = data.lists;
-              })
-              .error(function (data, status, headers, config) {
-                console.log("error");
-              });
-          }
-
+        scope: {
+          listData: "="
         },
-        controller: function($scope, listDataService) {
-          this.listData = $scope.listData._id; // send data to other directive
+        templateUrl: "scripts/common/directives/user-list/user-list.tpl.html",
+        link: linkFunc,
+        controller: controllerFunc
+      }
 
-          $scope.changeBackground = function() {
-            listDataService.openBackgroundPopup();
+      return directive;
+
+      function linkFunc(scope, elem, attrs) {
+        var task = {},
+            listId = scope.listData["_id"];
+        scope.removeList = removeList;
+        scope.addNewTask = addNewTask;
+        scope.clearInput = clearInput;
+        scope.openBackgroundPopup = openBackgroundPopup;
+        scope.$on("listChanged", listChanged);
+
+        function addNewTask() {
+          task.title = scope.taskTitle;
+          listDataService.addNewTask(listId, task)
+            .then(function (response) {
+              scope.listData.task = response.task;
+              scope.taskTitle = null;
+            });
+        }
+
+        function removeList() {
+          listDataService.removeList(listId)
+            .then(function (response) {
+              scope.$emit("updateList");
+          });
+        }
+
+        function openBackgroundPopup() {
+          listDataService.openBackgroundPopup(listId);
+        }
+
+        function listChanged(event, data) {
+          if (scope.listData["_id"] == data.listId) {
+            if (data.type === "backgroundChanged") {
+              scope.listData.image = data.image;
+            } else if (data.type === "taskChanged") {
+              listDataService.getAllTask(listId).then(function (response) {
+                scope.listData.task = response.tasks;
+              });
+            }
           }
         }
+
+        function clearInput() {
+          scope.taskTitle = null;
+        }
       }
+    }
+
+    controllerFunc.$inject = ["$scope"];
+    function controllerFunc($scope) {
+      this.listId = $scope.listData["_id"]; // send data to other directive
     }
 })();

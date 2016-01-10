@@ -7,12 +7,12 @@
       placeholder="List name"
       ng-model="homeVm.newListTitle"
       ng-class="{ 'has-error': (homeVm.newListForm.listName.$invalid && homeVm.newListForm.listName.$dirty) ||
-                               (homeVm.newListForm.listName.$pristine && homeVm.submitted) }"
+                               (homeVm.newListForm.listName.$pristine && homeVm.newListSubmitted) }"
       required>
     <p
       class="error-new-list"
       ng-show="(homeVm.newListForm.listName.$invalid && homeVm.newListForm.listName.$dirty) ||
-               (homeVm.newListForm.listName.$pristine && homeVm.submitted)">
+               (homeVm.newListForm.listName.$pristine && homeVm.newListSubmitted)">
       Ooops! Empty list name
     </p>
     <p class="popup-member-title">List member</p>
@@ -25,7 +25,7 @@
       </div>
     </div>
     <!-- /.popup-list-member -->
-    <button type="submit" ng-click="homeVm.saveNewList(homeVm.newListForm.$valid)">Save list</button>
+    <button type="submit" class="done-button" ng-click="homeVm.saveNewList(homeVm.newListForm.$valid)">Save list</button>
   </form>
   <!-- /.form-group -->
 </div>

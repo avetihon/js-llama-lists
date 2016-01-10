@@ -5,8 +5,8 @@
     .module("llamaLists")
     .controller("llamaLists.core.user-home.homePageCtrl", HomePageCtrl);
 
-    HomePageCtrl.$inject = ["$scope", "$http", "$state", "$window", "$rootScope", "listDataPrepService", "listDataService"];
-    function HomePageCtrl($scope, $http, $state, $window, $rootScope, listDataPrepService, listDataService) {
+    HomePageCtrl.$inject = ["$scope", "$rootScope", "listDataService"];
+    function HomePageCtrl($scope, $rootScope, listDataService) {
       var homeVm = this,
           listData = {};
       homeVm.newListPopup; // check open popup
@@ -16,10 +16,17 @@
 
       // fog broadcast
       $scope.$on('closePopup', closePopup);
+      // list broadcast
+      $scope.$on('updateList', activate);
 
-      // route resolve promises
-      homeVm.lists = listDataPrepService.lists;
+      activate();
 
+      function activate() {
+        listDataService.getAllLists()
+          .then( function (response) {
+            homeVm.lists = response.lists;
+          });
+      }
 
       function createNewList() {
         homeVm.newListPopup = true;
@@ -32,8 +39,7 @@
         if (validation) {
           listData.title = homeVm.newListTitle;
 
-          listDataService.
-            saveNewList(listData)
+          listDataService.saveNewList(listData)
             .then(function (response) {
               homeVm.lists = response.lists;
 
@@ -42,7 +48,7 @@
               homeVm.newListTitle = null;
               homeVm.newListForm.$setPristine();
               homeVm.newListSubmitted = false;
-            })
+            });
         }
       }
 

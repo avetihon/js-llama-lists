@@ -7,13 +7,18 @@
 @import "../sass/header";
 
 // Import style page
-@import "../scripts/common/directives/user-task/user-task";
-@import "../scripts/common/directives/user-list/user-list";
-@import "../scripts/common/directives/fog/fog.style";
-@import "../scripts/common/directives/change-background/change-background";
-@import "../scripts/core/user-login/user-login";
-@import "../scripts/core/user-signup/user-signup";
-@import "../scripts/core/user-home/user-home";
+// Directives
+@import "../scripts/common/directives/user-task/user-task.stl";
+@import "../scripts/common/directives/user-list/user-list.stl";
+@import "../scripts/common/directives/fog/fog.stl";
+@import "../scripts/common/directives/change-background/change-background.stl";
+@import "../scripts/common/directives/change-task/change-task.stl";
+
+// Controllers
+@import "../scripts/core/user-login/user-login.stl";
+@import "../scripts/core/user-signup/user-signup.stl";
+@import "../scripts/core/user-home/user-home.stl";
+@import "../scripts/core/user-profile/user-profile.stl";
 
 // ng-include style
 @import "../scripts/core/popup/new-list/new-list";

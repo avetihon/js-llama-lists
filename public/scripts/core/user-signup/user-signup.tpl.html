@@ -10,6 +10,7 @@
             name="userName"
             id="inputUsername"
             ng-model="signupVm.userName"
+            ng-change="signupVm.clearMessageError()"
             required>
           <p
             class="message"
@@ -24,7 +25,7 @@
         <div class="form-group"
           ng-class="{ 'has-error': signupForm.userEmail.$dirty && signupForm.userEmail.$invalid || (signupForm.userEmail.$pristine && signupVm.submitted) }">
           <label for="inputEmail">Your email</label>
-          <input name="userEmail" type="email" id="inputEmail" ng-model="signupVm.userEmail" required>
+          <input name="userEmail" type="email" id="inputEmail" ng-model="signupVm.userEmail" ng-change="signupVm.clearMessageError()" required>
           <p
             class="message"
             ng-messages="signupForm.userEmail.$error"
@@ -39,7 +40,7 @@
         <div class="form-group"
           ng-class="{ 'has-error': signupForm.userPassword.$dirty && signupForm.userPassword.$invalid || (signupForm.userPassword.$pristine && signupVm.submitted) }">
           <label for="inputPassword">Your password</label>
-          <input name="userPassword" type="password" id="inputPassword" ng-model="signupVm.userPassword" required>
+          <input name="userPassword" type="password" id="inputPassword" ng-model="signupVm.userPassword" ng-change="signupVm.clearMessageError()" required>
           <p
             class="message"
             ng-messages="signupForm.userPassword.$error"

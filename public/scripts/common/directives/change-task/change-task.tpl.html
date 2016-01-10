@@ -1,0 +1,64 @@
+<section class="change-task ng-hide" ng-show="editedTaskWindow">
+  <div class="set-task-text">
+    <input type="text" ng-model="task.title">
+  </div>
+  <div class="set-task-color">
+    <p class="task-color-title">Colors: </p>
+    <div class="wrapper-task-color" ng-class="{ 'active': 'task-color-1' === task.color}">
+      <span class="task-color-1" ng-click="changeColor($event)">
+        <i class="fa fa-check"></i>
+      </span>
+    </div>
+    <div class="wrapper-task-color" ng-class="{ 'active': 'task-color-2' === task.color}">
+      <span class="task-color-2" ng-click="changeColor($event)">
+        <i class="fa fa-check"></i>
+      </span>
+    </div>
+    <div class="wrapper-task-color" ng-class="{ 'active': 'task-color-3' === task.color}">
+      <span class="task-color-3" ng-click="changeColor($event)">
+        <i class="fa fa-check"></i>
+      </span>
+    </div>
+    <div class="wrapper-task-color" ng-class="{ 'active': 'task-color-4' === task.color}">
+      <span class="task-color-4" ng-click="changeColor($event)">
+        <i class="fa fa-check"></i>
+      </span>
+    </div>
+    <div class="wrapper-task-color" ng-class="{ 'active': 'task-color-5' === task.color}">
+      <span class="task-color-5" ng-click="changeColor($event)">
+        <i class="fa fa-check"></i>
+      </span>
+    </div>
+    <div class="wrapper-task-color" ng-class="{ 'active': 'task-color-6' === task.color}">
+      <span class="task-color-6" ng-click="changeColor($event)">
+        <i class="fa fa-check"></i>
+      </span>
+    </div>
+  </div>
+  <div class="add-task-due-date">
+    <div class="due-date-title">
+      <i class="fa fa-calendar"></i>
+      <p class="change-task-title-text">Add due date:</p>
+    </div>
+    <input type="text" placeholder="dd:mm:yyyy">
+  </div>
+  <div class="add-task-description">
+    <div class="decription-title">
+      <i class="fa fa-pencil-square-o"></i>
+      <p class="change-task-title-text">Add description:</p>
+    </div>
+    <textarea name="" placeholder="Write your text..."></textarea>
+  </div>
+  <div class="add-task-comment">
+    <div class="comment-title">
+      <i class="fa fa-comment-o"></i>
+      <p class="change-task-title-text">Add comment:</p>
+    </div>
+    <textarea name="" placeholder="Write your comment..."></textarea>
+  </div>
+  <div class="remove-task" ng-click="removeTask()">
+    <i class="fa fa-trash"></i>
+    <p>Remove task</p>
+  </div>
+  <button class="save-task-changes done-button" ng-click="closePopupButton()">Done</button>
+</section>

@@ -3,7 +3,7 @@ var User    = require("../../app/models/user"); // load up the user model
 /**
  * lists request
  */
-exports.lists = function(req, res) {
+exports.getlists = function(req, res) {
   var query = { name: req.user.name };
 
   User.findOne(query, function(err, user) {
@@ -56,7 +56,29 @@ exports.removeList = function(req, res) {
       res.json({ lists: done.list }); // return new array of list
     });
   });
-}
+};
+
+/**
+ * set new background for list request
+ */
+exports.setNewBackground = function(req, res) {
+  var listId    = req.params.id,
+      queryName = req.user.name,
+      image     = req.body.imageName;
+
+  User.findOne(queryName, function(err, user) {
+    if (err) throw err;
+
+    var list = user.list.id(listId);
+    list.image = image;
+
+    user.save(function(err, done) {
+      if (err) return done(err);
+
+      res.json({success: true});
+    });
+  });
+};
 
 /**
  * save task request
@@ -64,25 +86,75 @@ exports.removeList = function(req, res) {
 exports.addTask = function(req, res) {
   var listId    = req.params.id,
       queryName = req.user.name,
-      task      = req.body.task;
+      task      = req.body.title;
 
   User.findOne(queryName, function(err, user) {
     if (err) throw err;
     var list = user.list.id(listId);
 
     list.task.push({
-      task: task,
+      title: task,
     });
 
     user.save(function(err, done) {
       if (err) return done(err);
 
-      var taskList = list.task;
-      res.json({ taskList: taskList });
+      var task = list.task;
+      res.json({ task: task });
     });
   });
 };
 
+/**
+ * get one task request
+ */
+exports.getTask = function(req, res) {
+  var listId    = req.params.id_list,
+      taskId    = req.params.id_task,
+      queryName = req.user.name;
+
+  User.findOne(queryName, function(err, user) {
+    if (err) throw err;
+    var task = user.list.id(listId).task.id(taskId);
+
+    res.json({ task: task });
+  });
+};
+
+/**
+ * get all tasks request
+ */
+exports.getTasks = function(req, res) {
+  var listId    = req.params.id_list,
+      queryName = req.user.name;
+
+  User.findOne(queryName, function(err, user) {
+    if (err) throw err;
+    var tasks = user.list.id(listId).task;
+
+    res.json({ tasks: tasks });
+  });
+};
+
+/**
+ * remove one task request
+ */
+exports.removeTask = function(req, res) {
+  var listId    = req.params.id_list,
+      taskId    = req.params.id_task,
+      queryName = req.user.name;
+
+  User.findOne(queryName, function(err, user) {
+    if (err) throw err;
+    user.list.id(listId).task.id(taskId).remove();
+
+    user.save(function (err, done) {
+      if (err) return done(err);
+
+      res.json({ success: true });
+    });
+  });
+};
 
 /**
  * set task as completed or uncompleted
@@ -105,21 +177,34 @@ exports.setTaskCompleted = function(req, res, next) {
     user.save(function(err, done) {
       if (err) return done(err);
 
-      // var taskList = list.task;
-      res.json({ taskData: task.completed });
+      res.json({ completed: task.completed });
     });
-
-
-    // list.task.push({
-    //   task: task,
-    // });
-
-    // user.save(function(err, done) {
-    //   if (err) return done(err);
-
-    //   var taskList = list.task;
-    //   res.json({ taskList: taskList });
-    // });
   });
 };
 
+
+/**
+ * change data in task
+ */
+exports.changeTask = function(req, res) {
+  var listId    = req.params.id_list,
+      taskId    = req.params.id_task,
+      queryName = req.user.name,
+      dataType  = req.body.type,
+      data      = req.body.data;
+
+  User.findOne(queryName, function(err, user) {
+    if (err) throw err;
+    var task = user.list.id(listId).task.id(taskId);
+
+    if (dataType === "color") {
+      task.color = data;
+    }
+
+    user.save(function(err, done) {
+      if (err) return done(err);
+
+      res.json({ success: true });
+    });
+  });
+};

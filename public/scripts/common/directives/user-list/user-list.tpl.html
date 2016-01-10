@@ -2,7 +2,7 @@
   <header class="list-header">
     <div class="list-header-edited">
       <div class="list-edited-icon" ng-show="editedState">
-        <i class="fa fa-picture-o" ng-click="changeBackground()"></i>
+        <i class="fa fa-picture-o" ng-click="openBackgroundPopup()"></i>
         <i class="fa fa-trash" ng-click="removeList()"></i>
       </div>
       <div class="list-preference-icon" ng-click="editedState = true" ng-show="!editedState">
@@ -10,14 +10,14 @@
            x="0px" y="0px"
            width="408px" height="408px" viewBox="0 0 408 408" style="enable-background:new 0 0 408 408;" xml:space="preserve">
           <g>
-            <path fill="#ccc" d="M204,102c28.05,0,51-22.95,51-51S232.05,0,204,0s-51,22.95-51,51S175.95,102,204,102z M204,153c-28.05,0-51,22.95-51,51
+            <path fill="#ececec" d="M204,102c28.05,0,51-22.95,51-51S232.05,0,204,0s-51,22.95-51,51S175.95,102,204,102z M204,153c-28.05,0-51,22.95-51,51
               s22.95,51,51,51s51-22.95,51-51S232.05,153,204,153z M204,306c-28.05,0-51,22.95-51,51s22.95,51,51,51s51-22.95,51-51
               S232.05,306,204,306z"/>
           </g>
         </svg>
       </div>
     </div>
-    <div class="list-header-image list-background-1"></div>
+    <div class="list-header-image" ng-class="listData.image"></div>
     <!-- /.list-header-edited -->
     <h2 class="list-title" ng-bind="listData.title"></h2>
   </header>
@@ -26,8 +26,8 @@
     <input type="text"
           class="list-input-add-task"
           name="userTask"
-          placeholder="Add new to-do"
-          ng-model="task"
+          placeholder="Write something..."
+          ng-model="taskTitle"
           ng-focus="focused=true"
           ng-blur="focused=false"
           ng-class="{'is-dirty': !taskForm.userTask.$error.required}"
@@ -39,22 +39,21 @@
   </form>
   <div class="task-wrapper">
     <hr class="task-top-underline">
-    <div class="task-group" ng-repeat="taskData in listData.task">
-      <user-task task-data="taskData"></user-task> <!-- maybe its vary crap code, now i don't know -->
+    <div class="task-group" ng-repeat="data in listData.task">
+      <user-task task="data"></user-task>
     </div>
     <!-- /.task-group -->
   </div>
   <!-- /.task-wrapper -->
   <footer class="list-footer">
-    <object data="img/icon/invite.svg" type="image/svg+xml" class="list-footer-svg-invite">
-      Invite new people
-    </object>
-    <object data="img/icon/share.svg" type="image/svg+xml" class="list-footer-svg-share">
-      Invite new people
-    </object>
-    <object data="img/icon/love.svg" type="image/svg+xml" class="list-footer-svg-love">
-      Invite new people
-    </object>
+    <i class="fa fa-users"></i>
+    <i class="fa fa-share-alt list-footer-invite"></i>
+    <div class="list-footer-svg-love">
+      <svg enable-background="new 0 0 24 24" version="1.0" viewBox="0 0 24 24" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <path d="M16.4,4C14.6,4,13,4.9,12,6.3C11,4.9,9.4,4,7.6,4C4.5,4,2,6.5,2,9.6C2,14,12,22,12,22s10-8,10-12.4C22,6.5,19.5,4,16.4,4z"/>
+      </svg>
+      <!-- <span class="list-footer-count-love">2</span> -->
+    </div>
   </footer>
   <!-- /.list-footer -->
 </div>

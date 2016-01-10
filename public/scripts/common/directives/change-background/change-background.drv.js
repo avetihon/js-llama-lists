@@ -5,37 +5,71 @@
     .module("llamaLists")
     .directive("listBackground", listBackground);
 
-    function listBackground($rootScope) {
-      return {
+    listBackground.$inject = ["$rootScope","listDataService"];
+    function listBackground($rootScope, listDataService) {
+
+      var directive = {
         restrict: "E",
         replace: true,
         scope: {},
         templateUrl: "scripts/common/directives/change-background/change-background.tpl.html",
-        link: function(scope, elem, attrs) {
+        link: linkFunc
+      }
 
-        },
-        controller: function($scope, $rootScope, listDataService) {
-          var vm = this;
+      return directive;
 
-          vm.editedBackgroundWindow = false;
+      function linkFunc(scope, elem, attrs) {
+        var currentListId,
+            isChild,
+            returnData = {},
+            image = {};
+        scope.editedBackgroundWindow;
+        scope.changeBackground = changeBackground;
+        scope.closePopupButton = closePopupButton;
+        scope.$on('closePopup', closePopup);
 
-          $scope.$watch(
-            function() {
-              return listDataService.getBackgroundPopup();
-            }, function() {
-              vm.editedBackgroundWindow = listDataService.getBackgroundPopup();
-              if(vm.editedBackgroundWindow === true) {
-                $rootScope.$emit("showFogOverlay");
-              }
+        // watch for changes in getBackgroundPopup() func
+        scope.$watch(
+          function() {
+            return listDataService.getBackgroundPopup();
+          }, function() {
+            scope.editedBackgroundWindow = listDataService.getBackgroundPopup();
+            if(scope.editedBackgroundWindow === true) {
+              currentListId = listDataService.getListId();
             }
-          );
+          }
+        );
 
-          $scope.$on('closePopup', function (event, data) {
-            listDataService.closeBackgroundPopup();
+        // angular.element(elem).on('click', function (event) {
+        //   isChild = angular.element(event.target).parent().hasClass("list-background-wrapper");
+        //   if (isChild) {
+        //     image = event.target.className;
+        //     listDataService.setBackgroundForList(currentListId, image).then( function (response) {
+        //       console.log(response)
+        //     })
+        //   }
+
+        // });
+
+        function closePopupButton() {
+          $rootScope.$emit("hideFogOverlay");
+        }
+
+        function changeBackground(event) {
+          image.imageName = event.target.className;
+          listDataService.setBackgroundForList(currentListId, image).then( function (response) {
+            returnData = {
+              listId: currentListId,
+              image: image.imageName,
+              type: "backgroundChanged"
+            }
+            scope.$parent.$broadcast("listChanged", returnData);
           });
-        },
-        controllerAs: 'vm',
-        bindToController: true
+        }
+
+        function closePopup() {
+          listDataService.closeBackgroundPopup();
+        }
       }
     }
 })();

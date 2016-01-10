@@ -25,19 +25,17 @@
         url:          "/home",
         templateUrl:  "user-home/user-home.tpl.html",
         controller:   "llamaLists.core.user-home.homePageCtrl",
-        controllerAs: "homeVm",
-        resolve: {
-          listDataPrepService: listDataPrepService
-        }
+        controllerAs: "homeVm"
+      })
+      .state("profile", {
+        url:          "/profile",
+        templateUrl:  "user-profile/user-profile.tpl.html",
+        controller:   "llamaLists.core.user-profile.profilePageCtrl",
+        controllerAs: "profileVm"
       });
 
     $urlRouterProvider.otherwise('/');
     $locationProvider.html5Mode(true);
-  }
-
-  listDataPrepService.$inject = ['listDataService'];
-  function listDataPrepService(listDataService) {
-    return listDataService.getAllLists();
   }
 
   /* set body id for css style */

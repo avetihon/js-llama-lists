@@ -4,43 +4,37 @@
   angular.module("llamaLists")
     .controller("llamaLists.core.user-login.loginPageCtrl", LoginPageCtrl);
 
-  LoginPageCtrl.$inject = ["$scope", "$http", "$window", "$location", "$state"];
-  function LoginPageCtrl($scope, $http, $window, $location, $state) {
-    var loginVm = this;
+  LoginPageCtrl.$inject = ["$scope", "$window", "$state", "userAuthService"];
+  function LoginPageCtrl($scope, $window, $state, userAuthService) {
+    var loginVm = this,
+        userData = {};
+    loginVm.submitted;
+    loginVm.submitData = submitData;
+    loginVm.clearMessageError = clearMessageError;
 
-    loginVm.submitData = function(validation) {
+    function submitData(validation) {
       loginVm.submitted = true;
 
       if (validation) {
-        loginVm.user = {
+        userData = {
           username: loginVm.username,
           password: loginVm.password
         };
 
-        $http
-          .post("/login", loginVm.user)
-          .success(function (data, status, headers, config) {
-            $window.localStorage.token = data.token;
+        userAuthService.signinUser(userData)
+          .then(function (response) {
+            $window.localStorage.token = response.token;
             $state.go("home");
-          })
-          .error(function (data, status, headers, config) {
-            loginVm.message = {};
-            // Erase the token if the user fails to log in
+          }, function (error) {
             delete $window.localStorage.token;
-            // Handle login errors here
-            loginVm.message = data.message;
-
-            $scope.$watchGroup(
-              ["loginVm.username", "loginVm.password"],
-              function handleInputChange(newValues, oldValues) {
-                  if (!angular.equals(newValues,oldValues)) {
-                    loginVm.message = null;
-                  }
-              }
-            );
+            loginVm.message = error.message;
           });
       }
-    };
+    }
+
+    function clearMessageError() {
+      loginVm.message = null;
+    }
   }
 
 })();

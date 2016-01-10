@@ -1,10 +1,11 @@
 <div>
-  <div class="task-main" ng-class="{'task-is-completed': taskData.completed}">
+  <div class="task-main" ng-class="{'task-is-completed': task.completed}" ng-click="setTaskCompleted($event)">
     <span class="task-change-position"></span>
-    <div class="task-check" ng-click="setTaskCompleted()">
-      <span class="task-checked"></span>
+    <div class="task-check">
+      <span class="task-check-circle" ng-hide="task.completed" ng-class="task.color"></span>
+      <i class="fa fa-check-circle" ng-show="task.completed"></i>
     </div>
-    <p ng-bind="taskData.task"></p>
-    <span class="task-preference"></span>
+    <p class="task-text" ng-bind="task.title"></p>
+    <span class="task-preference" ng-click="changeData()"></span>
   </div>
 </div>

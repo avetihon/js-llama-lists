@@ -3,30 +3,49 @@
 
   angular
     .module("llamaLists")
-    .directive("userTask", userTaskDrv);
+    .directive("userTask", taskDirective);
 
-    userTaskDrv.$inject = ["$http"];
-    function userTaskDrv($http) {
-      return {
-        require: '^list',
+    taskDirective.$inject = ["listDataService"];
+    function taskDirective(listDataService) {
+
+      var directive = {
+        require: "^list",
         restrict: "E",
         scope: {
-          taskData:"="
+          task: "="
         },
         replace: true,
         templateUrl: "scripts/common/directives/user-task/user-task.tpl.html",
-        link: function(scope, elem, attrs, listCtrl) {
-          scope.setTaskCompleted = function() {
-            var taskId = scope.taskData._id,
-                listId = listCtrl.listData;
+        link: linkFunc
+      }
 
-            $http.put("/api/lists/" + listId + "/task/" + taskId + "/completed")
-            .success(function (data, status, headers, config) {
-              scope.taskData.completed = data.taskData;
-            })
-            .error(function (data, status, headers, config) {
-              console.log("error")
-            });
+      return directive;
+
+      function linkFunc(scope, element, attribute, listController) {
+        var taskId = scope.task["_id"],
+            listId = listController.listId;
+        scope.setTaskCompleted = setTaskCompleted;
+        scope.changeData = changeData;
+        scope.$on("taskChanged", changeTask);
+
+        function setTaskCompleted(event) {
+          if (event.target.className !== "task-preference") {
+            listDataService.setTaskCompleted(listId, taskId)
+              .then(function (response) {
+                scope.task.completed = response.completed;
+              });
+          }
+        }
+
+        function changeData() {
+          listDataService.openTaskPopup(listId, taskId);
+        }
+
+        function changeTask(event, data) {
+          if (scope.task["_id"] === data.taskId) {
+            if (data.type === "colorChanged") {
+              scope.task.color = data.color;
+            }
           }
         }
       }

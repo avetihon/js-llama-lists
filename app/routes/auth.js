@@ -6,8 +6,14 @@ var User    = require("../../app/models/user"), // load up the user model
  * signup request
  */
 exports.signup = function(req, res) {
-
-  if (!req.body.username) {
+  var reqIsEmpty = !!Object.keys(req.body).length; // check is request body empty
+  if (!reqIsEmpty) {
+    return res.status(401).send({
+      success: false,
+      message: "Ooops! All fields is required",
+      type: 4
+    });
+  } else if (!req.body.username) {
     return res.status(401).send({
       success: false,
       message: "Ooops! Name is required",
@@ -59,7 +65,15 @@ exports.signup = function(req, res) {
  * login request
  */
 exports.login = function(req, res) {
-  if (!req.body.username) {
+  var reqIsEmpty = !!Object.keys(req.body).length; // check is request body empty
+
+  if (!reqIsEmpty) {
+    return res.status(401).send({
+      success: false,
+      message: "Ooops! All fields is required",
+      type: 3
+    });
+  } else if (!req.body.username) {
     return res.status(401).send({
       success: false,
       message: "Ooops! Name is required",
@@ -87,7 +101,7 @@ exports.login = function(req, res) {
       } else {
         // if user is found and password is right
         // create a token
-        var token = jwt.sign(user, app.app.get('mylittlesecret'), { // little stupid code, another question i haven't found
+        var token = jwt.sign(user, app.app.get('mylittlesecret'), { // little stupid code, another answers i haven't found
           expiresIn: "1d" // expires in 24 hours
         });
 

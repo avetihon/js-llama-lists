@@ -14,11 +14,16 @@ module.exports = function(app) {
   /**
    * list stuff
    **/
-  app.get("/api/lists", list.lists);
-  app.post("/api/lists", list.addList);
-  app.delete("/api/lists/:id", list.removeList);
-  app.post("/api/lists/:id/task", list.addTask);
-  app.put("/api/lists/:id_list/task/:id_task/completed", list.setTaskCompleted);
+  app.get("/api/lists", list.getlists);
+  app.post("/api/list", list.addList);
+  app.delete("/api/list/:id", list.removeList);
+  app.post("/api/list/:id/image", list.setNewBackground);
+  app.post("/api/list/:id/task", list.addTask);
+  app.get("/api/list/:id_list/task", list.getTasks);
+  app.get("/api/list/:id_list/task/:id_task", list.getTask);
+  app.put("/api/list/:id_list/task/:id_task", list.changeTask);
+  app.delete("/api/list/:id_list/task/:id_task", list.removeTask);
+  app.put("/api/list/:id_list/task/:id_task/completed", list.setTaskCompleted);
 
   // redirect all others router to the index (HTML5 history)
   app.all("/*", function(req, res) {
