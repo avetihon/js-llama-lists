@@ -6,7 +6,8 @@ var morgan       = require("morgan"),
     expressJwt   = require("express-jwt"), // middleware that validates JsonWebTokens
     jwt          = require("jsonwebtoken"), // used to create, sign, and verify tokens
     port         = process.env.PORT || 3000,
-    app          = express();
+    app          = express(),
+    apiRoutes    = express.Router();
 
 var configDB   = require("./config/database.js"); // get link on bd
 var configAuth = require("./config/auth"); // get auth
@@ -27,7 +28,7 @@ app.use("/api", expressJwt({ secret: configAuth.secret }));
 app.set("mylittlesecret", configAuth.secret);
 
 // routes ======================================================================
-require("./app/mainRoute.js")(app); // load our routes and pass in our app and fully configured passport
+require("./app/mainRoute.js")(app, apiRoutes); // load our routes and pass in our app and fully configured passport
 
 module.exports.app = app;
 app.listen(port, function() {

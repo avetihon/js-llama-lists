@@ -1,29 +1,32 @@
-// load the things we need
-var auth    = require("../app/routes/auth"),
-    list    = require("../app/routes/list"),
-    path    = require("path");
+// load the things that we need
+var auth      = require("../app/routes/auth"),
+    list      = require("../app/routes/list"),
+    path      = require("path");
 
-module.exports = function(app) {
+module.exports = function(app, apiRoutes) {
 
   /**
    * auth stuff
    **/
   app.post("/signup", auth.signup);
-  app.post("/login", auth.login);
+  apiRoutes.post("/login", auth.login);
 
+  apiRoutes.use(auth.middleware);
   /**
    * list stuff
    **/
-  app.get("/api/lists", list.getlists);
-  app.post("/api/list", list.addList);
-  app.delete("/api/list/:id", list.removeList);
-  app.post("/api/list/:id/image", list.setNewBackground);
-  app.post("/api/list/:id/task", list.addTask);
-  app.get("/api/list/:id_list/task", list.getTasks);
-  app.get("/api/list/:id_list/task/:id_task", list.getTask);
-  app.put("/api/list/:id_list/task/:id_task", list.changeTask);
-  app.delete("/api/list/:id_list/task/:id_task", list.removeTask);
-  app.put("/api/list/:id_list/task/:id_task/completed", list.setTaskCompleted);
+  apiRoutes.get("/lists", list.getlists);
+  apiRoutes.post("/list", list.addList);
+  apiRoutes.delete("/list/:id", list.removeList);
+  apiRoutes.post("/list/:id/image", list.setNewBackground);
+  apiRoutes.post("/list/:id/task", list.addTask);
+  apiRoutes.get("/list/:id_list/task", list.getTasks);
+  apiRoutes.get("/list/:id_list/task/:id_task", list.getTask);
+  apiRoutes.put("/list/:id_list/task/:id_task", list.changeTask);
+  apiRoutes.delete("/list/:id_list/task/:id_task", list.removeTask);
+  apiRoutes.put("/list/:id_list/task/:id_task/completed", list.setTaskCompleted);
+
+  app.use('/api', apiRoutes);
 
   // redirect all others router to the index (HTML5 history)
   app.all("/*", function(req, res) {

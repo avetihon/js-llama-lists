@@ -4,7 +4,7 @@ var User    = require("../../app/models/user"); // load up the user model
  * lists request
  */
 exports.getlists = function(req, res) {
-  var query = { name: req.user.name };
+  var query = { name: req.decoded.name };
 
   User.findOne(query, function(err, user) {
     if (err) throw err;
@@ -19,11 +19,9 @@ exports.getlists = function(req, res) {
  * save list request
  */
 exports.addList = function(req, res) {
-  var query = { name: req.user.name };
-  console.log(req);
-  console.log(User);
+  var query = { name: req.decoded.name };
+
   User.findOne(query, function(err, user) {
-    console.log(user)
     if (err) throw err;
 
     user.list.push({
@@ -46,7 +44,7 @@ exports.addList = function(req, res) {
  */
 exports.removeList = function(req, res) {
   var listId = req.params.id,
-      query = req.user.name;
+      query = req.decoded.name;
 
   User.findOne(query, function(err, user) {
     if (err) throw err;
@@ -65,11 +63,12 @@ exports.removeList = function(req, res) {
  */
 exports.setNewBackground = function(req, res) {
   var listId    = req.params.id,
-      queryName = req.user.name,
+      queryName = req.decoded.name,
       image     = req.body.imageName;
 
   User.findOne(queryName, function(err, user) {
     if (err) throw err;
+    console.log(user)
 
     var list = user.list.id(listId);
     list.image = image;
@@ -87,7 +86,7 @@ exports.setNewBackground = function(req, res) {
  */
 exports.addTask = function(req, res) {
   var listId    = req.params.id,
-      queryName = req.user.name,
+      queryName = req.decoded.name,
       task      = req.body.title;
 
   User.findOne(queryName, function(err, user) {
@@ -113,7 +112,7 @@ exports.addTask = function(req, res) {
 exports.getTask = function(req, res) {
   var listId    = req.params.id_list,
       taskId    = req.params.id_task,
-      queryName = req.user.name;
+      queryName = req.decoded.name;
 
   User.findOne(queryName, function(err, user) {
     if (err) throw err;
@@ -128,7 +127,7 @@ exports.getTask = function(req, res) {
  */
 exports.getTasks = function(req, res) {
   var listId    = req.params.id_list,
-      queryName = req.user.name;
+      queryName = req.decoded.name;
 
   User.findOne(queryName, function(err, user) {
     if (err) throw err;
@@ -144,7 +143,7 @@ exports.getTasks = function(req, res) {
 exports.removeTask = function(req, res) {
   var listId    = req.params.id_list,
       taskId    = req.params.id_task,
-      queryName = req.user.name;
+      queryName = req.decoded.name;
 
   User.findOne(queryName, function(err, user) {
     if (err) throw err;
@@ -164,7 +163,7 @@ exports.removeTask = function(req, res) {
 exports.setTaskCompleted = function(req, res, next) {
   var listId    = req.params.id_list,
       taskId    = req.params.id_task,
-      queryName = req.user.name;
+      queryName = req.decoded.name;
 
   User.findOne(queryName, function(err, user) {
     if (err) throw err;
@@ -191,7 +190,7 @@ exports.setTaskCompleted = function(req, res, next) {
 exports.changeTask = function(req, res) {
   var listId    = req.params.id_list,
       taskId    = req.params.id_task,
-      queryName = req.user.name,
+      queryName = req.decoded.name,
       dataType  = req.body.type,
       data      = req.body.data;
 

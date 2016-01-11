@@ -16,7 +16,7 @@
       }
 
       this.signinUser = function(data) {
-        return $http.post("/login", data).then(function (response) {
+        return $http.post("/api/login", data).then(function (response) {
           return response.data;
         },
         function (response) {
