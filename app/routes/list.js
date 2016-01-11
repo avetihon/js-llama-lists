@@ -20,6 +20,7 @@ exports.getlists = function(req, res) {
  */
 exports.addList = function(req, res) {
   var query = { name: req.decoded.name };
+  console.log(req.decoded)
 
   User.findOne(query, function(err, user) {
     if (err) throw err;

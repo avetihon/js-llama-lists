@@ -132,6 +132,7 @@ exports.middleware = function(req, res, next) {
   // check header for token
   var token = req.headers["authorization"].slice(7); // remove Bearer word
   // decode token
+  console.log(token)
   if (token) {
 
     // verifies secret and checks exp
