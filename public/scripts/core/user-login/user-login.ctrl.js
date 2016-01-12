@@ -23,9 +23,11 @@
 
         userAuthService.signinUser(userData)
           .then(function (response) {
+            console.log(response)
             $window.localStorage.token = response.token;
             $state.go("home");
           }, function (error) {
+            console.log(error)
             delete $window.localStorage.token;
             loginVm.message = error.message;
           });
