@@ -9,7 +9,7 @@
       var signupVm = this,
           userData = {};
       signupVm.submitted;
-      signupVm.message = {};
+      signupVm.message;
       signupVm.submitData = submitData;
       signupVm.clearMessageError = clearMessageError;
 
@@ -27,6 +27,9 @@
             .then(function() {
               $state.go("login");
             }, function (error) {
+
+              signupVm.message = {};
+
               switch(error.type) {
                 case 1:
                   signupVm.message.name = error.message;
