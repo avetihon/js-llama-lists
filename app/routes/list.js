@@ -19,9 +19,9 @@ exports.getlists = function(req, res) {
  * save list request
  */
 exports.addList = function(req, res) {
-  var query = { name: req.decoded.name };
+  var query = { name: req.decoded.name || req.decoded._doc.name};
   console.log(req.decoded)
-  console.log(req.decoded._doc)
+  console.log(req.decoded._doc.name)
 
   User.findOne(query, function(err, user) {
     if (err) throw err;
