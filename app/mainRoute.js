@@ -9,7 +9,7 @@ module.exports = function(app, apiRoutes) {
    * auth stuff
    **/
   app.post("/signup", auth.signup);
-  apiRoutes.post("/login", auth.login);
+  app.post("/login", auth.login);
 
   apiRoutes.use(auth.middleware);
   /**

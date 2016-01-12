@@ -68,7 +68,6 @@ exports.setNewBackground = function(req, res) {
 
   User.findOne(queryName, function(err, user) {
     if (err) throw err;
-    console.log(user)
 
     var list = user.list.id(listId);
     list.image = image;
