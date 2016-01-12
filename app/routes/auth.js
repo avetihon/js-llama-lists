@@ -103,7 +103,6 @@ exports.login = function(req, res) {
     }, function(err, user) {
 
       if (err) throw err;
-      console.log(user)
 
       if (!user || !user.validPassword(req.body.password)) {
           return res.status(401).send({
@@ -116,7 +115,6 @@ exports.login = function(req, res) {
         var token = jwt.sign(user, app.app.get('mylittlesecret'), { // little stupid code, another answers i haven't found
           expiresIn: "1d" // expires in 24 hours
         });
-        console.log(token)
 
         // return the information including token as JSON
         res.json({ token: token });
@@ -136,7 +134,6 @@ exports.middleware = function(req, res, next) {
 
   // decode token
   if (token) {
-    console.log("token " + token)
 
     // verifies secret and checks exp
     jwt.verify(token, app.app.get('mylittlesecret'), function(err, decoded) {
