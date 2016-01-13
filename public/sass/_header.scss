@@ -74,4 +74,20 @@
   }
 }
 
+li.navbar-auth,
+li.user-data,
+ul.user-data {
+  display: none;
+}
+
+#home-page .user-data,
+#profile-page .user-data {
+  display: block;
+}
+
+#index-page .navbar-auth,
+#signup-page .navbar-auth,
+#login-page .navbar-auth {
+  display: block;
+}
 

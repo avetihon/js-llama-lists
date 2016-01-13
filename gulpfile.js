@@ -1,17 +1,23 @@
 "use strict";
 
-var gulp       = require("gulp"),
-	  concat     = require("gulp-concat"),
-    minifyCSS  = require("gulp-minify-css"),
-    notify 	   = require("gulp-notify"),
-    uglify 	   = require("gulp-uglify"),
-    rename     = require("gulp-rename"), // to rename any file
-    sass       = require("gulp-sass");
+var gulp         = require("gulp"),
+	  concat       = require("gulp-concat"),
+    cssnano      = require("gulp-cssnano"), // minify
+    notify 	     = require("gulp-notify"),
+    uglify 	     = require("gulp-uglify"),
+    rename       = require("gulp-rename"), // to rename any file
+    sass         = require('gulp-ruby-sass'),
+    postcss      = require('gulp-postcss'),
+    autoprefixer = require('autoprefixer');
 
 var config = {
    sassPath: "public/sass",
    bowerDir: "public/libs"
 }
+
+var processors = [
+  autoprefixer
+];
 
 // moving font-awesome
 gulp.task("icons", function() {
@@ -20,17 +26,14 @@ gulp.task("icons", function() {
 });
 
 gulp.task("css", function() {
-  return gulp.src(config.sassPath + "/main.scss")
-    .pipe(sass({
-        style: "compressed",
-        loadPath: [
-          config.bowerDir + "/bootstrap-sass/assets/stylesheets",
-          config.bowerDir + "/font-awesome/scss",
-        ]
-    })
-      .on("error", notify.onError(function(error) {
-        return "Error: " + error.message;
-      })))
+  return sass(config.sassPath + "/main.scss", { style: "expanded" })
+    .pipe(postcss(processors))
+    .pipe(gulp.dest("public/css"))
+    .pipe(rename({suffix: '.min'}))
+    .pipe(cssnano())
+    // .on("error", notify.onError(function(error) {
+    //   return "Error: " + error.message;
+    // }))
     .pipe(gulp.dest("public/css"));
 });
 
