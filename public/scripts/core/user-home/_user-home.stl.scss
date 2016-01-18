@@ -22,12 +22,22 @@
   }
 }
 
+.home__logo {
+  position: absolute;
+  top: 4px;
+  left: -18px;
+  display: block;
+}
+
 .button-create-list {
   position: absolute;
   right: 0;
   bottom: -27px;
 
   .round-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 54px;
     height: 54px;
     font-size: 1.8em;
@@ -44,13 +54,7 @@
       transform: scale(1.1,1.1);
     }
 
-    &:after {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
+    & > span {
       display: block;
       width: 20px;
       height: 20px;

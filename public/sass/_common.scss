@@ -1,17 +1,8 @@
 /* main colors */
-
 $luckyRed: #f36;
 $mainText: #464d5d;
 $mainTextTwo: #828ea6;
 $littleGray: #7a7d81;
-
-
-/* list colors */
-$peterRiver: #3498db;
-$orange: #f39c12;
-$greenSea: #16a085;
-$amethyst: #9b59b6;
-$alizarin: #e74c3c;
 
 * {
   box-sizing: border-box;
@@ -31,71 +22,29 @@ body {
   font-size: 16px;
 }
 
-input {
-  outline: none;
+.container--fullHeight {
+  height: 100%;
 }
 
+input { outline: none; }
+input::-moz-focus-inner { border:0; }
+a:active, a:focus { outline: 0; }
+.relative { position: relative; }
+button:focus { outline:0; }
 
-.relative {
-  position: relative;
-}
-
-/* bootstrap !important */
-.navbar {
-  border: none;
-  border-bottom: 1px solid #30323d;
-  border-radius: 0;
-  margin-bottom: 0;
-}
-
-.navbar-default {
-  background-color: #30323d;
-}
-
-.container-fluid {
-  margin-top: 6px;
-}
-
-.navbar-default .navbar-nav > li > a {
-  font-size: 1.25rem;
-  font-weight: 400;
-  color: #acb1be;
-
-  &:hover {
-    color: #fff;
-  }
-}
-
-.navbar-collapse.collapse {
-  padding: 0;
-}
-
-.done-button {
-  width: 100%;
-  height: 3em;
-  font-size: 0.9em;
-  font-weight: 400;
-  text-transform: uppercase;
-  color: #fff;
-  border: 0;
-  background-color: #7ec58d;
-}
-
-
-
-
-/* Clearfix
-**
-** For modern browsers
-** 1. The space content is one way to avoid an Opera bug when the
-**    contenteditable attribute is included anywhere else in the document.
-**    Otherwise it causes space to appear at the top and bottom of elements
-**    that are clearfixed.
-** 2. The use of `table` rather than `block` is only necessary if using
-**    `:before` to contain the top-margins of child elements.
-**
-** Source: http://nicolasgallagher.com/micro-clearfix-hack/
-*/
+/**
+ * Clearfix
+ *
+ * For modern browsers
+ * 1. The space content is one way to avoid an Opera bug when the
+ *    contenteditable attribute is included anywhere else in the document.
+ *    Otherwise it causes space to appear at the top and bottom of elements
+ *    that are clearfixed.
+ * 2. The use of `table` rather than `block` is only necessary if using
+ *    `:before` to contain the top-margins of child elements.
+ *
+ * Source: http://nicolasgallagher.com/micro-clearfix-hack/
+ */
 
 @mixin clearfix() {
   &:before,
@@ -108,10 +57,10 @@ input {
   }
 }
 
-/*
-  Allow angular.js to be loaded in body, hiding cloaked elements until
-  templates compile.  The !important is important given that there may be
-  other selectors that are more specific or come later and might alter display.
+/**
+ * Allow angular.js to be loaded in body, hiding cloaked elements until
+ * templates compile.  The !important is important given that there may be
+ * other selectors that are more specific or come later and might alter display.
  */
 
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {

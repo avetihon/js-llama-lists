@@ -1,6 +1,6 @@
 .popup-list-change-background {
-  position: absolute;
-  top: 150px;
+  position: fixed;
+  top: 130px;
   left: 0;
   right: 0;
   width: 380px;
@@ -24,6 +24,7 @@
 
   h2 {
     margin-bottom: 5%;
+    font-weight: 400;
     font-size: 1.3em;
     text-align: center;
     color: #464d5d;
@@ -69,7 +70,7 @@
 }
 
 .list-background-1 {
-  background-image: url("../img/list-background/tower.jpg");
+  background-image: url("../img/list-background/coffee.jpg");
 }
 
 .list-background-2 {

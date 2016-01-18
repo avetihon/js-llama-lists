@@ -1,6 +1,6 @@
 <section id="users-auth">
 	<div class="container">
-		<form name="loginForm" class="user-login-form" ng-submit="loginVm.submitData(loginForm.$valid)" novalidate>
+		<form name="loginForm" class="user-login-form" novalidate>
 			<h2>Log in</h2>
 			<div class="form-group" ng-class="{ 'has-error': loginForm.userName.$dirty && loginForm.userName.$invalid || (loginForm.userName.$pristine && loginVm.submitted) }">
 				<label for="inputUsername">Name</label>
@@ -29,7 +29,7 @@
           <span ng-bind="loginVm.message"></span>
         </p>
 			</div>
-			<button type="submit">Submit</button>
+			<button type="button" ng-click="loginVm.submitData(loginForm.$valid)">Submit</button>
 			<div class="have-an">
 				<span>Don't have an account?</span>
 				<a ui-sref="signup">Create</a>

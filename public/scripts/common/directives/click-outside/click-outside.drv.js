@@ -1,3 +1,4 @@
+// need rewrite this crap code
 (function() {
   "use strict";
 

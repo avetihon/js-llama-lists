@@ -1,6 +1,7 @@
 // load the things that we need
 var auth      = require("../app/routes/auth"),
     list      = require("../app/routes/list"),
+    task      = require("../app/routes/task"),
     path      = require("path");
 
 module.exports = function(app, apiRoutes) {
@@ -19,12 +20,12 @@ module.exports = function(app, apiRoutes) {
   apiRoutes.post("/list", list.addList);
   apiRoutes.delete("/list/:id", list.removeList);
   apiRoutes.post("/list/:id/image", list.setNewBackground);
-  apiRoutes.post("/list/:id/task", list.addTask);
-  apiRoutes.get("/list/:id_list/task", list.getTasks);
-  apiRoutes.get("/list/:id_list/task/:id_task", list.getTask);
-  apiRoutes.put("/list/:id_list/task/:id_task", list.changeTask);
-  apiRoutes.delete("/list/:id_list/task/:id_task", list.removeTask);
-  apiRoutes.put("/list/:id_list/task/:id_task/completed", list.setTaskCompleted);
+  apiRoutes.post("/list/:id/task", task.addTask);
+  apiRoutes.get("/list/:id_list/task", task.getTasks);
+  apiRoutes.get("/list/:id_list/task/:id_task", task.getTask);
+  apiRoutes.put("/list/:id_list/task/:id_task", task.changeTask);
+  apiRoutes.delete("/list/:id_list/task/:id_task", task.removeTask);
+  apiRoutes.put("/list/:id_list/task/:id_task/completed", task.setTaskCompleted);
 
   app.use('/api', apiRoutes);
 

@@ -55,9 +55,7 @@
             if (data.type === "backgroundChanged") {
               scope.listData.image = data.image;
             } else if (data.type === "taskChanged") {
-              listDataService.getAllTask(listId).then(function (response) {
-                scope.listData.task = response.tasks;
-              });
+
             }
           }
         }
@@ -68,8 +66,15 @@
       }
     }
 
-    controllerFunc.$inject = ["$scope"];
-    function controllerFunc($scope) {
+    controllerFunc.$inject = ["$scope", "listDataService"];
+    function controllerFunc($scope, listDataService) {
       this.listId = $scope.listData["_id"]; // send data to other directive
+      this.reloadTasks = reloadTasks;
+
+      function reloadTasks(listId) {
+        listDataService.getAllTask(listId).then(function (response) {
+          $scope.listData.task = response.tasks;
+        });
+      }
     }
 })();

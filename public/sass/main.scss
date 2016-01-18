@@ -1,9 +1,19 @@
-// Import bootstrap and fontawesome
-@import "../libs/bootstrap-sass/assets/stylesheets/bootstrap";
+// Import bootstrap components and fontawesome
+
+// Core variables and mixins
+@import "../libs/bootstrap-sass/assets/stylesheets/bootstrap/variables";
+@import "../libs/bootstrap-sass/assets/stylesheets/bootstrap/mixins";
+// Reset and dependencies
+@import "../libs/bootstrap-sass/assets/stylesheets/bootstrap/normalize";
+@import "../libs/bootstrap-sass/assets/stylesheets/bootstrap/print";
+@import "../libs/bootstrap-sass/assets/stylesheets/bootstrap/grid";
+
 //@import "font-awesome";
 
 // Import common part
 @import "../sass/common";
+@import "../sass/scaffolding";
+@import "../sass/view-control";
 @import "../sass/header";
 
 // Import style page
