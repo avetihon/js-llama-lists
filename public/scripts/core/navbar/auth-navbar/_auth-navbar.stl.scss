@@ -1,0 +1,93 @@
+/* bootstrap !important */
+.navbar {
+  height: 50px;
+  border-bottom: 1px solid #2b2e36;
+  background-color: #2b2e36;
+}
+
+.navbar__header {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  float: left;
+}
+
+  .navbar__brand {
+    display: block;
+    width: 26px;
+    height: 44px;
+  }
+
+    .navbar__image {
+      width: 100%;
+      height: 100%;
+    }
+
+.navbar__auth {
+  height: 100%;
+  display: block;
+  float: right;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+  .navbar__list {
+    display: block;
+    float: left;
+  }
+
+    .navbar__link {
+      display: block;
+      font-size: 0.8em;
+      padding: 15px;
+      color: #acb1be;
+
+      &:link,
+      &:visited {
+        color: #acb1be;
+      }
+
+      &:hover,
+      &:active {
+        color: #fff;
+      }
+    }
+
+.navbar__links {
+  display: flex;
+  align-items: center;
+  float: left;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+  .navbar__link--firstLink {
+    display: block;
+    font-size: 0.8em;
+    padding: 15px 15px 15px 0;
+    color: #acb1be;
+
+    &:link,
+    &:visited {
+      color: #acb1be;
+    }
+
+    &:hover,
+    &:active {
+      color: #fff;
+    }
+  }
+
+.done-button {
+  width: 100%;
+  height: 3em;
+  font-size: 0.9em;
+  font-weight: 400;
+  text-transform: uppercase;
+  color: #fff;
+  border: 0;
+  background-color: #7ec58d;
+}
+

@@ -1,60 +1,48 @@
 #home-page {
-  /*background: linear-gradient(to bottom, #fff, #eef0f4);*/
   background-repeat: no-repeat;
   background-color: #f9f9fb;
-  /*background-image: url("../img/vintage.jpg");
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center top;*/
 }
 
-.home-header {
+.homeSubview {
   position: relative;
-  background-color: #30323d;
-  margin: 0 0 59px;
+  background-color: #2b2e36;
+  margin: 0 0 30px;
+}
 
-  .type-page {
-    margin: 0;
-    padding: 5px 0 20px;
+  .homeSubview__logo {
+    position: absolute;
+    top: 4px;
+    left: -18px;
+  }
+
+  .homeSubview__page {
+    margin: 5px 0 10px;
     font-size: 2.3em;
     font-weight: 300;
     color:#fff;
   }
-}
 
-.home__logo {
-  position: absolute;
-  top: 4px;
-  left: -18px;
-  display: block;
-}
-
-.button-create-list {
-  position: absolute;
-  right: 0;
-  bottom: -27px;
-
-  .round-button {
+  .homeSubview__newList {
+    position: absolute;
+    right: 0;
+    bottom: -27px;
     display: flex;
     align-items: center;
     justify-content: center;
     width: 54px;
     height: 54px;
-    font-size: 1.8em;
-    text-align: center;
+    background-color: $luckyRed;
     border: 0;
-    /*background-color: $luckyRed;*/
-    background-color: #7ec58d;
     border-radius: 50% 50%;
     box-shadow: 0 1px 5px rgba(0, 0, 0, .28);
-    color: #fff;
     transition: transform 300ms ease;
 
     &:hover {
       transform: scale(1.1,1.1);
     }
+  }
 
-    & > span {
+    .homeSubview__newListIcon {
       display: block;
       width: 20px;
       height: 20px;
@@ -62,11 +50,10 @@
       background-size: 20px 20px;
       background-image: url("../img/icon/plus.svg");
     }
-  }
-}
+
 
 .lists-wrapper {
-  margin-top: 4%;
+  margin-top: 2%;
 }
 
 /* toolbar part: search

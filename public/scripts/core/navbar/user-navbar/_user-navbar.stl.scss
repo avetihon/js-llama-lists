@@ -1,0 +1,117 @@
+.userNavbar {
+  position: relative;
+  background-color: #2b2e36;
+}
+
+.userData {
+  display: flex;
+  align-items: center;
+  float: right;
+}
+
+  .userData__avatar {
+    position: relative;
+    width: 38px;
+    height: 38px;
+    display: inline-block;
+    cursor: pointer;
+  }
+
+    .userData__avatarIcon {
+      position: absolute;
+      display: inline-block;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(48, 50, 61, .5);
+      background-image: url("../img/icon/edit-avatar.svg");
+      background-position: center center;
+      background-size: 20px 20px;
+      background-repeat: no-repeat;
+      opacity: 0;
+      border-radius: 50%;
+      transition: opacity 300ms ease;
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+
+    .userData__avatarImage {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+    }
+
+.userData__link {
+  display: block;
+  font-size: .8em;
+  padding: 15px;
+  color: #acb1be;
+  cursor: pointer;
+
+  &:active,
+  &:hover {
+    color: #fff;
+  }
+
+  &:link,
+  &:visited {
+    color: #acb1be;
+  }
+}
+
+  .userData__caret {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-left: 2px;
+    vertical-align: middle;
+    border-top: 4px solid;
+    border-right: 4px solid transparent;
+    border-left: 4px solid transparent;
+  }
+
+.userData__dropdown {
+  position: absolute;
+  right: 0;
+  display: block;
+  min-width: 150px;
+  max-height: 0;
+  z-index: 9;
+  padding: 0 2px 0 25px;
+  overflow: hidden;
+  opacity: 0;
+  background: #fff;
+  border-radius: 0px;
+  transition: all 400ms cubic-bezier(.7, 0, .3, 1);
+
+  .userData__dropdown--open & {
+    max-height: 500px;
+    opacity: 1;
+    box-shadow: 0 0 1px rgba(76, 86, 103, .25), 0 2px 18px rgba(31, 37, 50, .32);
+  }
+}
+
+  .userData__dropdownLinks {
+    padding: 0;
+    margin: 12px 0 15px;
+    transform: translate3d(0, -20px, 0);
+    transition: opacity 400ms ease, transform 400ms cubic-bezier(.7, 0, .3, 1);
+    list-style: none;
+
+    .userData__dropdown--open & {
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
+    .userData__dropdownList {
+      display: inline-block;
+      padding: 4px 0;
+      font-size: 13px;
+      text-decoration: none;
+      color: #6f7685;
+
+      &:hover {
+        color: #333c4e;
+      }
+    }

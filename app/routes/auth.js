@@ -112,7 +112,7 @@ exports.login = function(req, res) {
       } else {
         // if user is found and password is right
         // create a token
-        var token = jwt.sign(user, app.app.get('mylittlesecret'), { // little stupid code, another answers i haven't found
+        var token = jwt.sign(user.toObject(), app.app.get('mylittlesecret'), { // little stupid code, another answers i haven't found
           expiresIn: "1d" // expires in 24 hours
         });
 
@@ -121,40 +121,4 @@ exports.login = function(req, res) {
       }
     });
   }
-};
-
-/**
- * route middleware to authenticate and check token
- * Thank for Chris Sevilleja and his tutorial :)
- */
-exports.middleware = function(req, res, next) {
-
-  // check header for token
-  var token = req.headers["authorization"].slice(7); // remove Bearer word
-
-  // decode token
-  if (token) {
-
-    // verifies secret and checks exp
-    jwt.verify(token, app.app.get('mylittlesecret'), function(err, decoded) {
-      if (err) {
-        return res.json({ success: false, message: 'Failed to authenticate token.' });
-      } else {
-        // if everything is good, save to request for use in other routes
-        req.decoded = decoded;
-        next();
-      }
-    });
-
-  } else {
-
-    // if there is no token
-    // return an error
-    return res.status(403).send({
-      success: false,
-      message: 'No token provided.'
-    });
-
-  }
-
 };

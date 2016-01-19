@@ -1,6 +1,6 @@
 {
   "name": "js-llama-list",
-  "version": "0.5.0",
+  "version": "0.9.0",
   "description": "This app use MEAN stack",
   "main": "server.js",
   "scripts": {
@@ -24,14 +24,15 @@
   "homepage": "https://github.com/Eugene-Alll/js-llama-lists",
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
-    "body-parser": "^1.14.1",
+    "body-parser": "^1.14.2",
     "express": "^4.13.3",
-    "express-jwt": "^3.1.0",
-    "jsonwebtoken": "^5.4.0",
-    "mongoose": "^4.2.4",
+    "express-jwt": "^3.3.0",
+    "jsonwebtoken": "^5.5.4",
+    "mongoose": "^4.3.6",
     "morgan": "^1.6.1",
     "passport": "^0.3.0",
     "passport-facebook": "^2.0.0",
-    "passport-google-oauth": "^0.2.0"
+    "passport-google-oauth": "^0.2.0",
+    "kerberos": "~0.0.17"
   }
 }

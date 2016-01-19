@@ -6,7 +6,7 @@ var User    = require("../../app/models/user"); // load up the user model
 exports.addTask = function(req, res) {
   var listId    = req.params.id,
       task      = req.body.title,
-      queryName = { name: req.decoded.name || req.decoded._doc.name };
+      queryName = { name: req.user.name };
 
   User.findOne(queryName, function(err, user) {
     if (err) throw err;
@@ -31,7 +31,7 @@ exports.addTask = function(req, res) {
 exports.getTask = function(req, res) {
   var listId    = req.params.id_list,
       taskId    = req.params.id_task,
-      queryName = { name: req.decoded.name || req.decoded._doc.name };
+      queryName = { name: req.user.name };
 
   User.findOne(queryName, function(err, user) {
     if (err) throw err;
@@ -46,7 +46,7 @@ exports.getTask = function(req, res) {
  */
 exports.getTasks = function(req, res) {
   var listId    = req.params.id_list,
-      queryName = { name: req.decoded.name || req.decoded._doc.name };
+      queryName = { name: req.user.name };
 
   User.findOne(queryName, function(err, user) {
     if (err) throw err;
@@ -62,7 +62,7 @@ exports.getTasks = function(req, res) {
 exports.removeTask = function(req, res) {
   var listId    = req.params.id_list,
       taskId    = req.params.id_task,
-      queryName = { name: req.decoded.name || req.decoded._doc.name };
+      queryName = { name: req.user.name };
 
   User.findOne(queryName, function(err, user) {
     if (err) throw err;
@@ -82,7 +82,7 @@ exports.removeTask = function(req, res) {
 exports.setTaskCompleted = function(req, res, next) {
   var listId    = req.params.id_list,
       taskId    = req.params.id_task,
-      queryName = { name: req.decoded.name || req.decoded._doc.name };
+      queryName = { name: req.user.name };
 
   User.findOne(queryName, function(err, user) {
     if (err) throw err;
@@ -111,7 +111,7 @@ exports.changeTask = function(req, res) {
       taskId    = req.params.id_task,
       dataType  = req.body.type,
       data      = req.body.data,
-      queryName = { name: req.decoded.name || req.decoded._doc.name };
+      queryName = { name: req.user.name };
 
   User.findOne(queryName, function(err, user) {
     if (err) throw err;

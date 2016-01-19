@@ -4,7 +4,7 @@ var User    = require("../../app/models/user"); // load up the user model
  * lists request
  */
 exports.getlists = function(req, res) {
-  var queryName = { name: req.decoded.name || req.decoded._doc.name }; // for Amazon EC2 unusual bug
+  var queryName = { name: req.user.name };
   User.findOne(queryName, function(err, user) {
     if (err) throw err;
 
@@ -18,7 +18,7 @@ exports.getlists = function(req, res) {
  * save list request
  */
 exports.addList = function(req, res) {
-  var queryName = { name: req.decoded.name || req.decoded._doc.name };
+  var queryName = { name: req.user.name };
 
   User.findOne(queryName, function(err, user) {
     if (err) throw err;
@@ -43,7 +43,7 @@ exports.addList = function(req, res) {
  */
 exports.removeList = function(req, res) {
   var listId    = req.params.id,
-      queryName = { name: req.decoded.name || req.decoded._doc.name };
+      queryName = { name: req.user.name };
 
   User.findOne(queryName, function(err, user) {
     if (err) throw err;
@@ -63,7 +63,7 @@ exports.removeList = function(req, res) {
 exports.setNewBackground = function(req, res) {
   var listId    = req.params.id,
       image     = req.body.imageName,
-      queryName = { name: req.decoded.name || req.decoded._doc.name };
+      queryName = { name: req.user.name };
 
   User.findOne(queryName, function(err, user) {
     if (err) throw err;

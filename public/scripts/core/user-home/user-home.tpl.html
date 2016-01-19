@@ -1,17 +1,14 @@
-<section class="home-header">
-  <div class="container relative">
-    <a class="navbar__brand home__logo" href="#">
+<section class="homeSubview">
+  <div class="container container--fullHeight container--relative">
+    <a class="navbar__brand homeSubview__logo" href="#">
       <img class="navbar__image" alt="brand-logo" src="img/brandlogo.png">
     </a>
-    <p class="type-page">Lists</p>
-    <div class="button-create-list">
-      <button class="round-button" ng-click="homeVm.createNewList()">
-        <span></span>
-      </button>
-    </div>
+    <p class="homeSubview__page">Lists</p>
+    <button class="homeSubview__newList" ng-click="homeVm.createNewList()">
+      <span class="homeSubview__newListIcon"></span>
+    </button>
   </div>
 </section>
-<!-- /.project-header -->
 <section>
   <div class="container">
     <ng-include src="'../popup/new-list/new-list.html'"></ng-include>
@@ -38,7 +35,7 @@
     </div>
     <!-- /.lists-wrapper -->
   </div>
-  <change-task></change-task>
+  <!-- <change-task></change-task> -->
   <list-background></list-background>
   <fog></fog>
 </section>

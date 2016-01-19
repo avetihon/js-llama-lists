@@ -4,8 +4,8 @@
   angular.module("llamaLists")
     .controller("llamaLists.core.user-signup.signupPageCtrl", SignupPageCtrl);
 
-    SignupPageCtrl.$inject = ["$scope", "$state", "userAuthService"];
-    function SignupPageCtrl($scope, $state, userAuthService) {
+    SignupPageCtrl.$inject = ["$state", "userAuthService"];
+    function SignupPageCtrl($state, userAuthService) {
       var signupVm = this,
           userData = {};
       signupVm.submitted;

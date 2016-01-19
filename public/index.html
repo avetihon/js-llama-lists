@@ -11,60 +11,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 </head>
 <body id="ng-bind:currentState">
-  <nav class="navbar">
-    <div class="container container--fullHeight">
-      <div class="navbar__header">
-        <a class="navbar__brand" href="#">
-          <img class="navbar__image" alt="brand-logo" src="img/brandlogo.png">
-        </a>
-      </div>
-      <!-- /.navbar__header -->
-      <ul class="navbar__auth">
-        <li class="navbar__list">
-          <a class="navbar__link" ui-sref="signup">Sign up</a>
-        </li>
-        <li class="navbar__list">
-          <a class="navbar__link" ui-sref="login">Sign in</a>
-        </li>
-      </ul>
-      <!-- /.navbar__auth -->
-      <ul class="navbar__links">
-        <li class="navbar__list"><a class="navbar__link--firstLink" ui-sref="home">Lists</a></li>
-        <li class="navbar__list"><a class="navbar__link">Activity</a></li>
-        <li class="navbar__list"><a class="navbar__link">Frends</a></li>
-      </ul>
-      <!-- /.navbar__links -->
-      <ul class="userData">
-        <li class="navbar__list userData__avatar">
-          <span class="userData__avatarIcon"></span>
-          <img class="userData__avatarImage" src="img/timon-avatar.jpg" alt="avatar">
-        </li>
-        <li class="navbar__list" ng-class="{'userData__dropdown--open': showDropdownProfile}">
-          <a class="navbar__link" href="#"
-            llama-click-outside
-            llama-outside-if-not="dropdown-menu"
-            ng-click="toggleDropdownProfile()">
-              Profile
-            <span class="userData__caret"></span>
-          </a>
-          <div class="userData__dropdown">
-            <ul class="userData__dropdownLinks">
-              <li><a class="userData__dropdownList" ui-sref="profile">Edit profile</a></li>
-              <li><a class="userData__dropdownList" href="#">Settings</a></li>
-              <li><a class="userData__dropdownList" href="#">Logout</a></li>
-            </ul>
-            <!-- /.userData__dropdown-links -->
-          </div>
-          <!-- /.userData__dropdown -->
-        </li>
-        <!-- /.navbar__list -->
-      </ul>
-      <!-- /.userData -->
-    </div>
-  </nav>
-  <!-- <nav ui-view></nav> -->
-  <!-- /.navbar -->
-  <div ui-view></div>
+  <!-- My ui-view -->
+  <div ui-view="navbar"></div>
+  <div ui-view="content"></div>
+  <footer class="mainFooter"></footer>
   <!-- load all nessesary libs -->
   <script src="libs/angular/angular.min.js"></script>
   <script src="libs/angular-animate/angular-animate.min.js"></script>
@@ -89,5 +39,6 @@
   <script src="scripts/core/user-signup/user-signup.ctrl.js"></script>
   <script src="scripts/core/user-home/user-home.ctrl.js"></script>
   <script src="scripts/core/user-profile/user-profile.ctrl.js"></script>
+  <script src="scripts/core/navbar/user-navbar/user-navbar.ctrl.js"></script>
 </body>
 </html>

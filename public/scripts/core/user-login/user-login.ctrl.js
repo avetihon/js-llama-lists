@@ -4,8 +4,8 @@
   angular.module("llamaLists")
     .controller("llamaLists.core.user-login.loginPageCtrl", LoginPageCtrl);
 
-  LoginPageCtrl.$inject = ["$scope", "$window", "$state", "userAuthService"];
-  function LoginPageCtrl($scope, $window, $state, userAuthService) {
+  LoginPageCtrl.$inject = ["$window", "$state", "userAuthService"];
+  function LoginPageCtrl($window, $state, userAuthService) {
     var loginVm = this,
         userData = {};
     loginVm.submitted;
