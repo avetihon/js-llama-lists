@@ -33,16 +33,17 @@
         scope.saveEditedText = saveEditedText;
         scope.editTaskTitle = editTaskTitle;
         scope.closeEditMode = closeEditMode;
+        scope.closeDropdown = closeDropdown;
+        scope.openDropdown = openDropdown;
         scope.changeColor = changeColor;
         scope.removeTask = removeTask;
-        scope.editTask = editTask;
 
         scope.dropdownIsOpen = false;
         // scope.$on("taskChanged", changeTask);
 
         // set task complete
         function setTaskCompleted(event) {
-          if ((event.target.className !== "task-preference") && (scope.editMode !== true)) {
+          if (scope.editMode !== true) {
             listDataService.setTaskCompleted(listId, taskId)
               .then(function (response) {
                 scope.task.completed = response.completed;
@@ -50,8 +51,14 @@
           }
         }
 
-        function editTask() {
-          scope.dropdownIsOpen = (scope.dropdownIsOpen === true) ? false : true;
+        function openDropdown(event) {
+          if (event.currentTarget === event.target) {
+            scope.dropdownIsOpen = (scope.dropdownIsOpen) ? false : true;
+          }
+        }
+
+        function closeDropdown() {
+          scope.dropdownIsOpen = false;
         }
 
         // activate div attr content editable
@@ -59,11 +66,11 @@
           textBeforeEdit = scope.task.title;
           scope.editMode = true;
           scope.focusOn = true;
-          scope.dropdownIsOpen = false;
+
+          closeDropdown();
         }
 
-        function saveEditedText(event) {
-          event.stopPropagation();
+        function saveEditedText() {
           body.data = scope.task.title; // making body request
           body.type = "title";
 
@@ -73,8 +80,7 @@
         }
 
         // disable div attr content editable, remove changes
-        function closeEditMode(event) {
-          event.stopPropagation();
+        function closeEditMode() {
           scope.task.title = textBeforeEdit;
           scope.editMode = false;
         }

@@ -4,9 +4,9 @@
 
   angular
     .module("llamaLists")
-    .directive("contenteditable", contenteditable)
+    .directive("contenteditable", contenteditableDirective)
 
-    function contenteditable() {
+    function contenteditableDirective() {
       var directive = {
         restrict: "A",
         require: "ngModel",

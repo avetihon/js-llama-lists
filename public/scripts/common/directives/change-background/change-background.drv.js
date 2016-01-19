@@ -3,10 +3,10 @@
 
   angular
     .module("llamaLists")
-    .directive("listBackground", listBackground);
+    .directive("listBackground", listBackgroundDirective);
 
-    listBackground.$inject = ["$rootScope","listDataService"];
-    function listBackground($rootScope, listDataService) {
+    listBackgroundDirective.$inject = ["$rootScope","listDataService"];
+    function listBackgroundDirective($rootScope, listDataService) {
 
       var directive = {
         restrict: "E",

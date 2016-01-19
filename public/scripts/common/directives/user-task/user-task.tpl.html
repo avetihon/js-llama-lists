@@ -1,8 +1,7 @@
 <div>
-  <div class="task-main" ng-class="{ 'task-is-completed': task.completed }" ng-click="setTaskCompleted($event)">
-  <!--  -->
+  <div class="task-main" ng-class="{ 'task-is-completed': task.completed }" >
     <span class="task-change-position"></span>
-    <div class="task-check">
+    <div class="task-check" ng-click="setTaskCompleted($event)">
       <span class="task-check-circle" ng-hide="task.completed" ng-class="task.color"></span>
       <i class="fa fa-check-circle" ng-show="task.completed"></i>
     </div>
@@ -12,59 +11,63 @@
     <div class="task-text"
          ng-model="task.title"
          custom-focus="focusOn"
+         ng-blur="saveEditedText()"
+         ng-click="setTaskCompleted($event)"
          ng-attr-contenteditable="{{ editMode || undefined }}">
     </div>
     <div class="list-button-add-task task__buttonEdit" ng-show="editMode">
       <button type="button" class="done" ng-click="saveEditedText($event)">Save</button>
       <button type="button" class="cancel" ng-click="closeEditMode($event)">Cancel</button>
     </div>
-    <span class="task-preference" ng-click="editTask()"></span>
+    <span class="task-preference" ng-click="openDropdown($event)" click-outside="closeDropdown()">
+      <div class="task__dropdown" ng-class="{ 'task__dropdown--open': dropdownIsOpen }">
+        <ul class="task__dropdownLists">
+          <li class="task__list" ng-click="editTaskTitle()">Edit task</li>
+          <li class="task__list task__list--separatedTop task__list--separatedBottom task__list--unhovered">
+            <p class="task__listParagraph">Colors</p>
+            <div class="task__colors">
+              <!-- Maybe it's vary bad code... -->
+              <span class="task__color task__color--gray"
+                    ng-click="changeColor($event)"
+                    ng-class="{ 'task__color--active': 'task__color--gray' === task.color}">
+                <i class="fa fa-check task__colorCheckmark"></i>
+              </span>
+              <span class="task__color task__color--azure"
+                    ng-click="changeColor($event)"
+                    ng-class="{ 'task__color--active': 'task__color--azure' === task.color}">
+                <i class="fa fa-check task__colorCheckmark"></i>
+              </span>
+              <span class="task__color task__color--golden"
+                    ng-click="changeColor($event)"
+                    ng-class="{ 'task__color--active': 'task__color--golden' === task.color}">
+                <i class="fa fa-check task__colorCheckmark"></i>
+              </span>
+              <span class="task__color task__color--magenta"
+                    ng-click="changeColor($event)"
+                    ng-class="{ 'task__color--active': 'task__color--magenta' === task.color}">
+                <i class="fa fa-check task__colorCheckmark"></i>
+              </span>
+              <span class="task__color task__color--violet"
+                    ng-click="changeColor($event)"
+                    ng-class="{ 'task__color--active': 'task__color--violet' === task.color}">
+                <i class="fa fa-check task__colorCheckmark"></i>
+              </span>
+              <span class="task__color task__color--red"
+                    ng-click="changeColor($event)"
+                    ng-class="{ 'task__color--active': 'task__color--red' === task.color}">
+                <i class="fa fa-check task__colorCheckmark"></i>
+              </span>
+            </div>
+          </li>
+          <li class="task__list">Add due date</li>
+          <li class="task__list">Add description</li>
+          <li class="task__list">Add comment</li>
+          <li class="task__list task__list--separatedTop" ng-click="removeTask()">Remove task</li>
+        </ul>
+        <!-- /.task__dropdownLists -->
+      </div>
+    </span>
   </div>
-  <div class="task__dropdown" ng-class="{ 'task__dropdown--open': dropdownIsOpen }">
-    <ul class="task__dropdownLists">
-      <li class="task__list" ng-click="editTaskTitle()">Edit task</li>
-      <li class="task__list task__list--separatedTop task__list--separatedBottom task__list--unhovered">
-        <p class="task__listParagraph">Colors</p>
-        <div class="task__colors">
-          <!-- Maybe it's vary bad code... -->
-          <span class="task__color task__color--gray"
-                ng-click="changeColor($event)"
-                ng-class="{ 'task__color--active': 'task__color--gray' === task.color}">
-            <i class="fa fa-check task__colorCheckmark"></i>
-          </span>
-          <span class="task__color task__color--azure"
-                ng-click="changeColor($event)"
-                ng-class="{ 'task__color--active': 'task__color--azure' === task.color}">
-            <i class="fa fa-check task__colorCheckmark"></i>
-          </span>
-          <span class="task__color task__color--golden"
-                ng-click="changeColor($event)"
-                ng-class="{ 'task__color--active': 'task__color--golden' === task.color}">
-            <i class="fa fa-check task__colorCheckmark"></i>
-          </span>
-          <span class="task__color task__color--magenta"
-                ng-click="changeColor($event)"
-                ng-class="{ 'task__color--active': 'task__color--magenta' === task.color}">
-            <i class="fa fa-check task__colorCheckmark"></i>
-          </span>
-          <span class="task__color task__color--violet"
-                ng-click="changeColor($event)"
-                ng-class="{ 'task__color--active': 'task__color--violet' === task.color}">
-            <i class="fa fa-check task__colorCheckmark"></i>
-          </span>
-          <span class="task__color task__color--red"
-                ng-click="changeColor($event)"
-                ng-class="{ 'task__color--active': 'task__color--red' === task.color}">
-            <i class="fa fa-check task__colorCheckmark"></i>
-          </span>
-        </div>
-      </li>
-      <li class="task__list">Add due date</li>
-      <li class="task__list">Add description</li>
-      <li class="task__list">Add comment</li>
-      <li class="task__list task__list--separatedTop" ng-click="removeTask()">Remove task</li>
-    </ul>
-    <!-- /.task__dropdownLists -->
-  </div>
+
   <!-- /.task__dropdown -->
 </div>

@@ -4,9 +4,9 @@
 
   angular
     .module("llamaLists")
-    .directive("customFocus", customFocus)
+    .directive("customFocus", customFocusDirective)
 
-    function customFocus() {
+    function customFocusDirective() {
       var directive = {
         restrict: "A",
         scope: {

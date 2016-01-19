@@ -1,46 +1,52 @@
-// need rewrite this crap code
 (function() {
   "use strict";
 
   angular
     .module("llamaLists")
-    .directive("llamaClickOutside", clickOutsideDrv);
+    .directive("clickOutside", clickOutsideDirective);
 
-    clickOutsideDrv.$inject = ["$document"];
-    function clickOutsideDrv($document) {
-      return {
+    clickOutsideDirective.$inject = ["$document", "$parse"];
+    function clickOutsideDirective($document, $parse) {
+      var directive = {
         restrict: "A",
-        link: function(scope, elem, attrs) {
-            var classNotRemove = attrs.llamaOutsideIfNot;
-            scope.showDropdownProfile = false;
+        link: linkFunc
+      }
 
-            scope.toggleDropdownProfile = function() {
-              scope.showDropdownProfile = !scope.showDropdownProfile;
-            }
+      return directive;
 
-            var eventHandler = function(event){
-              var isClickedElementChild = elem
-                  .find(event.target)
-                  .length > 0;
-              var isClickedElementSelf = elem[0].contains(event.target),
-                  clickedElementClass = event.target.className;
+      function linkFunc(scope, elem, attr) {
+        var fn = $parse(attr['clickOutside']),
+            topElement, // directive elem
+            childElement; // any child element in directive elem
 
-              // console.log(angular.element(document.querySelector(".dropdown-menu")).find("*")); // find all children
-              if(isClickedElementChild || isClickedElementSelf || clickedElementClass === classNotRemove) {
-                return;
-              } else {
-                scope.$apply(function(){
-                  scope.showDropdownProfile = false;
-                });
-              }
-            }
+        var eventHandler = function(event){
 
-            $document.on("click", eventHandler);
+          topElement = elem[0] === event.target;
+          childElement = elem[0].contains(event.target);
 
-            scope.$on("$destroy", function() {
-              $document.off("click", eventHandler);
-            });
+          if (!event || !event.target) {
+              return;
+          }
+
+          if (childElement) {
+            return;
+          }
+
+          // console.log(angular.element(elem[0]) == angular.element(event.target))
+          // console.log(angular.element(elem[0].querySelector("." + event.target.className)).length);
+
+          // isChild = elem[0].querySelector("." + event.target.className);
+
+          return scope.$apply(function () {
+              return fn(scope);
+          });
         }
+
+        $document.on("click", eventHandler);
+
+        scope.$on("$destroy", function() {
+          $document.off("click", eventHandler);
+        });
       }
     }
 })();
