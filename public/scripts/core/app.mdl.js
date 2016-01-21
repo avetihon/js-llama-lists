@@ -63,9 +63,17 @@
         templateUrl:  "user-profile/user-profile.tpl.html",
         controller:   "llamaLists.core.user-profile.profilePageCtrl",
         controllerAs: "profileVm"
+      })
+      .state("404", {
+        url: "/404",
+        views: {
+          "content": {
+            templateUrl: "404/404.tpl.html"
+          }
+        }
       });
 
-    $urlRouterProvider.otherwise('/');
+    $urlRouterProvider.otherwise("/404");
     $locationProvider.html5Mode(true);
   }
 

@@ -9,28 +9,28 @@ exports.signup = function(req, res) {
   var reqIsEmpty = !!Object.keys(req.body).length; // check is request body empty -> convert to bool
   if (!reqIsEmpty) {
 
-    return res.status(401).send({
+    return res.status(400).send({
       success: false,
       message: "Ooops! All fields is required",
       type: 4
     });
   } else if (!req.body.username) {
 
-    return res.status(401).send({
+    return res.status(400).send({
       success: false,
       message: "Ooops! Name is required",
       type: 1
     });
   } else if (!req.body.email) {
 
-    return res.status(401).send({
+    return res.status(400).send({
       success: false,
       message: "Ooops! E-mail is required",
       type: 2
     });
   } else if (!req.body.password) {
 
-    return res.status(401).send({
+    return res.status(400).send({
       success: false,
       message: "Ooops! Password is required",
       type: 3
@@ -46,7 +46,7 @@ exports.signup = function(req, res) {
       // if find user with name in request
       if (user) {
         // return 401 status
-        return res.status(401).send({
+        return res.status(422).send({
             success: false,
             message: "This name is already used",
             type: 1
@@ -74,24 +74,23 @@ exports.signup = function(req, res) {
  */
 exports.login = function(req, res) {
   var reqIsEmpty = !!Object.keys(req.body).length; // check is request body empty -> convert to bool
-
   if (!reqIsEmpty) {
 
-    return res.status(401).send({
+    return res.status(400).send({
       success: false,
       message: "Ooops! All fields is required",
       type: 3
     });
   } else if (!req.body.username) {
 
-    return res.status(401).send({
+    return res.status(400).send({
       success: false,
       message: "Ooops! Name is required",
       type: 1
     });
   } else if (!req.body.password) {
 
-    return res.status(401).send({
+    return res.status(400).send({
       success: false,
       message: "Ooops! Password is required",
       type: 2
@@ -105,7 +104,7 @@ exports.login = function(req, res) {
       if (err) throw err;
 
       if (!user || !user.validPassword(req.body.password)) {
-          return res.status(401).send({
+          return res.status(422).send({
               success: false,
               message: 'Wrong username or password'
           });

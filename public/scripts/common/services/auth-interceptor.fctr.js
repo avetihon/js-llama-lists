@@ -17,15 +17,12 @@
           }
           return config;
         },
-        response: function (response) {
-          return response || $q.when(response);
-        },
         responseError: function (response) {
           if (response.status === 401) {
             // handle the case where the user is not authenticated
-            $injector.get('$state').go("index");
+            $injector.get('$state').go("index"); // redirect to home page
           }
-          return response || $q.when(response);
+          return $q.reject(response);
         }
       };
     }
