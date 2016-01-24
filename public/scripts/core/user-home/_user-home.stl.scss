@@ -98,6 +98,11 @@
       cursor: initial;
     }
 
+    &.search--active {
+      width: 290px;
+      opacity: 1;
+    }
+
     &::-webkit-input-placeholder {
       color: #9ba0a6;
     }

@@ -1,6 +1,7 @@
 var User    = require("../../app/models/user"), // load up the user model
     jwt     = require("jsonwebtoken"), // used to create, sign, and verify tokens
-    app     = require("../../server.js");
+    app     = require("../../server.js"),
+    fs      = require("fs");
 
 /**
  * signup request
@@ -30,17 +31,19 @@ exports.signup = function(req, res) {
               type: 1
           });
         } else {
+          // save to new user test list
+          preloadList(function (list) {
+            var newUser  = new User();
+            newUser.name = req.body.username;
+            newUser.email = req.body.email;
+            newUser.password = newUser.generateHash(req.body.password);
+            newUser.lists = list;
 
-          // create new user
-          var newUser  = new User();
-          newUser.name = req.body.username;
-          newUser.email = req.body.email;
-          newUser.password = newUser.generateHash(req.body.password);
+            newUser.save(function(err, done) {
+              if (err) return done(err);
 
-          newUser.save(function(err) {
-            if (err) return done(err);
-
-            res.json({ success: true });
+              res.json({ success: true });
+            });
           });
         }
     });
@@ -84,3 +87,13 @@ exports.login = function(req, res) {
       });
   }
 };
+
+
+function preloadList(callback) {
+  fs.readFile('config/preload.json', 'utf8', function (err, data) {
+    if (err) throw err;
+    var json = JSON.parse(data);
+
+    callback(json);
+  });
+}

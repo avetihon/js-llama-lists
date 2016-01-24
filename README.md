@@ -2,6 +2,8 @@
 
 Task list for you, your girfrend, your friend and your llama. Simple like banana. Just download, install and setup and you have a good application to start to do something.
 
+[Now on Amazon Server!](http://ec2-52-34-55-203.us-west-2.compute.amazonaws.com:3000)
+
 ## Installation
 1. Download the repository
 2. Install npm modules: `npm install`

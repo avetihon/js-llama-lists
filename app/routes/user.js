@@ -8,7 +8,6 @@ var User         = require("../../app/models/user"), // load up the user model
  */
 exports.getUserData = function(req, res) {
   var queryUser = { _id: req.user._id };
-
   User
     .findOne(queryUser)
     .select("-lists")
@@ -32,29 +31,29 @@ exports.saveAvatarImage = function(req, res) {
 
   fs.writeFile(fullPath, imageBuffer.data, function(err){
       if (err) throw err;
-  });
 
-  User
-    .findOne(queryUser)
-    .select("avatar")
-    .exec(function(err, user) {
-      if (err) throw err;
+      User
+        .findOne(queryUser)
+        .select("avatar")
+        .exec(function(err, user) {
+          if (err) throw err;
 
-      /**
-       * remove previous avatar from file system
-       */
-      if (user.avatar.localeCompare("no-avatar.jpg") !== 0) {
-        fs.unlink(path + user.avatar, function(err) {
-           if (err) throw err;
-        });
-      }
+          /**
+           * remove previous avatar from file system
+           */
+          if (user.avatar.localeCompare("no-avatar.jpg") !== 0) {
+            fs.unlink(path + user.avatar, function(err) {
+               if (err) throw err;
+            });
+          }
 
-      user.avatar = uniqueName + ".jpg";
+          user.avatar = uniqueName + ".jpg";
 
-      user.save(function (err) {
-        if (err) return handleError(err);
+          user.save(function (err) {
+            if (err) return handleError(err);
 
-        res.json({ avatar: user.avatar });
+            res.json({ avatar: user.avatar });
+          });
       });
   });
 };

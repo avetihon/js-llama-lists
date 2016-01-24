@@ -15,7 +15,10 @@
     <div class="list-toolbar">
       <div class="list-search">
         <span class="icon-search"></span>
-        <input type="text" placeholder="Start typing to search lists...">
+        <input type="text"
+               placeholder="Start typing to search lists..."
+               ng-model="homeVm.search.title"
+               ng-class="{ 'search--active': homeVm.search.title.length }">
         <span class="icon-close"></span>
       </div>
       <!-- /.list-search -->
@@ -28,7 +31,7 @@
     </div>
     <!-- /.list-toolbar -->
     <div class="lists-wrapper row">
-      <div class="col-sm-4" ng-repeat="list in homeVm.lists">
+      <div class="col-sm-4" ng-repeat="list in homeVm.lists | filter:homeVm.search">
         <list list-data="list" update-lists="homeVm.updateList()"></list>
       </div>
       <!-- /.list-elemnt -->

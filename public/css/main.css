@@ -1748,13 +1748,15 @@ img {
 }
 
 .list-title {
-  position: relative;
+  position: absolute;
+  bottom: 20px;
+  max-height: 90px;
   margin: 0;
   padding: 0 4%;
-  line-height: 160px;
   text-align: left;
   font-size: 1.4em;
   font-weight: 400;
+  overflow: hidden;
   color: #fff;
 }
 
@@ -2173,6 +2175,10 @@ img {
 .list-search input[type=text]:focus {
   border-color: #9465ff;
   cursor: initial;
+}
+.list-search input[type=text].search--active {
+  width: 290px;
+  opacity: 1;
 }
 .list-search input[type=text]::-webkit-input-placeholder {
   color: #9ba0a6;

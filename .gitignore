@@ -39,6 +39,7 @@ Thumbs.db
 # Library folder #
 ##################
 node_modules/*
+.sass-cache
 
 # Text editor project files #
 #############################

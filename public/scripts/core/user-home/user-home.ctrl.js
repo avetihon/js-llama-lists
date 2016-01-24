@@ -30,6 +30,7 @@
 
       function createNewList() {
         homeVm.newListPopup = true;
+        homeVm.focus = true;
         $rootScope.$emit("showFogOverlay");
       }
 

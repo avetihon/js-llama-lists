@@ -5,6 +5,7 @@
       type="text"
       name="listName"
       placeholder="List name"
+      custom-focus="homeVm.focus"
       ng-model="homeVm.newListTitle"
       ng-class="{ 'has-error': (homeVm.newListForm.listName.$invalid && homeVm.newListForm.listName.$dirty) ||
                                (homeVm.newListForm.listName.$pristine && homeVm.newListSubmitted) }"

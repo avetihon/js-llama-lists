@@ -53,7 +53,7 @@ exports.removeList = function(req, res) {
 
   User
     .findOne(queryUser)
-    .select("lists._id")
+    .select("lists")
     .exec(function(err, user) {
       if (err) throw err;
 

@@ -24,6 +24,7 @@
         scope.$watch('trigger', function(value) {
         if (value) {
           element[0].focus();
+          element[0].select();
           scope.trigger = false;
         }
       });
