@@ -1,3 +1,6 @@
+/**
+ * This directive close dropdown by click on any other element
+ */
 (function() {
   "use strict";
 
@@ -14,15 +17,13 @@
 
       return directive;
 
-      function linkFunc(scope, elem, attr) {
-        var fn = $parse(attr['clickOutside']),
-            topElement, // directive elem
-            childElement; // any child element in directive elem
+      function linkFunc(scope, element, attr) {
+        var fn = $parse(attr['clickOutside']);
 
         var eventHandler = function(event){
 
-          topElement = elem[0] === event.target;
-          childElement = elem[0].contains(event.target);
+          // any child element in directive elem
+          var childElement = element[0].contains(event.target);
 
           if (!event || !event.target) {
               return;
@@ -31,11 +32,6 @@
           if (childElement) {
             return;
           }
-
-          // console.log(angular.element(elem[0]) == angular.element(event.target))
-          // console.log(angular.element(elem[0].querySelector("." + event.target.className)).length);
-
-          // isChild = elem[0].querySelector("." + event.target.className);
 
           return scope.$apply(function () {
               return fn(scope);

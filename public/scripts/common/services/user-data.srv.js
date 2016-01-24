@@ -1,5 +1,5 @@
 /**
- * This service controll user data: set, update
+ * This service controll user data: set, update and other
 **/
 
 (function() {
@@ -12,6 +12,16 @@
     userDataService.$inject = ["$http"];
     function userDataService($http) {
 
+      this.getUserData = function(data) {
+        return $http.get("/api/user").then(function (response) {
+          return response.data;
+        })
+      }
 
+      this.saveAvatarImage = function(data) {
+        return $http.post("/api/user/avatar", data).then(function (response) {
+          return response.data;
+        })
+      }
     }
 })();

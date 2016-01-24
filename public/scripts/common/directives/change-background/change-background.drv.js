@@ -1,3 +1,6 @@
+/**
+ * This directive controll popup and change background for lists
+ */
 (function() {
   "use strict";
 
@@ -7,7 +10,6 @@
 
     listBackgroundDirective.$inject = ["$rootScope","listDataService"];
     function listBackgroundDirective($rootScope, listDataService) {
-
       var directive = {
         restrict: "E",
         replace: true,
@@ -18,17 +20,17 @@
 
       return directive;
 
-      function linkFunc(scope, elem, attrs) {
-        var currentListId,
-            isChild,
-            returnData = {},
-            image = {};
+      function linkFunc(scope, element, attrs) {
+        var currentListId;
+
         scope.editedBackgroundWindow;
         scope.changeBackground = changeBackground;
         scope.closePopupButton = closePopupButton;
         scope.$on('closePopup', closePopup);
 
-        // watch for changes in getBackgroundPopup() func
+        /**
+         * watch for changes in getter getBackgroundPopup()
+         */
         scope.$watch(
           function() {
             return listDataService.getBackgroundPopup();
@@ -40,33 +42,34 @@
           }
         );
 
-        // angular.element(elem).on('click', function (event) {
-        //   isChild = angular.element(event.target).parent().hasClass("list-background-wrapper");
-        //   if (isChild) {
-        //     image = event.target.className;
-        //     listDataService.setBackgroundForList(currentListId, image).then( function (response) {
-        //       console.log(response)
-        //     })
-        //   }
-
-        // });
-
+        /**
+         * On click close button -> hide fog
+         */
         function closePopupButton() {
           $rootScope.$emit("hideFogOverlay");
         }
 
+        /**
+         * Get class name of clicked element, save its to DB
+         * And broadcast to right list changes (maybe it's vare bad solution)
+         */
         function changeBackground(event) {
+          var image = {};
+          var responseData = {};
+
           image.imageName = event.target.className;
           listDataService.setBackgroundForList(currentListId, image).then( function (response) {
-            returnData = {
-              listId: currentListId,
-              image: image.imageName,
-              type: "backgroundChanged"
-            }
-            scope.$parent.$broadcast("listChanged", returnData);
+
+            responseData.listId = currentListId;
+            responseData.image = image.imageName;
+            responseData.type = "backgroundChanged";
+            scope.$parent.$broadcast("listChanged", responseData);
           });
         }
 
+        /**
+         * When fog directive broadcast closing event -> calling this func
+         */
         function closePopup() {
           listDataService.closeBackgroundPopup();
         }

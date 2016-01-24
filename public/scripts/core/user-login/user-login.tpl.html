@@ -11,9 +11,6 @@
           ng-show="(loginForm.userName.$dirty && loginForm.userName.$invalid) || (loginForm.userName.$pristine && loginVm.submitted)">
           <span ng-message="required">Ooops! Name is requred</span>
         </p>
-        <p class="message">
-          <span ng-bind="loginVm.message"></span>
-        </p>
 			</div>
 			<div class="form-group" ng-class="{ 'has-error': loginForm.userPassword.$dirty && loginForm.userPassword.$invalid || (loginForm.userPassword.$pristine && loginVm.submitted) }">
 				<label for="inputPassword">Password</label>
@@ -25,10 +22,10 @@
           >
           <span ng-message="required">Ooops! Password is required</span>
         </p>
-        <p class="message">
-          <span ng-bind="loginVm.message"></span>
-        </p>
 			</div>
+      <p class="userAuth__errorMessageServer">
+        <span ng-bind="signupVm.message"></span>
+      </p>
 			<button type="button" ng-click="loginVm.submitData(loginForm.$valid)">Submit</button>
 			<div class="have-an">
 				<span>Don't have an account?</span>

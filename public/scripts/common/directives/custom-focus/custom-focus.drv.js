@@ -1,3 +1,6 @@
+/**
+ * This directive setup focus to non form element
+ */
 (function() {
 
 "use strict";
@@ -19,7 +22,7 @@
 
       function linkFunc(scope, element, attrs) {
         scope.$watch('trigger', function(value) {
-        if (value === true) {
+        if (value) {
           element[0].focus();
           scope.trigger = false;
         }

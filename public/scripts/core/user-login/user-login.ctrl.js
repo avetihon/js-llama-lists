@@ -6,8 +6,7 @@
 
   LoginPageCtrl.$inject = ["$window", "$state", "userAuthService"];
   function LoginPageCtrl($window, $state, userAuthService) {
-    var loginVm = this,
-        userData = {};
+    var loginVm = this;
     loginVm.submitted;
     loginVm.submitData = submitData;
     loginVm.clearMessageError = clearMessageError;
@@ -16,7 +15,7 @@
       loginVm.submitted = true;
 
       if (validation) {
-        userData = {
+        var userData = {
           username: loginVm.username,
           password: loginVm.password
         };

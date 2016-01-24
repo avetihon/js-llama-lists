@@ -8,8 +8,9 @@
     <!-- /.navbar__links -->
     <div class="userData">
       <div class="userData__avatar">
-        <span class="userData__avatarIcon" ng-click="navVm.changeAvatar()"></span>
-        <img class="userData__avatarImage" src="img/no-avatar.jpg" alt="avatar">
+        <span class="userData__avatarIcon"></span>
+        <input class="userData__uploadAvatar" type="file" file-reader="navVm.changeAvatar(image)">
+        <img class="userData__avatarImage" ng-src="img/users-avatar/{{ navVm.avatarImage }}" alt="avatar">
       </div>
       <!-- /.userNavbar__avatar -->
       <div class="userData__profile"

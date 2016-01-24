@@ -1,16 +1,21 @@
 var User    = require("../../app/models/user"); // load up the user model
 
 /**
- * lists request
+ * get all lists request
  */
 exports.getlists = function(req, res) {
-  var queryName = { name: req.user.name };
-  User.findOne(queryName, function(err, user) {
-    if (err) throw err;
+  var queryUser = { _id: req.user._id };
 
-    if (user) {
-      res.json({ lists: user.list });
-    }
+  User
+    .findOne(queryUser)
+    .select("lists")
+    .lean() // return plain js object, faster then mongo document
+    .exec(function(err, user) {
+      if (err) throw err;
+
+      if (user) {
+        res.json({ lists: user.lists });
+      }
   });
 };
 
@@ -18,42 +23,47 @@ exports.getlists = function(req, res) {
  * save list request
  */
 exports.addList = function(req, res) {
-  var queryName = { name: req.user.name };
+  var queryUser = { _id: req.user._id };
 
-  User.findOne(queryName, function(err, user) {
-    if (err) throw err;
+  User
+    .findOne(queryUser)
+    .select("lists")
+    .exec(function(err, user) {
+      if (err) throw err;
 
-    user.list.push({
-      title: req.body.title,
-      date: req.body.date
+      user.lists.push({
+        title: req.body.title,
+        date: req.body.date
+      });
+
+      user.save(function(err, done) {
+        if (err) return done(err);
+
+        res.json({ lists: done.lists });
+      });
     });
-
-    user.save(function(err, done) {
-      if (err) return done(err);
-      // var lengthLists = (done.list).length;
-
-      // res.json({ lastListData: done.list[lengthLists - 1] });
-      res.json({ lists: done.list });
-    });
-  });
 };
 
 /**
  * remove list request
  */
 exports.removeList = function(req, res) {
-  var listId    = req.params.id,
-      queryName = { name: req.user.name };
+  var listId    = req.params.id;
+  var queryUser = { _id: req.user._id };
 
-  User.findOne(queryName, function(err, user) {
-    if (err) throw err;
+  User
+    .findOne(queryUser)
+    .select("lists._id")
+    .exec(function(err, user) {
+      if (err) throw err;
 
-    user.list.id(listId).remove();
+      user.lists.id(listId).remove();
 
-    user.save(function (err, done) {
-      if (err) return done(err);
-      res.json({ lists: done.list }); // return new array of list
-    });
+      user.save(function (err, done) {
+        if (err) return done(err);
+
+        res.json({ lists: done.lists }); // return new array of list
+      });
   });
 };
 
@@ -61,20 +71,23 @@ exports.removeList = function(req, res) {
  * set new background for list request
  */
 exports.setNewBackground = function(req, res) {
-  var listId    = req.params.id,
-      image     = req.body.imageName,
-      queryName = { name: req.user.name };
+  var listId    = req.params.id;
+  var image     = req.body.imageName;
+  var queryUser = { _id: req.user._id };
 
-  User.findOne(queryName, function(err, user) {
-    if (err) throw err;
+  User
+    .findOne(queryUser)
+    .select("lists._id lists.image")
+    .exec(function(err, user) {
+      if (err) throw err;
 
-    var list = user.list.id(listId);
-    list.image = image;
+      var list = user.lists.id(listId);
+      list.image = image;
 
-    user.save(function(err, done) {
-      if (err) return done(err);
+      user.save(function(err, done) {
+        if (err) return done(err);
 
-      res.json({success: true});
-    });
+        res.json({ success: true });
+      });
   });
 };

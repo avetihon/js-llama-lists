@@ -1,8 +1,7 @@
 /**
-  This directive controll fog(black-transparent background)
-  for all popup window
-**/
-
+ * This directive controll fog(black-transparent background)
+ * for all popup window
+ */
 (function() {
   "use strict";
 
@@ -12,7 +11,6 @@
 
     fogDirective.$inject = ["$rootScope"];
     function fogDirective($rootScope) {
-
       var directive = {
         restrict: "E",
         replace: true,
@@ -23,22 +21,24 @@
 
       return directive;
 
-      function linkFunc(scope, element, attribute) {
+      function linkFunc(scope, element, attrs) {
         var listenerShowOverlay = $rootScope.$on("showFogOverlay", showFogOverlay);
         var listenerHideOverlay = $rootScope.$on("hideFogOverlay", hideFogOverlay);
         scope.hideFogOverlay = hideFogOverlay;
 
-        // remove rootscope listener
+        /**
+         * remove rootscope listener
+         */
         scope.$on('$destroy', listenerShowOverlay);
         scope.$on('$destroy', listenerHideOverlay);
 
-        /*
-          This function close whatever popup window
-          And hide fog (or overlay)
-        */
+        /**
+         * This function close any popup window
+         * And hide fog (or overlay)
+         */
         function hideFogOverlay() {
           scope.showFogState = false;
-          scope.$parent.$broadcast("closePopup"); // little hint
+          scope.$parent.$broadcast("closePopup");
         }
 
         function showFogOverlay() {

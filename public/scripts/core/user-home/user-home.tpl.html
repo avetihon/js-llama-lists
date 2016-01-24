@@ -29,7 +29,7 @@
     <!-- /.list-toolbar -->
     <div class="lists-wrapper row">
       <div class="col-sm-4" ng-repeat="list in homeVm.lists">
-        <list list-data="list"></list>
+        <list list-data="list" update-lists="homeVm.updateList()"></list>
       </div>
       <!-- /.list-elemnt -->
     </div>

@@ -4,40 +4,46 @@ var User    = require("../../app/models/user"); // load up the user model
  * save task request
  */
 exports.addTask = function(req, res) {
-  var listId    = req.params.id,
-      task      = req.body.title,
-      queryName = { name: req.user.name };
+  var listId    = req.params.id;
+  var taskText  = req.body.title;
+  var queryUser = { _id: req.user._id };
 
-  User.findOne(queryName, function(err, user) {
-    if (err) throw err;
-    var list = user.list.id(listId);
+  User
+    .findOne(queryUser)
+    .select("lists._id lists.tasks")
+    .exec(function (err, user) {
+      if (err) throw err;
 
-    list.task.push({
-      title: task,
+      var list = user.lists.id(listId);
+
+      list.tasks.push({
+        text: taskText,
+      });
+
+      user.save(function(err, done) {
+        if (err) return done(err);
+
+        res.json({ tasks: list.tasks });
+      });
     });
-
-    user.save(function(err, done) {
-      if (err) return done(err);
-
-      var task = list.task;
-      res.json({ task: task });
-    });
-  });
 };
 
 /**
  * get one task request
  */
 exports.getTask = function(req, res) {
-  var listId    = req.params.id_list,
-      taskId    = req.params.id_task,
-      queryName = { name: req.user.name };
+  var listId    = req.params.id_list;
+  var taskId    = req.params.id_task;
+  var queryUser = { _id: req.user._id };
 
-  User.findOne(queryName, function(err, user) {
-    if (err) throw err;
-    var task = user.list.id(listId).task.id(taskId);
+  User
+    .findOne(queryUser)
+    .select("lists._id lists.tasks")
+    .exec(function (err, user) {
+      if (err) throw err;
 
-    res.json({ task: task });
+      var task = user.lists.id(listId).tasks.id(taskId);
+      res.json({ task: task });
   });
 };
 
@@ -45,14 +51,17 @@ exports.getTask = function(req, res) {
  * get all tasks request
  */
 exports.getTasks = function(req, res) {
-  var listId    = req.params.id_list,
-      queryName = { name: req.user.name };
+  var listId    = req.params.id_list;
+  var queryUser = { _id: req.user._id };
 
-  User.findOne(queryName, function(err, user) {
-    if (err) throw err;
-    var tasks = user.list.id(listId).task;
+  User
+    .findOne(queryUser)
+    .select("lists._id lists.tasks")
+    .exec(function (err, user) {
+      if (err) throw err;
 
-    res.json({ tasks: tasks });
+      var tasks = user.lists.id(listId).tasks;
+      res.json({ tasks: tasks });
   });
 };
 
@@ -60,19 +69,22 @@ exports.getTasks = function(req, res) {
  * remove one task request
  */
 exports.removeTask = function(req, res) {
-  var listId    = req.params.id_list,
-      taskId    = req.params.id_task,
-      queryName = { name: req.user.name };
+  var listId    = req.params.id_list;
+  var taskId    = req.params.id_task;
+  var queryUser = { _id: req.user._id };
 
-  User.findOne(queryName, function(err, user) {
-    if (err) throw err;
-    user.list.id(listId).task.id(taskId).remove();
+  User
+    .findOne(queryUser)
+    .select("lists._id lists.tasks")
+    .exec(function (err, user) {
+      if (err) throw err;
 
-    user.save(function (err, done) {
-      if (err) return done(err);
+      user.lists.id(listId).tasks.id(taskId).remove();
+      user.save(function (err, done) {
+        if (err) return done(err);
 
-      res.json({ success: true });
-    });
+        res.json({ success: true });
+      });
   });
 };
 
@@ -80,25 +92,26 @@ exports.removeTask = function(req, res) {
  * set task as completed or uncompleted
  */
 exports.setTaskCompleted = function(req, res, next) {
-  var listId    = req.params.id_list,
-      taskId    = req.params.id_task,
-      queryName = { name: req.user.name };
+  var listId    = req.params.id_list;
+  var taskId    = req.params.id_task;
+  var queryUser = { _id: req.user._id };
 
-  User.findOne(queryName, function(err, user) {
-    if (err) throw err;
-    var task = user.list.id(listId).task.id(taskId);
+  User
+    .findOne(queryUser)
+    .select("lists._id lists.tasks")
+    .exec(function (err, user) {
+      if (err) throw err;
 
-    if (task.completed) {
-      task.completed = false;
-    } else {
-      task.completed = true;
-    }
+      var task = user.lists.id(listId).tasks.id(taskId);
+      task.completed = (task.completed)
+        ? false
+        : true;
 
-    user.save(function (err, done) {
-      if (err) return done(err);
+      user.save(function (err, done) {
+        if (err) return done(err);
 
-      res.json({ completed: task.completed });
-    });
+        res.json({ completed: task.completed });
+      });
   });
 };
 
@@ -107,26 +120,30 @@ exports.setTaskCompleted = function(req, res, next) {
  * change data in task
  */
 exports.changeTask = function(req, res) {
-  var listId    = req.params.id_list,
-      taskId    = req.params.id_task,
-      dataType  = req.body.type,
-      data      = req.body.data,
-      queryName = { name: req.user.name };
+  var listId    = req.params.id_list;
+  var taskId    = req.params.id_task;
+  var dataType  = req.body.type;
+  var data      = req.body.data;
+  var queryUser = { _id: req.user._id };
 
-  User.findOne(queryName, function(err, user) {
-    if (err) throw err;
-    var task = user.list.id(listId).task.id(taskId);
+  User
+    .findOne(queryUser)
+    .select("lists._id lists.tasks")
+    .exec(function (err, user) {
+      if (err) throw err;
 
-    if (dataType === "color") {
-      task.color = data;
-    } else if (dataType === "title") {
-      task.title = data;
-    }
+      var task = user.lists.id(listId).tasks.id(taskId);
 
-    user.save(function(err, done) {
-      if (err) return done(err);
+      if (dataType === "color") {
+        task.color = data;
+      } else if (dataType === "title") {
+        task.title = data;
+      }
 
-      res.json({ success: true });
-    });
+      user.save(function(err, done) {
+        if (err) return done(err);
+
+        res.json({ success: true });
+      });
   });
 };

@@ -1,3 +1,6 @@
+/**
+ * This directive add custom ng-model directive to non-form element
+ */
 (function() {
 
 "use strict";

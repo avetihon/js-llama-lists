@@ -7,17 +7,17 @@
 
     HomePageCtrl.$inject = ["$scope", "$rootScope", "listDataService"];
     function HomePageCtrl($scope, $rootScope, listDataService) {
-      var homeVm = this,
-          listData = {};
+      var homeVm = this;
       homeVm.newListPopup; // check open popup
       homeVm.newListSubmitted; // check press submit button
       homeVm.createNewList = createNewList;
       homeVm.saveNewList = saveNewList;
+      homeVm.updateList = activate;
 
       // fog broadcast
       $scope.$on('closePopup', closePopup);
       // list broadcast
-      $scope.$on('updateList', activate);
+      // $scope.$on('updateList', activate);
 
       activate();
 
@@ -37,7 +37,9 @@
         homeVm.newListSubmitted = true;
 
         if (validation) {
-          listData.title = homeVm.newListTitle;
+          var listData = {
+            title: homeVm.newListTitle
+          }
 
           listDataService.saveNewList(listData)
             .then(function (response) {

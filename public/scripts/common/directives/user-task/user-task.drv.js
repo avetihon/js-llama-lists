@@ -1,3 +1,6 @@
+/**
+ * This directive controll task data
+ */
 (function() {
   "use strict";
 
@@ -5,8 +8,8 @@
     .module("llamaLists")
     .directive("userTask", taskDirective);
 
-    taskDirective.$inject = ["listDataService"];
-    function taskDirective(listDataService) {
+    taskDirective.$inject = ["taskDataService"];
+    function taskDirective(taskDataService) {
 
       var directive = {
         require: "^list",
@@ -22,13 +25,10 @@
       return directive;
 
       function linkFunc(scope, element, attribute, listController) {
-        var taskId = scope.task["_id"],
-            listId = listController.listId,
-            className,
-            body = {},
-            element,
-            target,
-            textBeforeEdit;
+        var taskId = scope.task["_id"];
+        var listId = listController.listId;
+        var textBeforeEdit;
+
         scope.setTaskCompleted = setTaskCompleted;
         scope.saveEditedText = saveEditedText;
         scope.editTaskTitle = editTaskTitle;
@@ -41,16 +41,18 @@
         scope.dropdownIsOpen = false;
         // scope.$on("taskChanged", changeTask);
 
-        // set task complete
         function setTaskCompleted(event) {
           if (scope.editMode !== true) {
-            listDataService.setTaskCompleted(listId, taskId)
+            taskDataService.setTaskCompleted(listId, taskId)
               .then(function (response) {
                 scope.task.completed = response.completed;
               });
           }
         }
 
+        /**
+         * This function open dropdown by clicking on editing task
+         */
         function openDropdown(event) {
           if (event.currentTarget === event.target) {
             scope.dropdownIsOpen = (scope.dropdownIsOpen) ? false : true;
@@ -71,10 +73,12 @@
         }
 
         function saveEditedText() {
-          body.data = scope.task.title; // making body request
-          body.type = "title";
+          var task = {
+            data: scope.task.title,
+            type: "title"
+          }
 
-          listDataService.changeTask(listId, taskId, body).then(function (response) {
+          taskDataService.changeTask(listId, taskId, task).then(function (response) {
             scope.editMode = false;
           });
         }
@@ -87,15 +91,16 @@
 
         // change task color
         function changeColor(event) {
-          className = event.target.className;
-          target = angular.element(event.target);
+          var className = event.target.className;
+          var target = angular.element(event.target);
+          var task = {};
           if (!target.hasClass("task__color--active")) {
             className = className.replace("task__color ", ""); // remove unnecessary part of class name
 
-            body.data = className; // making body request
-            body.type = "color";
+            task.data = className; // make body request
+            task.type = "color";
 
-            listDataService.changeTask(listId, taskId, body).then(function (response) {
+            taskDataService.changeTask(listId, taskId, task).then(function (response) {
               scope.task.color = className;
             });
           }
@@ -103,7 +108,7 @@
 
         // remove task
         function removeTask() {
-          listDataService.removeTask(listId, taskId).then(function (response) {
+          taskDataService.removeTask(listId, taskId).then(function (response) {
             listController.reloadTasks(listId);
           });
         }

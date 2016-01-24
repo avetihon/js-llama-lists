@@ -2,7 +2,7 @@
 var mongoose = require('mongoose');
 
 var taskSchema = mongoose.Schema({
-  title:        String,
+  text:         String,
   date:         String,
   description:  String,
   due_date:     Date,

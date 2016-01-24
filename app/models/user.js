@@ -4,10 +4,11 @@ var mongoose     = require('mongoose'),
     listShema    = require("../../app/models/list").schema; // load List shema
 
 var userSchema = mongoose.Schema({
-  name:     String,
-  email:    String,
-  password: String,
-  list:     [listShema]
+  name:      String,
+  email:     String,
+  password:  String,
+  avatar:    { type: String, default: "no-avatar.jpg" },
+  lists:     [listShema]
 });
 
 // generating a hash

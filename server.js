@@ -18,8 +18,8 @@ app.use(express.static(__dirname + "/public/scripts/core"));
 app.use(express.static(__dirname + "/public/scripts/common"));
 
 app.use(morgan("dev")); // log every request to the console
-app.use(bodyParser.json()); // get information from html forms
-app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
+app.use(bodyParser.json({ limit: "1mb" })); // get information from html forms
+app.use(bodyParser.urlencoded({ limit: "1mb", extended: true })); // support encoded bodies
 app.use(bodyParser.json({ type: "application/vnd.api+json" })); // parse application/vnd.api+json as json
 
 // We are going to protect /api routes with JWT

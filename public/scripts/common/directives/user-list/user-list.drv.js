@@ -1,3 +1,6 @@
+/**
+ * This directive controll list data
+ */
 (function() {
   "use strict";
 
@@ -5,14 +8,14 @@
     .module("llamaLists")
     .directive("list", listDirective);
 
-    listDirective.$inject = ["listDataService"];
-    function listDirective(listDataService) {
-
+    listDirective.$inject = ["listDataService", "taskDataService"];
+    function listDirective(listDataService, taskDataService) {
       var directive = {
         restrict: "E",
         replace: true,
         scope: {
-          listData: "="
+          listData: "=",
+          updateLists: "&"
         },
         templateUrl: "scripts/common/directives/user-list/user-list.tpl.html",
         link: linkFunc,
@@ -22,19 +25,24 @@
       return directive;
 
       function linkFunc(scope, elem, attrs) {
-        var task = {},
-            listId = scope.listData["_id"];
+        var listId = scope.listData._id;
         scope.removeList = removeList;
         scope.addNewTask = addNewTask;
         scope.clearInput = clearInput;
         scope.openBackgroundPopup = openBackgroundPopup;
         scope.$on("listChanged", listChanged);
 
+        /**
+         * This function create new task, save its to DB
+         * And in promise return all tasks of list
+         */
         function addNewTask() {
+          var task = {};
           task.title = scope.taskTitle;
-          listDataService.addNewTask(listId, task)
+
+          taskDataService.addNewTask(listId, task)
             .then(function (response) {
-              scope.listData.task = response.task;
+              scope.listData.tasks = response.tasks;
               scope.taskTitle = null;
             });
         }
@@ -42,7 +50,7 @@
         function removeList() {
           listDataService.removeList(listId)
             .then(function (response) {
-              scope.$emit("updateList");
+              scope.updateLists();
           });
         }
 
@@ -51,7 +59,7 @@
         }
 
         function listChanged(event, data) {
-          if (scope.listData["_id"] == data.listId) {
+          if (scope.listData._id == data.listId) {
             if (data.type === "backgroundChanged") {
               scope.listData.image = data.image;
             } else if (data.type === "taskChanged") {
@@ -66,14 +74,14 @@
       }
     }
 
-    controllerFunc.$inject = ["$scope", "listDataService"];
-    function controllerFunc($scope, listDataService) {
-      this.listId = $scope.listData["_id"]; // send data to other directive
+    controllerFunc.$inject = ["$scope", "taskDataService"];
+    function controllerFunc($scope, taskDataService) {
+      this.listId = $scope.listData._id; // send data to inner directive
       this.reloadTasks = reloadTasks;
 
       function reloadTasks(listId) {
-        listDataService.getAllTask(listId).then(function (response) {
-          $scope.listData.task = response.tasks;
+        taskDataService.getAllTask(listId).then(function (response) {
+          $scope.listData.tasks = response.tasks;
         });
       }
     }
