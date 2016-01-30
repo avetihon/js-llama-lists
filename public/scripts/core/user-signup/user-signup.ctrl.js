@@ -4,8 +4,8 @@
   angular.module("llamaLists")
     .controller("llamaLists.core.user-signup.signupPageCtrl", SignupPageCtrl);
 
-    SignupPageCtrl.$inject = ["$state", "userAuthService"];
-    function SignupPageCtrl($state, userAuthService) {
+    SignupPageCtrl.$inject = ["$window", "$state", "userAuthService"];
+    function SignupPageCtrl($window, $state, userAuthService) {
       var signupVm = this;
 
       signupVm.submitted;
@@ -24,9 +24,11 @@
           }
 
           userAuthService.saveNewUser(userData)
-            .then(function() {
-              $state.go("login");
+            .then(function (response) {
+              $window.localStorage.token = response.token;
+              $state.go("interests");
             }, function (error) {
+              delete $window.localStorage.token;
               signupVm.message = error.message;
             });
         }

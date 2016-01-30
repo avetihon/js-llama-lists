@@ -45,3 +45,8 @@ node_modules/*
 #############################
 *.sublime-project
 *.sublime-workspace
+
+# Project files #
+#################
+public/img/users-avatar/*
+!public/img/users-avatar/no-avatar.jpg

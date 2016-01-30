@@ -60,9 +60,32 @@
       })
       .state("profile", {
         url:          "/profile",
-        templateUrl:  "user-profile/user-profile.tpl.html",
-        controller:   "llamaLists.core.user-profile.profilePageCtrl",
-        controllerAs: "profileVm"
+        views: {
+          "navbar": {
+            templateUrl:  "navbar/user-navbar/user-navbar.tpl.html",
+            controller:   "llamaLists.core.navbar.user-navbar.userNavCtrl",
+            controllerAs: "navVm"
+          },
+          "content": {
+            templateUrl:  "user-profile/user-profile.tpl.html",
+            controller:   "llamaLists.core.user-profile.profilePageCtrl",
+            controllerAs: "vm"
+          }
+        }
+      })
+      .state("interests", {
+        views: {
+          "navbar": {
+            templateUrl:  "navbar/user-navbar/user-navbar.tpl.html",
+            controller:   "llamaLists.core.navbar.user-navbar.userNavCtrl",
+            controllerAs: "navVm"
+          },
+          "content": {
+            templateUrl:  "user-interests/user-interests.tpl.html",
+            controller:   "llamaLists.core.user-interests.interestsPageCtrl",
+            controllerAs: "vm"
+          }
+        }
       })
       .state("404", {
         url: "/404",

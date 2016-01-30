@@ -14,8 +14,8 @@
 
       this.saveNewUser = function(data) {
         return $http.post("/signup", data)
-        .then(function successCallback() {
-          // empty
+        .then(function successCallback(response) {
+          return response.data;
         }, function errorCallback(response) {
           return $q.reject(response.data);
         });

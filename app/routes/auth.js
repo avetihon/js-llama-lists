@@ -42,7 +42,12 @@ exports.signup = function(req, res) {
             newUser.save(function(err, done) {
               if (err) return done(err);
 
-              res.json({ success: true });
+              var token = jwt.sign(done.toObject(), app.app.get('mylittlesecret'), {
+                expiresIn: "7d" // expires in 168 hours
+              });
+
+              // return the information including token as JSON
+              res.json({ token: token });
             });
           });
         }
@@ -65,6 +70,7 @@ exports.login = function(req, res) {
     // find the user
     User
       .findOne({ name: req.body.username })
+      .select("-lists")
       .exec(function (err, user) {
 
         if (err) throw err;

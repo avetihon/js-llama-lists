@@ -26,6 +26,7 @@
 
       function linkFunc(scope, elem, attrs) {
         var listId = scope.listData._id;
+        var allowSavingTask = true; // variable for preventing multiple enter pressing
         scope.removeList = removeList;
         scope.addNewTask = addNewTask;
         scope.clearInput = clearInput;
@@ -36,15 +37,20 @@
          * This function create new task, save its to DB
          * And in promise return all tasks of list
          */
-        function addNewTask() {
-          var task = {};
-          task.title = scope.taskTitle;
+        function addNewTask(validation) {
 
-          taskDataService.addNewTask(listId, task)
-            .then(function (response) {
-              scope.listData.tasks = response.tasks;
-              scope.taskTitle = null;
-            });
+          if (validation && allowSavingTask) {
+            var task = {};
+            task.title = scope.taskTitle;
+            allowSavingTask = false;
+
+            taskDataService.addNewTask(listId, task)
+              .then(function (response) {
+                scope.listData.tasks = response.tasks;
+                scope.taskTitle = null;
+                allowSavingTask = true;
+              });
+          }
         }
 
         function removeList() {

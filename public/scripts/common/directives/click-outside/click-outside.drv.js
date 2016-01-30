@@ -17,8 +17,8 @@
 
       return directive;
 
-      function linkFunc(scope, element, attr) {
-        var fn = $parse(attr['clickOutside']);
+      function linkFunc(scope, element, attrs) {
+        var fn = $parse(attrs['clickOutside']);
 
         var eventHandler = function(event){
 

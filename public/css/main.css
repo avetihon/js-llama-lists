@@ -1346,7 +1346,6 @@ img {
 
 .task-group {
   position: relative;
-  padding: 5px 0;
 }
 .task-group .task-change-position {
   position: relative;
@@ -1452,7 +1451,7 @@ img {
 
 .task-main {
   position: relative;
-  padding: 0 5% 0 3%;
+  padding: 5px 5% 5px 3%;
   cursor: pointer;
 }
 
@@ -1622,7 +1621,7 @@ img {
   margin: 10px 0;
   padding: 0 5%;
 }
-.list .list-input-add-task {
+.list .list__add-task {
   position: relative;
   width: 100%;
   font-size: 0.95em;
@@ -1819,6 +1818,7 @@ img {
   padding: 0 18px;
   color: #bcbbbb;
   border-top: 1px solid #e7e9ea;
+  background-color: #fafafa;
 }
 .list-footer > i:hover {
   color: #e52e5c;
@@ -1946,7 +1946,7 @@ img {
 }
 
 .list-background-2 {
-  background-image: url("../img/list-background/mountain.jpg");
+  background-image: url("../img/list-background/black-jaguar.jpg");
 }
 
 .list-background-3 {
@@ -1962,11 +1962,11 @@ img {
 }
 
 .list-background-6 {
-  background-image: url("../img/list-background/skyscraper-one.jpg");
+  background-image: url("../img/list-background/tesla.jpg");
 }
 
 .list-background-7 {
-  background-image: url("../img/list-background/skyscraper-two.jpg");
+  background-image: url("../img/list-background/taylor.jpg");
 }
 
 .list-background-8 {
@@ -2068,7 +2068,7 @@ img {
 
 .homeSubview {
   position: relative;
-  background-color: #2b2e36;
+  background-color: #292c3b;
   margin: 0 0 30px;
 }
 
@@ -2215,11 +2215,229 @@ img {
   margin-right: 20px;
 }
 
+#profile-page {
+  /*background-image: url("../img/interest-background.jpg");*/
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+}
+
+.user-interest__logo {
+  text-align: center;
+  color: #5e5e73;
+  font-size: 1.7em;
+  margin: 0;
+}
+
+.user-interest__footnote {
+  text-align: center;
+  color: #5e5e73;
+  font-size: 1em;
+  margin-top: 0;
+}
+.user-interest__footnote--error {
+  -webkit-animation-name: shake;
+          animation-name: shake;
+  -webkit-animation-duration: 1s;
+          animation-duration: 1s;
+}
+
+.user-interest__wrapper-interests {
+  width: 65%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.user-interest__button {
+  display: inline-block;
+  margin: 5px;
+  padding: 5px 10px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.user-interest__button--interest {
+  font-size: 1em;
+  color: #5e5e73;
+  border: 2px solid #f36;
+  background-color: #fff;
+}
+.user-interest__button--interest:hover {
+  background-color: #f36;
+  color: #fff;
+}
+
+.user-interest__button.ng-enter {
+  /* standard transition code */
+  -webkit-transition: 300ms linear all;
+  transition: 300ms linear all;
+  opacity: 0;
+}
+
+.user-interest__button.ng-enter-stagger {
+  /* this will have a 100ms delay between each successive leave animation */
+  -webkit-transition-delay: 0.08s;
+          transition-delay: 0.08s;
+  /* As of 1.4.4, this must always be set: it signals ngAnimate
+    to not accidentally inherit a delay property from another CSS class */
+  -webkit-transition-duration: 0s;
+          transition-duration: 0s;
+}
+
+.user-interest__button.ng-enter.ng-enter-active {
+  /* standard transition styles */
+  opacity: 1;
+}
+
+.chosen-interest {
+  -webkit-animation: chooseInterest 0.6s 0s 1 linear alternate;
+          animation: chooseInterest 0.6s 0s 1 linear alternate;
+  -webkit-animation-fill-mode: forwards;
+          animation-fill-mode: forwards;
+}
+
+.user-interest__underline-line {
+  width: 55%;
+  height: 1px;
+  margin: 0 auto 20px;
+  border: 0;
+  background-color: #e7e9ea;
+}
+
+.user-interest__selected-interest {
+  text-align: center;
+}
+
+/* different colors to selected interests */
+.user-interest__button--selected-lgbt-red {
+  font-size: 1.1em;
+  color: #fff;
+  background-color: #e84c3d;
+  border: 2px solid #e84c3d;
+}
+
+.user-interest__button--selected-lgbt-orange {
+  font-size: 1.1em;
+  color: #fff;
+  background-color: #e77e23;
+  border: 2px solid #e77e23;
+}
+
+.user-interest__button--selected-lgbt-yellow {
+  font-size: 1.1em;
+  color: #fff;
+  background-color: #facd02;
+  border: 2px solid #facd02;
+}
+
+.user-interest__button--selected-lgbt-green {
+  font-size: 1.1em;
+  color: #fff;
+  background-color: #2dcc70;
+  border: 2px solid #2dcc70;
+}
+
+.user-interest__button--selected-lgbt-indigo {
+  font-size: 1.1em;
+  color: #fff;
+  background-color: #3598db;
+  border: 2px solid #3598db;
+}
+
+.user-interest__button--selected-lgbt-violet {
+  font-size: 1.1em;
+  color: #fff;
+  background-color: #9a59b3;
+  border: 2px solid #9a59b3;
+}
+
+.user-interest__selected-close {
+  font-size: 0.7em;
+  vertical-align: middle;
+  margin-left: 5px;
+}
+
+.user-interest__wrapper-main-button {
+  margin-top: 20px;
+  float: right;
+}
+
+.user-interest__button--save {
+  font-size: 1.2em;
+  color: #fff;
+  background-color: #7ec58d;
+  border: 2px solid #7ec58d;
+}
+
+.user-interest__button--cancel {
+  font-size: 1.2em;
+  color: #5e5e73;
+  background-color: #fff;
+  border: 2px solid #5e5e73;
+}
+
+@-webkit-keyframes chooseInterest {
+  20% {
+    -webkit-transform: scale(1.2, 1.2);
+            transform: scale(1.2, 1.2);
+  }
+  80% {
+    -webkit-transform: scale(0, 0);
+            transform: scale(0, 0);
+  }
+  100% {
+    -webkit-transform: scale(0, 0);
+            transform: scale(0, 0);
+  }
+}
+
+@keyframes chooseInterest {
+  20% {
+    -webkit-transform: scale(1.2, 1.2);
+            transform: scale(1.2, 1.2);
+  }
+  80% {
+    -webkit-transform: scale(0, 0);
+            transform: scale(0, 0);
+  }
+  100% {
+    -webkit-transform: scale(0, 0);
+            transform: scale(0, 0);
+  }
+}
+@-webkit-keyframes shake {
+  0%, 100% {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+  10%, 30%, 50%, 70%, 90% {
+    -webkit-transform: translate3d(-10px, 0, 0);
+    transform: translate3d(-10px, 0, 0);
+  }
+  20%, 40%, 60%, 80% {
+    -webkit-transform: translate3d(10px, 0, 0);
+    transform: translate3d(10px, 0, 0);
+  }
+}
+@keyframes shake {
+  0%, 100% {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+  10%, 30%, 50%, 70%, 90% {
+    -webkit-transform: translate3d(-10px, 0, 0);
+    transform: translate3d(-10px, 0, 0);
+  }
+  20%, 40%, 60%, 80% {
+    -webkit-transform: translate3d(10px, 0, 0);
+    transform: translate3d(10px, 0, 0);
+  }
+}
 /* bootstrap !important */
 .navbar {
   height: 50px;
-  border-bottom: 1px solid #2b2e36;
-  background-color: #2b2e36;
+  border-bottom: 1px solid #292c3b;
+  background-color: #292c3b;
 }
 
 .navbar__header {
@@ -2262,7 +2480,7 @@ img {
 
 .navbar__link {
   display: block;
-  font-size: 0.8em;
+  font-size: 0.9em;
   padding: 15px;
   color: #acb1be;
 }
@@ -2314,7 +2532,8 @@ img {
 
 .userNavbar {
   position: relative;
-  background-color: #2b2e36;
+  background-color: #292c3b;
+  /*background-color: #2b2e36;*/
 }
 
 .userData {
@@ -2376,7 +2595,7 @@ img {
 
 .userData__link {
   display: block;
-  font-size: .8em;
+  font-size: .9em;
   padding: 15px;
   color: #acb1be;
   cursor: pointer;
@@ -2549,3 +2768,5 @@ img {
 .popup-new-list .popup-close:hover {
   opacity: 0.7;
 }
+
+

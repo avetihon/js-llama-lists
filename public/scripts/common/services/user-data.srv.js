@@ -23,5 +23,17 @@
           return response.data;
         })
       }
+
+      this.getInterestsList = function() {
+        return $http.get("/api/user/interests").then(function (response) {
+          return response.data;
+        });
+      }
+
+      this.saveInterests = function(data) {
+        return $http.post("/api/user/interests", data).then(function (response) {
+          return response.data;
+        });
+      }
     }
 })();

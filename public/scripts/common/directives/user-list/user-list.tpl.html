@@ -24,16 +24,17 @@
   <!-- /.list-header -->
   <form name="taskForm" novalidate>
     <input type="text"
-          class="list-input-add-task"
+          class="list__add-task"
           name="userTask"
           placeholder="Write something..."
+          click-enter="addNewTask(taskForm.$valid)"
           ng-model="taskTitle"
           ng-focus="focused=true"
           ng-blur="focused=false"
           ng-class="{'is-dirty': !taskForm.userTask.$error.required}"
           required>
     <div ng-show="!taskForm.userTask.$error.required" class="list-button-add-task">
-      <button type="button" class="done" ng-click="addNewTask()">Done</button>
+      <button type="button" class="done" ng-click="addNewTask(taskForm.$valid)">Done</button>
       <button type="button" class="cancel" ng-click="clearInput()">Cancel</button>
     </div>
   </form>

@@ -9,7 +9,8 @@
     .module("llamaLists")
     .directive("customFocus", customFocusDirective)
 
-    function customFocusDirective() {
+    customFocusDirective.$inject = ["$timeout"];
+    function customFocusDirective($timeout) {
       var directive = {
         restrict: "A",
         scope: {
@@ -23,9 +24,12 @@
       function linkFunc(scope, element, attrs) {
         scope.$watch('trigger', function(value) {
         if (value) {
-          element[0].focus();
-          element[0].select();
-          scope.trigger = false;
+          $timeout(function() {
+            element[0].focus();
+            scope.trigger = false;
+          });
+          // element[0].focus();
+
         }
       });
       }

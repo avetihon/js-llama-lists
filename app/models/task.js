@@ -6,7 +6,7 @@ var taskSchema = mongoose.Schema({
   date:         String,
   description:  String,
   due_date:     Date,
-  color:        { type: String, default: "task__color--gray" },
+  color:        { type: String, default: "task__color--red" },
   completed:    { type: Boolean, default: false }
 });
 
