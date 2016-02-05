@@ -1,0 +1,37 @@
+// Import bootstrap components and fontawesome
+
+// Core variables and mixins
+@import "../libs/bootstrap-sass/assets/stylesheets/bootstrap/variables";
+@import "../libs/bootstrap-sass/assets/stylesheets/bootstrap/mixins";
+// Reset and dependencies
+@import "../libs/bootstrap-sass/assets/stylesheets/bootstrap/normalize";
+@import "../libs/bootstrap-sass/assets/stylesheets/bootstrap/print";
+@import "../libs/bootstrap-sass/assets/stylesheets/bootstrap/grid";
+
+//@import "font-awesome";
+
+// Import common part
+@import "../sass/common";
+@import "../sass/scaffolding";
+@import "../sass/variables";
+
+// Import style page
+// Directives
+@import "../scripts/common/directives/user-task/user-task.stl";
+@import "../scripts/common/directives/user-list/user-list.stl";
+@import "../scripts/common/directives/fog/fog.stl";
+@import "../scripts/common/directives/change-background/change-background.stl";
+
+// Controllers
+@import "../scripts/core/auth/auth-login/auth-login.stl";
+@import "../scripts/core/auth/auth-signup/auth-signup.stl";
+@import "../scripts/core/main/main-lists/main-lists.stl";
+@import "../scripts/core/main/main-interests/main-interests.stl";
+@import "../scripts/core/main-profile/main-profile.stl";
+@import "../scripts/core/main-profile/profile-account/profile-account.stl";
+
+@import "../scripts/core/navbar/navbar-auth/navbar-auth.stl";
+@import "../scripts/core/navbar/navbar-user/navbar-user.stl";
+
+// ng-include style
+@import "../scripts/core/popup/new-list/new-list.stl";

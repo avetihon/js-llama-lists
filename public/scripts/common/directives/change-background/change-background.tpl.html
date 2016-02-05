@@ -1,0 +1,48 @@
+<section class="popup-list-change-background ng-hide" ng-show="editedBackgroundWindow">
+  <!-- Specific fix ng-hide -->
+  <h2>Change background list</h2>
+  <div class="list-background-wrapper">
+    <span class="list-background-1"
+          ng-click="changeBackground($event)"
+          ng-class="{'active-background': 'list-background-1' === currentBackground}">
+          <span class="checkmark-background"></span>
+    </span>
+    <span class="list-background-2"
+          ng-click="changeBackground($event)"
+          ng-class="{'active-background': 'list-background-2' === currentBackground}">
+          <span class="checkmark-background"></span>
+    </span>
+    <span class="list-background-3"
+          ng-click="changeBackground($event)"
+          ng-class="{'active-background': 'list-background-3' === currentBackground}">
+          <span class="checkmark-background"></span>
+    </span>
+    <span class="list-background-4"
+          ng-click="changeBackground($event)"
+          ng-class="{'active-background': 'list-background-4' === currentBackground}">
+          <span class="checkmark-background"></span>
+    </span>
+    <span class="list-background-5"
+          ng-click="changeBackground($event)"
+          ng-class="{'active-background': 'list-background-5' === currentBackground}">
+          <span class="checkmark-background"></span>
+    </span>
+    <span class="list-background-6"
+          ng-click="changeBackground($event)"
+          ng-class="{'active-background': 'list-background-6' === currentBackground}">
+          <span class="checkmark-background"></span>
+    </span>
+    <span class="list-background-7"
+          ng-click="changeBackground($event)"
+          ng-class="{'active-background': 'list-background-7' === currentBackground}">
+          <span class="checkmark-background"></span>
+    </span>
+    <span class="list-background-8"
+          ng-click="changeBackground($event)"
+          ng-class="{'active-background': 'list-background-8' === currentBackground}">
+          <span class="checkmark-background"></span>
+    </span>
+  </div>
+  <!-- <div><img src="../img/list-background/mountain-top.jpg" alt="background"></div> -->
+  <button type="button" class="done-button" ng-click="closePopupButton()">Done</button>
+</section>

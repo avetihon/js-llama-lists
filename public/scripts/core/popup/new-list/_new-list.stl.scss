@@ -1,0 +1,114 @@
+.popup-new-list {
+  position: absolute;
+  top: 150px;
+  left: 0;
+  right: 0;
+  width: 380px;
+  margin: auto;
+  padding: 15px 30px 20px;
+  z-index: 11;
+  background: #fff;
+  border-radius: 2px;
+  opacity: 1;
+  transform: scale(1);
+
+  &.ng-hide-add,
+  &.ng-hide-remove {
+    transition: transform .2s, opacity .2s;
+  }
+
+  &.ng-hide {
+    opacity: 0;
+    transform: scale(0);
+  }
+
+  h2 {
+    margin-bottom: 5%;
+    font-size: 1.3em;
+    text-align: center;
+    color: #464d5d;
+    font-weight: 400;
+  }
+
+  .form-group {
+    position: relative;
+  }
+
+  .error-new-list {
+    position: absolute;
+    top: 40px;
+    font-size: 0.8em;
+    color: $luckyRed;
+    margin: 0;
+  }
+
+  .popup-member-title {
+    font-size: 0.7em;
+    text-transform: uppercase;
+    color: #464d5d;
+    margin: 0 0 10px;
+  }
+
+  input {
+    width: 100%;
+    height: 1em;
+    margin: 0 0 20px;
+    padding: 19px 18px;
+    font-size: 0.9em;
+    font-weight: 400;
+    color: #464d5d;
+    border: 1px solid #DEE3E9;
+
+    &:focus {
+      border-color: #56b169;
+    }
+
+    &.has-error {
+      border-color: $luckyRed;
+    }
+  }
+
+  .popup-list-member {
+    img {
+      width: 32px;
+      height: 32px;
+      border-radius: 50% 50%;
+      vertical-align: top;
+    }
+  }
+
+  .popup-list-member-data {
+    display: inline-block;
+    width: calc(95% - 36px);
+    margin: -3px 0 0 10px;
+
+    .popup-member-name {
+      margin: 0;
+      font-size: 0.9em;
+      color: #464d5d;
+    }
+
+    .popup-member-email {
+      font-size: 0.8em;
+      color: #555e71;
+      margin: 0 0 10px;
+    }
+  }
+
+  .popup-close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: block;
+    width: 17px;
+    height: 17px;
+    background-size: 17px 17px;
+    background-image: url("../img/icon/plus-popup.svg");
+    cursor: pointer;
+    transform: rotate(45deg);
+
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+}

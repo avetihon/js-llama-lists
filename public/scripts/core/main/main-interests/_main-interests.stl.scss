@@ -1,0 +1,178 @@
+.user-interest__logo {
+  text-align: center;
+  color: #5e5e73;
+  font-size: 1.7em;
+  margin: 0;
+}
+
+.user-interest__footnote {
+  text-align: center;
+  color: #5e5e73;
+  font-size: 1em;
+  margin-top: 0;
+
+  &--error {
+    animation-name: shake;
+    animation-duration: 1s;
+  }
+}
+
+.user-interest__wrapper-interests {
+  width: 65%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.user-interest__button {
+  display: inline-block;
+  margin: 5px;
+  padding: 5px 10px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.user-interest__button--interest {
+  font-size: 1em;
+  color: #5e5e73;
+  border: 2px solid $luckyRed;
+  background-color: #fff;
+
+  &:hover {
+    background-color: $luckyRed;
+    color: #fff;
+  }
+}
+
+.user-interest__button.ng-enter {
+  /* standard transition code */
+  transition: 300ms linear all;
+  opacity: 0;
+}
+.user-interest__button.ng-enter-stagger {
+  /* this will have a 100ms delay between each successive leave animation */
+  transition-delay: 0.08s;
+
+  /* As of 1.4.4, this must always be set: it signals ngAnimate
+    to not accidentally inherit a delay property from another CSS class */
+  transition-duration: 0s;
+}
+.user-interest__button.ng-enter.ng-enter-active {
+  /* standard transition styles */
+  opacity: 1;
+}
+
+.chosen-interest {
+  animation: chooseInterest 0.6s 0s 1 ease alternate;
+  animation-fill-mode: forwards;
+}
+
+.user-interest__underline-line {
+  width: 55%;
+  height: 1px;
+  margin: 0 auto 20px;
+  border: 0;
+  background-color: #e7e9ea;
+}
+
+.user-interest__selected-interest {
+  text-align: center;
+}
+
+/* different colors to selected interests */
+.user-interest__button--selected-lgbt-red {
+  font-size: 1.1em;
+  color: #fff;
+  background-color: #e84c3d;
+  border: 2px solid #e84c3d;
+}
+
+.user-interest__button--selected-lgbt-orange {
+  font-size: 1.1em;
+  color: #fff;
+  background-color: #e77e23;
+  border: 2px solid #e77e23;
+}
+
+.user-interest__button--selected-lgbt-yellow {
+  font-size: 1.1em;
+  color: #fff;
+  background-color: #facd02;
+  border: 2px solid #facd02;
+}
+
+.user-interest__button--selected-lgbt-green {
+  font-size: 1.1em;
+  color: #fff;
+  background-color: #2dcc70;
+  border: 2px solid #2dcc70;
+}
+
+.user-interest__button--selected-lgbt-indigo {
+  font-size: 1.1em;
+  color: #fff;
+  background-color: #3598db;
+  border: 2px solid #3598db;
+}
+
+.user-interest__button--selected-lgbt-violet {
+  font-size: 1.1em;
+  color: #fff;
+  background-color: #9a59b3;
+  border: 2px solid #9a59b3;
+}
+
+.user-interest__selected-close {
+  font-size: 0.7em;
+  vertical-align: middle;
+  margin-left: 5px;
+}
+
+
+
+.user-interest__wrapper-main-button {
+  margin-top: 20px;
+  float: right;
+}
+
+.user-interest__button--save {
+  font-size: 1.2em;
+  color: #fff;
+  background-color: #7ec58d;
+  border: 2px solid #7ec58d;
+}
+
+.user-interest__button--cancel {
+  font-size: 1.2em;
+  color: #5e5e73;
+  background-color: #fff;
+  border: 2px solid #5e5e73;
+}
+
+@keyframes chooseInterest {
+  20% {
+    transform: scale(1.2,1.2);
+  }
+  80% {
+    transform: scale(0,0);
+  }
+  100% {
+    transform: scale(0,0);
+  }
+}
+
+@keyframes shake {
+  0%, 100% {
+      -webkit-transform: translate3d(0, 0, 0);
+      transform: translate3d(0, 0, 0)
+  }
+
+  10%, 30%, 50%, 70%, 90% {
+      -webkit-transform: translate3d(-10px, 0, 0);
+      transform: translate3d(-10px, 0, 0)
+  }
+
+  20%, 40%, 60%, 80% {
+      -webkit-transform: translate3d(10px, 0, 0);
+      transform: translate3d(10px, 0, 0)
+  }
+}

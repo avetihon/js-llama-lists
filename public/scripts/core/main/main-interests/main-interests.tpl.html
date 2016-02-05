@@ -1,0 +1,31 @@
+<section class="mainSubview">
+  <div class="container container--fullHeight container--relative">
+    <a class="navbar__brand mainSubview__logo" href="#">
+      <img class="navbar__image" alt="brand-logo" src="img/brandlogo.png">
+    </a>
+    <p class="mainSubview__page">Interests</p>
+  </div>
+</section>
+<section class="user-interest">
+  <div class="container container--fullHeight container--relative">
+    <p class="user-interest__logo">Tell us your interests</p>
+    <p class="user-interest__footnote" ng-class="{'user-interest__footnote--error': vm.emptyInterests }">
+      select 6 or less interests
+    </p>
+    <div class="user-interest__wrapper-interests">
+      <span class="user-interest__button user-interest__button--interest" ng-repeat="interest in vm.interests track by $index" ng-click="vm.chooseInterest($event, $index)" ng-bind="interest" data-id="{{ ::$index }}">
+      </span>
+    </div>
+    <hr class="user-interest__underline-line">
+    <div class="user-interest__selected-interest">
+      <div class="user-interest__button user-interest__button--selected-lgbt-{{ ::interest.color }}" ng-repeat="interest in vm.selectedInterest">
+        <span ng-bind="interest.text"></span>
+        <i class="fa fa-times user-interest__selected-close" ng-click="vm.removeInterest($event, $index)" data-selected-id="{{ ::interest.id }}" data-color="{{ ::interest.color }}"></i>
+      </div>
+    </div>
+    <div class="user-interest__wrapper-main-button">
+      <button type="button" class="user-interest__button user-interest__button--save" ng-click="vm.saveInterests()">Save</button>
+      <button type="button" class="user-interest__button user-interest__button--cancel" ng-click="vm.skipInterests()">Skip</button>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,147 @@
+#home-page {
+  background-repeat: no-repeat;
+  background-color: #f9f9fb;
+}
+
+.mainSubview {
+  position: relative;
+  background-color: #292c3b;
+  margin: 0 0 30px;
+}
+
+  .mainSubview__logo {
+    position: absolute;
+    top: 4px;
+    left: -18px;
+  }
+
+  .mainSubview__page {
+    margin: 5px 0 10px;
+    font-size: 2.3em;
+    font-weight: 300;
+    color:#fff;
+  }
+
+  .mainSubview__newList {
+    position: absolute;
+    right: 0;
+    bottom: -27px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 54px;
+    height: 54px;
+    background-color: $luckyRed;
+    border: 0;
+    border-radius: 50% 50%;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, .28);
+    transition: transform 300ms ease;
+
+    &:hover {
+      transform: scale(1.1,1.1);
+    }
+  }
+
+    .mainSubview__newListIcon {
+      display: block;
+      width: 20px;
+      height: 20px;
+      margin: auto;
+      background-size: 20px 20px;
+      background-image: url("../img/icon/plus.svg");
+    }
+
+
+.lists-wrapper {
+  margin-top: 2%;
+}
+
+/* toolbar part: search
+   and sort option
+*/
+.list-toolbar {
+  position: relative;
+  @include clearfix;
+
+  p,
+  div,
+  span {
+    display: inline-block;
+  }
+}
+
+.list-search {
+  position: relative;
+  float: left;
+
+  input[type=text] {
+    width: 150px;
+    height: 35px;
+    padding: 0 30px 10px;
+    font-size: 0.95em;
+    font-weight: 400;
+    color: #646f82;
+    opacity: 0;
+    border: 0;
+    cursor: pointer;
+    border-bottom: 1px solid #93e7c8;
+    background: transparent;
+    transition: width 300ms ease, border-color 300ms ease, opacity 300ms ease;
+
+    &:hover {
+      width: 290px;
+      opacity: 1;
+    }
+
+    &:focus {
+      border-color: #9465ff;
+      cursor: initial;
+    }
+
+    &.search--active {
+      width: 290px;
+      opacity: 1;
+    }
+
+    &::-webkit-input-placeholder {
+      color: #9ba0a6;
+    }
+
+    &::-moz-placeholder {
+      color: #9ba0a6;
+    }
+
+    &:-ms-input-placeholder {
+      color: #9ba0a6;
+    }
+
+    &:-moz-placeholder {
+      color: #9ba0a6;
+    }
+  }
+
+  .icon-search {
+    position: absolute;
+    top: 4px;
+    left: 0px;
+    width: 15px;
+    height: 15px;
+    background-image: url("../img/icon/search.svg");
+    background-size: 15px 15px;
+  }
+}
+
+.list-sort {
+  float: right;
+  color: #646f82;
+
+  p {
+    font-weight: 400;
+    font-size: 0.9em;
+    cursor: pointer;
+  }
+
+  p:not(:last-child) {
+    margin-right: 20px;
+  }
+}

@@ -1,0 +1,44 @@
+<section class="mainSubview">
+  <div class="container container--fullHeight container--relative">
+    <a class="navbar__brand mainSubview__logo" href="#">
+      <img class="navbar__image" alt="brand-logo" src="img/brandlogo.png">
+    </a>
+    <p class="mainSubview__page">Lists</p>
+    <button class="mainSubview__newList" ng-click="homeVm.createNewList()">
+      <span class="mainSubview__newListIcon"></span>
+    </button>
+  </div>
+</section>
+<section>
+  <div class="container">
+    <ng-include src="'../popup/new-list/new-list.html'"></ng-include>
+    <div class="list-toolbar">
+      <div class="list-search">
+        <span class="icon-search"></span>
+        <input type="text"
+               placeholder="Start typing to search lists..."
+               ng-model="homeVm.search.title"
+               ng-class="{ 'search--active': homeVm.search.title.length }">
+        <span class="icon-close"></span>
+      </div>
+      <!-- /.list-search -->
+      <div class="list-sort">
+        <p class="sort-mylist">My lists</p>
+        <p class="sort-inbox">Inbox</p>
+        <p class="sort-recommended">Recommended</p>
+      </div>
+      <!-- /.list-sort -->
+    </div>
+    <!-- /.list-toolbar -->
+    <div class="lists-wrapper row">
+      <div class="col-sm-4" ng-repeat="list in homeVm.lists | filter:homeVm.search">
+        <list list-data="list" update-lists="homeVm.updateList()"></list>
+      </div>
+      <!-- /.list-elemnt -->
+    </div>
+    <!-- /.lists-wrapper -->
+  </div>
+  <!-- <change-task></change-task> -->
+  <list-background></list-background>
+  <fog></fog>
+</section>

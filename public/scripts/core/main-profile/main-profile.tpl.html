@@ -1,0 +1,28 @@
+<section class="mainSubview" ng-init="currentView = 'account'">
+  <div class="container container--fullHeight container--relative">
+    <a class="navbar__brand mainSubview__logo" href="#">
+      <img class="navbar__image" alt="brand-logo" src="img/brandlogo.png">
+    </a>
+    <p class="mainSubview__page">Profile</p>
+    <ul class="mainSubview__links">
+      <li class="mainSubview__list">
+        <a ui-sref="main.profile.account"
+           class="mainSubview__link"
+           ng-class="{'is-active': 'account' === currentView}"
+           ng-click="currentView = 'account'">Account</a>
+      </li>
+      <!-- /.mainSubview__list -->
+      <li class="mainSubview__list">
+        <a ui-sref="main.profile.password"
+           class="mainSubview__link"
+           ng-class="{'is-active': 'password' === currentView}"
+           ng-click="currentView = 'password'">Password</a>
+      </li>
+      <!-- /.mainSubview__list -->
+    </div>
+    <!-- /.mainSubview__links -->
+  </div>
+  <!-- /.container -->
+</section>
+<!-- /.mainSubview -->
+<div ui-view="profile"></div>

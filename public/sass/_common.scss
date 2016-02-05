@@ -1,0 +1,77 @@
+/* main colors */
+$luckyRed: #f36;
+$mainText: #464d5d;
+$mainTextTwo: #828ea6;
+$littleGray: #7a7d81;
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  background-color: #fff;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+}
+
+.container--fullHeight {
+  height: 100%;
+}
+
+.container--relative {
+  position: relative;
+}
+
+input { outline: none; }
+input::-moz-focus-inner { border:0; }
+a:active, a:focus { outline: 0; }
+.relative { position: relative; }
+button:focus { outline:0; }
+
+.mainFooter {
+  height: 30px;
+  width: 100%;
+}
+
+/**
+ * Clearfix
+ *
+ * For modern browsers
+ * 1. The space content is one way to avoid an Opera bug when the
+ *    contenteditable attribute is included anywhere else in the document.
+ *    Otherwise it causes space to appear at the top and bottom of elements
+ *    that are clearfixed.
+ * 2. The use of `table` rather than `block` is only necessary if using
+ *    `:before` to contain the top-margins of child elements.
+ *
+ * Source: http://nicolasgallagher.com/micro-clearfix-hack/
+ */
+
+@mixin clearfix() {
+  &:before,
+  &:after {
+    content: " "; // 1
+    display: table; // 2
+  }
+  &:after {
+    clear: both;
+  }
+}
+
+/**
+ * Allow angular.js to be loaded in body, hiding cloaked elements until
+ * templates compile.  The !important is important given that there may be
+ * other selectors that are more specific or come later and might alter display.
+ */
+
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}

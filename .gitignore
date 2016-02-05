@@ -39,8 +39,14 @@ Thumbs.db
 # Library folder #
 ##################
 node_modules/*
+.sass-cache
 
 # Text editor project files #
 #############################
 *.sublime-project
 *.sublime-workspace
+
+# Project files #
+#################
+public/img/users-avatar/*
+!public/img/users-avatar/no-avatar.jpg
