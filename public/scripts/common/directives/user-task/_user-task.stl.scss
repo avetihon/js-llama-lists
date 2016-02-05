@@ -111,13 +111,12 @@
 
   .task-preference {
     position: absolute;
-    top: 0;
+    top: 10px;
     right: 10px;
     display: inline-block;
     visibility: hidden;
     width: 16px;
     height: 16px;
-    margin-top: 6px;
     cursor: pointer;
 
     &:after {
@@ -141,19 +140,6 @@
   padding: 5px 5% 5px 3%;
   cursor: pointer;
 }
-
-.task-is-completed {
-  /*.task-check-circle {
-    opacity: 0;
-  }*/
-}
-
-/*.task-is-completed .task-check,
-.task-is-completed .task-check,
-.task-is-completed .task-checked {
-  border-color: #e7e9ea;
-  background-color: #fff;
-}*/
 
 .task-is-completed .task-text {
   color: #a1a6ad;

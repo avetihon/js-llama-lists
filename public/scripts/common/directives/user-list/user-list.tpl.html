@@ -19,7 +19,10 @@
     </div>
     <div class="list-header-image" ng-class="listData.image"></div>
     <!-- /.list-header-edited -->
-    <h2 class="list-title" ng-bind="listData.title"></h2>
+    <h2 class="list-title"
+        ng-model="listData.title"
+        ng-blur="saveEditedTitle()"
+        contenteditable="true"></h2>
   </header>
   <!-- /.list-header -->
   <form name="taskForm" novalidate>

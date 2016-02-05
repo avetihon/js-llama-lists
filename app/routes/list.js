@@ -91,3 +91,29 @@ exports.setNewBackground = function(req, res) {
       });
   });
 };
+
+
+/**
+ * set new background for list request
+ */
+exports.setNewTitle = function(req, res) {
+  var listId    = req.params.id;
+  var title     = req.body.title;
+  var queryUser = { _id: req.user._id };
+
+  User
+    .findOne(queryUser)
+    .select("lists._id lists.title")
+    .exec(function(err, user) {
+      if (err) throw err;
+
+      var list = user.lists.id(listId);
+      list.title = title;
+
+      user.save(function(err, done) {
+        if (err) return done(err);
+
+        res.json({ success: true });
+      });
+  });
+};

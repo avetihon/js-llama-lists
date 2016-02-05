@@ -18,6 +18,8 @@ module.exports = function(app) {
    * user stuff
    **/
   app.get("/api/user", user.getUserData);
+  app.post("/api/user", user.saveUserData);
+  app.post("/api/user/password", user.saveUserPassword);
   app.post("/api/user/avatar", user.saveAvatarImage);
   app.get("/api/user/interests", user.getInterestsList);
   app.post("/api/user/interests", user.saveInterest);
@@ -27,6 +29,7 @@ module.exports = function(app) {
   app.get("/api/lists", list.getlists);
   app.post("/api/list", list.addList);
   app.delete("/api/list/:id", list.removeList);
+  app.post("/api/list/:id/title", list.setNewTitle);
   app.post("/api/list/:id/image", list.setNewBackground);
 
   /**

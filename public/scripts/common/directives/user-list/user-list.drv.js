@@ -27,9 +27,11 @@
       function linkFunc(scope, elem, attrs) {
         var listId = scope.listData._id;
         var allowSavingTask = true; // variable for preventing multiple enter pressing
+        var textBeforeEdit = scope.listData.title;
         scope.removeList = removeList;
         scope.addNewTask = addNewTask;
         scope.clearInput = clearInput;
+        scope.saveEditedTitle = saveEditedTitle;
         scope.openBackgroundPopup = openBackgroundPopup;
         scope.$on("listChanged", listChanged);
 
@@ -61,16 +63,29 @@
         }
 
         function openBackgroundPopup() {
-          listDataService.openBackgroundPopup(listId);
+          listDataService.openBackgroundPopup(listId, scope.listData.image);
         }
 
         function listChanged(event, data) {
           if (scope.listData._id == data.listId) {
-            if (data.type === "backgroundChanged") {
-              scope.listData.image = data.image;
-            } else if (data.type === "taskChanged") {
+              scope.listData.image = listDataService.getCurrentBackground();
+          }
+        }
 
-            }
+        function saveEditedTitle() {
+          // replacement needed, because when contenteditable element empty,
+          // browser automaticaly add br tag
+          // i dont know this bug or feature
+          var editedText = scope.listData.title.replace(/<br>/, "");
+          var body = {};
+          if (editedText) {
+            body.title = editedText;
+            listDataService.setNewTitle(listId, body)
+              .then(function (response) {
+                textBeforeEdit = editedText;
+              })
+          } else {
+            scope.listData.title = textBeforeEdit;
           }
         }
 

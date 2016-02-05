@@ -41,8 +41,9 @@
       };
 
       // controll background for list
-      this.openBackgroundPopup = function(listId) {
+      this.openBackgroundPopup = function(listId, image) {
         this.setListId(listId);
+        this.setCurrentBackground(image);
         this.isOpenedBackgroundPopup = true;
         $rootScope.$emit("showFogOverlay");
       };
@@ -55,11 +56,25 @@
         return this.isOpenedBackgroundPopup;
       };
 
+      this.setCurrentBackground = function(image) {
+        this.image = image;
+      }
+
+      this.getCurrentBackground = function() {
+        return this.image;
+      }
+
       this.setBackgroundForList = function(listId, data) {
         return $http.post("/api/list/" + listId + "/image", data).then(function (response) {
           return response.data;
         });
       };
+
+      this.setNewTitle = function(listId, data) {
+        return $http.post("/api/list/" + listId  + "/title", data).then(function (response) {
+          return response.data;
+        })
+      }
 
     }
 })();

@@ -18,6 +18,73 @@ exports.getUserData = function(req, res) {
 }
 
 /**
+ * save some data to current user (with checks)
+ */
+exports.saveUserData = function(req, res) {
+  var userData = req.body;
+  var queryUser = { _id: req.user._id };
+
+  // im using nested query, because i didn't find more pretty solution, sorry =(o_o)=
+
+  User
+    .findOne(queryUser)
+    .select("-lists")
+    .exec(function(err, user) {
+      var currentName = user.name;
+
+      User
+        .findOne({ name: userData.name })
+        .select("name")
+        .exec(function(err, done) {
+          if (done && done.name !== currentName) {
+            return res.status(422).send({
+                success: false,
+                message: "This name is already used",
+            });
+          } else {
+            user.name = userData.name;
+            user.email = userData.email;
+            user.bio = userData.bio;
+
+            user.save(function (err) {
+              if (err) return handleError(err);
+
+              res.json({ success: true, message: "Your account has been updated." });
+            });
+          }
+        });
+    });
+}
+
+/**
+ * save new password to current user
+ */
+exports.saveUserPassword = function(req, res) {
+  var userData = req.body;
+  var queryUser = { _id: req.user._id };
+
+  User
+    .findOne(queryUser)
+    .select("password")
+    .exec(function(err, user) {
+      if(!user.validPassword(userData.oldPass)) {
+        return res.status(422).send({
+            success: false,
+            message: 'The current password is incorrect'
+        });
+      } else {
+        user.password = user.generateHash(userData.newPass);
+
+        user.save(function (err) {
+          if (err) return handleError(err);
+
+          res.json({ success: true, message: "Your password has been changed." });
+        });
+      }
+    });
+}
+
+/**
  * save avatar for user
  */
 exports.saveAvatarImage = function(req, res) {

@@ -1,0 +1,57 @@
+<section class="account">
+  <form name="accountForm">
+    <p class="account__serverError" ng-bind="vm.message"></p>
+    <p class="account__serverDone" ng-bind="vm.messageDone"></p>
+    <div class="account__avatarWrapper">
+      <img width="86px" height="86px" ng-src="img/users-avatar/{{ vm.avatarImage }}" alt="avatar" class="account__image">
+      <div class="account__changeAvatar">
+        <p class="account__text">Your avatar</p>
+        <div type="button" class="account__uploadAvatar">
+          <p class="account__uploadAvatar__text">upload</p>
+          <input class="account__uploadAvatar__input" type="file" file-reader="vm.changeAvatar(image)">
+        </div>
+        <!-- /.account__uploadAvatar -->
+      </div>
+      <!-- /.account__changeAvatar -->
+    </div>
+    <!-- /.account__avatarWrapper -->
+    <div class="account__fromGroup">
+      <p class="account__text">Your name</p>
+      <input type="text"
+             name="username"
+             class="account__input"
+             ng-model="vm.name"
+             required
+             ng-change="vm.clearMessageError()"
+             ng-class="{'account__input--error': accountForm.username.$invalid && accountForm.username.$dirty}">
+      <p
+        class="account__inputError"
+        ng-messages="accountForm.username.$error"
+        ng-show="accountForm.username.$invalid && accountForm.username.$dirty">
+        <span ng-message="required">Ooops! Name is required</span>
+      </p>
+    </div>
+    <!-- /.account__fromGroup -->
+    <div class="account__fromGroup">
+      <p class="account__text">Your email</p>
+      <input type="email"
+             name="email"
+             class="account__input"
+             ng-model="vm.email" required
+             ng-class="{'account__input--error': accountForm.email.$invalid && accountForm.email.$dirty}">
+      <p
+        class="account__inputError"
+        ng-messages="accountForm.email.$error"
+        ng-show="accountForm.email.$invalid && accountForm.email.$dirty">
+        <span ng-message="required">Ooops! E-mail is required</span>
+        <span ng-message="email">Something wrong with email</span>
+      </p>
+    </div>
+    <!-- /.account__fromGroup -->
+    <div>
+      <p class="account__text">Tell about yourself</p>
+      <textarea name="addition" class="account__textarea" ng-model="vm.bio"></textarea>
+    </div>
+    <button type="button" class="done-button" ng-click="vm.saveChanges(accountForm.$valid)">save changes</button>
+  </form>
+</section>

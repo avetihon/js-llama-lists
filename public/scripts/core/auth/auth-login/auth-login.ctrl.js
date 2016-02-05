@@ -2,7 +2,7 @@
   "use strict";
 
   angular.module("llamaLists")
-    .controller("llamaLists.core.user-login.loginPageCtrl", LoginPageCtrl);
+    .controller("llamaLists.core.auth-login.loginPageCtrl", LoginPageCtrl);
 
   LoginPageCtrl.$inject = ["$window", "$state", "userAuthService"];
   function LoginPageCtrl($window, $state, userAuthService) {
@@ -23,7 +23,7 @@
         userAuthService.signinUser(userData)
           .then(function (response) {
             $window.localStorage.token = response.token;
-            $state.go("home");
+            $state.go("main.lists");
           }, function (error) {
             delete $window.localStorage.token;
             loginVm.message = error.message;

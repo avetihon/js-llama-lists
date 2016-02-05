@@ -28,7 +28,6 @@ exports.signup = function(req, res) {
           return res.status(422).send({
               success: false,
               message: "This name is already used",
-              type: 1
           });
         } else {
           // save to new user test list

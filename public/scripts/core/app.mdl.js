@@ -13,76 +13,94 @@
         url: "/",
         views: {
           "navbar": {
-            templateUrl:  "navbar/auth-navbar/auth-navbar.tpl.html"
+            templateUrl:  "navbar/navbar-auth/navbar-auth.tpl.html"
           }
         }
       })
-      .state("login", {
-        url: "/login",
+      .state("auth", {
+        url: "",
+        abstract: true,
         views: {
           "navbar": {
-            templateUrl:  "navbar/auth-navbar/auth-navbar.tpl.html"
-          },
-          "content": {
-            templateUrl:  "user-login/user-login.tpl.html",
-            controller:   "llamaLists.core.user-login.loginPageCtrl",
+            templateUrl:  "navbar/navbar-auth/navbar-auth.tpl.html"
+          }
+        }
+      })
+      .state("auth.login", {
+        url: "/login",
+        views: {
+          "content@": {
+            templateUrl:  "auth/auth-login/auth-login.tpl.html",
+            controller:   "llamaLists.core.auth-login.loginPageCtrl",
             controllerAs: "loginVm"
           }
         }
       })
-      .state("signup", {
+      .state("auth.signup", {
         url: "/signup",
         views: {
-          "navbar": {
-            templateUrl:  "navbar/auth-navbar/auth-navbar.tpl.html"
-          },
-          "content": {
-            templateUrl:  "user-signup/user-signup.tpl.html",
-            controller:   "llamaLists.core.user-signup.signupPageCtrl",
+          "content@": {
+            templateUrl:  "auth/auth-signup/auth-signup.tpl.html",
+            controller:   "llamaLists.core.auth-signup.signupPageCtrl",
             controllerAs: "signupVm"
           }
         }
       })
-      .state("home", {
-        url: "/home",
+      .state("main", {
+        url: "/main",
+        abstract: true,
         views: {
           "navbar": {
-            templateUrl:  "navbar/user-navbar/user-navbar.tpl.html",
-            controller:   "llamaLists.core.navbar.user-navbar.userNavCtrl",
+            templateUrl:  "navbar/navbar-user/navbar-user.tpl.html",
+            controller:   "llamaLists.core.navbar.navbar-user.userNavCtrl",
             controllerAs: "navVm"
-          },
-          "content": {
-            templateUrl:  "user-home/user-home.tpl.html",
-            controller:   "llamaLists.core.user-home.homePageCtrl",
+          }
+        }
+      })
+      .state("main.lists", {
+        url: "/lists",
+        views: {
+          "content@": {
+            templateUrl:  "main/main-lists/main-lists.tpl.html",
+            controller:   "llamaLists.core.main.main-lists.homePageCtrl",
             controllerAs: "homeVm"
           }
         }
       })
-      .state("profile", {
-        url:          "/profile",
+      .state("main.interests", {
+        url: "/interests",
         views: {
-          "navbar": {
-            templateUrl:  "navbar/user-navbar/user-navbar.tpl.html",
-            controller:   "llamaLists.core.navbar.user-navbar.userNavCtrl",
-            controllerAs: "navVm"
-          },
-          "content": {
-            templateUrl:  "user-profile/user-profile.tpl.html",
-            controller:   "llamaLists.core.user-profile.profilePageCtrl",
+          "content@": {
+            templateUrl:  "main/main-interests/main-interests.tpl.html",
+            controller:   "llamaLists.core.main.main-interests.interestsPageCtrl",
             controllerAs: "vm"
           }
         }
       })
-      .state("interests", {
+      .state("main.profile", {
+        url: "/profile",
         views: {
-          "navbar": {
-            templateUrl:  "navbar/user-navbar/user-navbar.tpl.html",
-            controller:   "llamaLists.core.navbar.user-navbar.userNavCtrl",
-            controllerAs: "navVm"
-          },
-          "content": {
-            templateUrl:  "user-interests/user-interests.tpl.html",
-            controller:   "llamaLists.core.user-interests.interestsPageCtrl",
+          "content@": {
+            templateUrl:  "main-profile/main-profile.tpl.html"
+          }
+        }
+      })
+      .state("main.profile.account", {
+        url: "/account",
+        views: {
+          "profile": {
+            templateUrl:  "main-profile/profile-account/profile-account.tpl.html",
+            controller:   "llamaLists.core.profile-account.accountPageCtrl",
+            controllerAs: "vm"
+          }
+        }
+      })
+      .state("main.profile.password", {
+        url: "/password",
+        views: {
+          "profile": {
+            templateUrl:  "main-profile/profile-password/profile-password.tpl.html",
+            controller:   "llamaLists.core.profile-password.passwordPageCtrl",
             controllerAs: "vm"
           }
         }
@@ -103,8 +121,9 @@
   /* set body id for css style */
   configRun.$inject = ["$rootScope"];
   function configRun($rootScope) {
-    $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
-      document.body.id = toState.name + "-page";
+    $rootScope.$on('$stateChangeSuccess', function(event, toState){
+      var stateNames = toState.name.split(".");
+      document.body.id = stateNames[stateNames.length - 1] + "-page";
     });
   }
 })();

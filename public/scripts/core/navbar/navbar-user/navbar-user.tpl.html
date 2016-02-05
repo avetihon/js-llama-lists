@@ -1,7 +1,7 @@
 <nav class="userNavbar">
   <div class="container container--fullHeight container--relative">
     <ul class="navbar__links userNavbar__links">
-      <li class="navbar__list"><a class="navbar__link" ui-sref="home">Lists</a></li>
+      <li class="navbar__list"><a class="navbar__link" ui-sref="main.lists">Lists</a></li>
       <li class="navbar__list"><a class="navbar__link">Activity</a></li>
       <li class="navbar__list"><a class="navbar__link">Frends</a></li>
     </ul>
@@ -17,13 +17,13 @@
            click-outside="navVm.closeDropdown()"
            ng-class="{'userData__dropdown--open': navVm.dropdownIsOpen }">
         <span class="userData__link" ng-click="navVm.openDropdown()">
-          Profile
+          <span ng-bind="navVm.name"></span>
           <span class="userData__caret"></span>
         </span>
         <!-- /.userData__link -->
         <div class="userData__dropdown">
           <ul class="userData__dropdownLinks">
-            <li><a class="userData__dropdownList" ui-sref="interests">Edit profile</a></li>
+            <li><a class="userData__dropdownList" ui-sref="main.profile.account">Edit profile</a></li>
             <li><a class="userData__dropdownList" href="#">Settings</a></li>
             <li><a class="userData__dropdownList" href="#" ng-click="navVm.logout()">Logout</a></li>
           </ul>

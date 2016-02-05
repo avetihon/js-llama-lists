@@ -3,20 +3,23 @@
 
   angular
     .module("llamaLists")
-    .controller("llamaLists.core.navbar.user-navbar.userNavCtrl", UserNavCtrl);
+    .controller("llamaLists.core.navbar.navbar-user.userNavCtrl", UserNavCtrl);
 
-    UserNavCtrl.$inject = ["$state", "$window", "userDataService"];
-    function UserNavCtrl($state, $window, userDataService) {
+    UserNavCtrl.$inject = ["$rootScope", "$scope", "$state", "$window", "userDataService"];
+    function UserNavCtrl($rootScope, $scope, $state, $window, userDataService) {
       var navVm = this;
       navVm.logout = logout;
       navVm.openDropdown = openDropdown;
       navVm.changeAvatar = changeAvatar;
       navVm.closeDropdown = closeDropdown;
+      var listener = $rootScope.$on("reloadNavbar", load);
 
       load();
 
       function load() {
         userDataService.getUserData().then(function (response) {
+          console.log(response.user.name)
+          navVm.name = response.user.name;
           navVm.avatarImage = response.user.avatar;
         });
       }
@@ -52,6 +55,8 @@
         delete $window.localStorage.token;
         $state.go("index");
       }
+
+      $scope.$on('$destroy', listener);
     };
 
 })();

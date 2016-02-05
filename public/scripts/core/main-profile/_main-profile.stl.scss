@@ -1,0 +1,63 @@
+#profile-page {
+  /*background-image: url("../img/interest-background.jpg");*/
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+}
+
+.mainSubview__links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.mainSubview__list {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.mainSubview__link {
+  position: relative;
+  display: inline-block;
+  font-size: 1em;
+  padding: 10px 16px;
+  color: #acb1be;
+  transition: color 300ms ease;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  overflow: hidden;
+
+  &:hover {
+    color: #fff;
+  }
+
+  &:before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: $luckyRed;
+    height: 3px;
+    transform: translateY(3px);
+    transition-property: transform;
+    transition-duration: 0.3s;
+    transition-timing-function: ease-out;
+  }
+
+  /* Underline Reveal */
+  &:hover:before,
+  &:focus:before,
+  &:active:before,
+  &.is-active:before {
+    transform: translateY(0);
+  }
+
+  &.is-active {
+    color: #fff;
+  }
+}
+
+
+

@@ -13,6 +13,7 @@
 // Import common part
 @import "../sass/common";
 @import "../sass/scaffolding";
+@import "../sass/variables";
 
 // Import style page
 // Directives
@@ -22,15 +23,15 @@
 @import "../scripts/common/directives/change-background/change-background.stl";
 
 // Controllers
-@import "../scripts/core/user-login/user-login.stl";
-@import "../scripts/core/user-signup/user-signup.stl";
-@import "../scripts/core/user-home/user-home.stl";
-@import "../scripts/core/user-profile/user-profile.stl";
-@import "../scripts/core/user-interests/user-interests.stl";
+@import "../scripts/core/auth/auth-login/auth-login.stl";
+@import "../scripts/core/auth/auth-signup/auth-signup.stl";
+@import "../scripts/core/main/main-lists/main-lists.stl";
+@import "../scripts/core/main/main-interests/main-interests.stl";
+@import "../scripts/core/main-profile/main-profile.stl";
+@import "../scripts/core/main-profile/profile-account/profile-account.stl";
 
-@import "../scripts/core/navbar/auth-navbar/auth-navbar.stl";
-@import "../scripts/core/navbar/user-navbar/user-navbar.stl";
+@import "../scripts/core/navbar/navbar-auth/navbar-auth.stl";
+@import "../scripts/core/navbar/navbar-user/navbar-user.stl";
 
 // ng-include style
-@import "../scripts/core/popup/new-list/new-list";
-
+@import "../scripts/core/popup/new-list/new-list.stl";

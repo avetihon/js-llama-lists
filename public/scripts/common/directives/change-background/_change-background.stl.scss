@@ -56,6 +56,7 @@
 }
 
 .list-background-wrapper > span {
+  position: relative;
   display: inline-block;
   width: 68px;
   height: 68px;
@@ -86,7 +87,7 @@
 }
 
 .list-background-5 {
-  background-image: url("../img/list-background/alice-cat.jpg");
+  background-image: url("../img/list-background/headdress.jpg");
 }
 
 .list-background-6 {
@@ -99,4 +100,57 @@
 
 .list-background-8 {
   background-image: url("../img/list-background/forest-in-fog.jpg");
+}
+
+.active-background {
+  &:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
+  }
+}
+
+.checkmark-background{
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 40px;
+  height: 40px;
+  margin: auto;
+  background-image: url("../img/icon/checkmark.svg");
+  background-size: 50px 50px;
+  background-position: center center;
+  background-repeat: no-repeat;
+  opacity: 0;
+  pointer-events: none;
+
+  .active-background & {
+    animation-name: bounceCheck;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+  }
+}
+
+@keyframes bounceCheck {
+  20% {
+    opacity: 0;
+    transform: scale3d(1.7, 1.7, 1.7);
+  }
+
+  50%, 55% {
+    opacity: 1;
+    transform: scale3d(.6, .6, .6);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale3d(1, 1, 1);
+  }
 }

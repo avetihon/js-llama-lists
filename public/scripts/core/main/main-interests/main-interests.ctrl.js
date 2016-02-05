@@ -2,7 +2,7 @@
   "use strict";
 
   angular.module("llamaLists")
-    .controller("llamaLists.core.user-interests.interestsPageCtrl", InterestsPageCtrl);
+    .controller("llamaLists.core.main.main-interests.interestsPageCtrl", InterestsPageCtrl);
 
     InterestsPageCtrl.$inject = ["userDataService", "$timeout", "$state"];
     function InterestsPageCtrl(userDataService, $timeout, $state) {
@@ -64,7 +64,7 @@
           });
           body.interests = arrayToSend;
           userDataService.saveInterests(body).then(function (response) {
-            $state.go("home");
+            $state.go("main.lists");
           });
         } else {
 
@@ -75,7 +75,7 @@
       }
 
       function skipInterests() {
-        $state.go("home");
+        $state.go("main.lists");
       }
     }
 })();

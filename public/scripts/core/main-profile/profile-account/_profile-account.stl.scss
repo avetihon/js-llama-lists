@@ -1,0 +1,116 @@
+.account {
+  width: 415px;
+  margin: 0 auto;
+}
+
+.account__avatarWrapper {
+  @include clearfix;
+  margin-bottom: 20px;
+}
+
+.account__image {
+  width: 86px;
+  height: 86px;
+  float: left;
+  margin-right: 30px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.account__uploadAvatar {
+  position: relative;
+  width: 100px;
+  padding: 7px 0 6px;
+  font-weight: 400;
+  font-size: 0.8em;
+  text-align: center;
+  text-transform: uppercase;
+  color: #a2aabd;
+  border: 1px solid #bdc3d2;
+  border-radius: 2px;
+  background-color: #fff;
+  cursor: pointer;
+
+  &:hover {
+    border-color: #9fa7bd;
+    color: #848fa8
+  }
+}
+
+.account__uploadAvatar__text {
+  margin: 0;
+}
+
+.account__uploadAvatar__input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  opacity: 0
+}
+
+.account__changeAvatar {
+  float: left;
+}
+
+.account__fromGroup {
+  margin-bottom: 6%;
+}
+
+.account__text {
+  margin-top: 0;
+  font-size: 0.75em;
+  color: #a2aabd;
+  text-transform: uppercase;
+}
+
+.account__input {
+  position: relative;
+  width: 100%;
+  font-size: 1em;
+  border: 0;
+  border-bottom: 1px solid #dadee6;
+  color: #303F60;
+  transition: border-color 300ms ease;
+
+  &:focus {
+    border-color: #2088cd;
+  }
+
+  &--error,
+  &--error:focus {
+    border-color: $luckyRed;
+  }
+}
+
+.account__textarea {
+  width: 100%;
+  height: 100px;
+  margin-bottom: 10px;
+  color: #303F60;
+  border: 1px solid #dadee6;
+  outline: 0;
+  resize: none;
+  transition: border-color 300ms ease;
+
+  &:focus {
+    border-color: #2088cd;
+  }
+}
+
+.account__serverError {
+  color: $luckyRed;
+}
+
+.account__serverDone {
+  color: #7ec58d;
+}
+
+.account__inputError {
+  position: absolute;
+  margin: 0;
+  font-size: 0.85em;
+  color: $luckyRed;
+}

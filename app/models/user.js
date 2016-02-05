@@ -9,6 +9,7 @@ var userSchema = mongoose.Schema({
   password:  String,
   avatar:    { type: String, default: "no-avatar.jpg" },
   interests: Array,
+  bio:       String,
   lists:     [listShema]
 });
 

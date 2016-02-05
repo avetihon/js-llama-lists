@@ -38,6 +38,7 @@
             scope.editedBackgroundWindow = listDataService.getBackgroundPopup();
             if(scope.editedBackgroundWindow === true) {
               currentListId = listDataService.getListId();
+              scope.currentBackground = listDataService.getCurrentBackground();
             }
           }
         );
@@ -57,14 +58,15 @@
           var image = {};
           var responseData = {};
 
-          image.imageName = event.target.className;
-          listDataService.setBackgroundForList(currentListId, image).then( function (response) {
-
-            responseData.listId = currentListId;
-            responseData.image = image.imageName;
-            responseData.type = "backgroundChanged";
-            scope.$parent.$broadcast("listChanged", responseData);
-          });
+          if (!angular.element(event.target).hasClass("active-background")) {
+            image.imageName = event.target.className;
+            scope.currentBackground = event.target.className;
+            listDataService.setBackgroundForList(currentListId, image).then( function (response) {
+              responseData.listId = currentListId;
+              listDataService.setCurrentBackground(image.imageName);
+              scope.$parent.$broadcast("listChanged", responseData);
+            });
+          }
         }
 
         /**

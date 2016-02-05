@@ -3,7 +3,7 @@
 
   angular
     .module("llamaLists")
-    .controller("llamaLists.core.user-home.homePageCtrl", HomePageCtrl);
+    .controller("llamaLists.core.main.main-lists.homePageCtrl", HomePageCtrl);
 
     HomePageCtrl.$inject = ["$scope", "$rootScope", "listDataService"];
     function HomePageCtrl($scope, $rootScope, listDataService) {

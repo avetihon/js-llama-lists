@@ -3,26 +3,26 @@
   background-color: #f9f9fb;
 }
 
-.homeSubview {
+.mainSubview {
   position: relative;
   background-color: #292c3b;
   margin: 0 0 30px;
 }
 
-  .homeSubview__logo {
+  .mainSubview__logo {
     position: absolute;
     top: 4px;
     left: -18px;
   }
 
-  .homeSubview__page {
+  .mainSubview__page {
     margin: 5px 0 10px;
     font-size: 2.3em;
     font-weight: 300;
     color:#fff;
   }
 
-  .homeSubview__newList {
+  .mainSubview__newList {
     position: absolute;
     right: 0;
     bottom: -27px;
@@ -42,7 +42,7 @@
     }
   }
 
-    .homeSubview__newListIcon {
+    .mainSubview__newListIcon {
       display: block;
       width: 20px;
       height: 20px;

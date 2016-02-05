@@ -2,7 +2,7 @@
   "use strict";
 
   angular.module("llamaLists")
-    .controller("llamaLists.core.user-signup.signupPageCtrl", SignupPageCtrl);
+    .controller("llamaLists.core.auth-signup.signupPageCtrl", SignupPageCtrl);
 
     SignupPageCtrl.$inject = ["$window", "$state", "userAuthService"];
     function SignupPageCtrl($window, $state, userAuthService) {
@@ -26,7 +26,7 @@
           userAuthService.saveNewUser(userData)
             .then(function (response) {
               $window.localStorage.token = response.token;
-              $state.go("interests");
+              $state.go("main.interests");
             }, function (error) {
               delete $window.localStorage.token;
               signupVm.message = error.message;

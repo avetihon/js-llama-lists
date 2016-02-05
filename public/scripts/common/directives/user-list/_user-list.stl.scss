@@ -55,9 +55,9 @@
 }
 
 .list-header-edited {
-  position: relative;
+  position: absolute;
+  right: 0;
   margin: 5px 10px 0 0;
-  float: right;
   z-index: 1;
   color: #ececec;
   opacity: 0;
@@ -118,6 +118,7 @@
 .list-header {
   position: relative;
   height: 140px;
+  display: flex;
 }
 
 .list-header-image {
@@ -137,16 +138,44 @@
 }
 
 .list-title {
-  position: absolute;
-  bottom: 20px;
+  position: relative;
+  align-self: flex-end;
   max-height: 90px;
-  margin: 0;
-  padding: 0 4%;
+  max-width: 95%;
+  display: inline;
+  white-space: pre-wrap;
+  margin: 0 0 10px;
+  padding: 0 6% 0 4%;
   text-align: left;
   font-size: 1.4em;
   font-weight: 400;
   overflow: hidden;
   color: #fff;
+  outline: 0;
+  cursor: default;
+
+  &:hover:after,
+  &:focus:after {
+    opacity: 1;
+  }
+
+  &:focus {
+    cursor: text;
+  }
+
+  &:after {
+    content: "";
+    position: absolute;
+    bottom: 4px;
+    right: 0px;
+    width: 16px;
+    height: 16px;
+    opacity: 0;
+    background-image: url(../img/icon/edit-avatar.svg);
+    background-position: center center;
+    background-size: 16px 16px;
+    background-repeat: no-repeat;
+  }
 }
 
 .list:hover .list-settings {

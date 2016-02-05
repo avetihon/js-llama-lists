@@ -62,7 +62,7 @@
 }
 
 .chosen-interest {
-  animation: chooseInterest 0.6s 0s 1 linear alternate;
+  animation: chooseInterest 0.6s 0s 1 ease alternate;
   animation-fill-mode: forwards;
 }
 
