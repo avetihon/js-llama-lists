@@ -5,7 +5,7 @@ var User    = require("../../app/models/user"); // load up the user model
  */
 exports.addTask = function(req, res) {
   var listId    = req.params.id;
-  var taskText  = req.body.title;
+  var taskText  = req.body.text;
   var queryUser = { _id: req.user._id };
 
   User
@@ -39,6 +39,7 @@ exports.getTask = function(req, res) {
   User
     .findOne(queryUser)
     .select("lists._id lists.tasks")
+    .lean()
     .exec(function (err, user) {
       if (err) throw err;
 
@@ -57,6 +58,7 @@ exports.getTasks = function(req, res) {
   User
     .findOne(queryUser)
     .select("lists._id lists.tasks")
+    .lean()
     .exec(function (err, user) {
       if (err) throw err;
 
@@ -89,9 +91,9 @@ exports.removeTask = function(req, res) {
 };
 
 /**
- * set task as completed or uncompleted
+ * put changes in task
  */
-exports.setTaskCompleted = function(req, res, next) {
+exports.updateTask = function(req, res, next) {
   var listId    = req.params.id_list;
   var taskId    = req.params.id_task;
   var queryUser = { _id: req.user._id };
@@ -103,47 +105,22 @@ exports.setTaskCompleted = function(req, res, next) {
       if (err) throw err;
 
       var task = user.lists.id(listId).tasks.id(taskId);
-      task.completed = (task.completed)
-        ? false
-        : true;
+
+      if (req.body.completed) {
+        task.completed = (task.completed)
+          ? false
+          : true;
+      } else if (req.body.color) {
+        task.color = req.body.color;
+      } else if (req.body.text) {
+        task.text = req.body.text;
+      }
+
 
       user.save(function (err, done) {
         if (err) return done(err);
 
-        res.json({ completed: task.completed });
-      });
-  });
-};
-
-
-/**
- * change data in task
- */
-exports.changeTask = function(req, res) {
-  var listId    = req.params.id_list;
-  var taskId    = req.params.id_task;
-  var dataType  = req.body.type;
-  var data      = req.body.data;
-  var queryUser = { _id: req.user._id };
-
-  User
-    .findOne(queryUser)
-    .select("lists._id lists.tasks")
-    .exec(function (err, user) {
-      if (err) throw err;
-
-      var task = user.lists.id(listId).tasks.id(taskId);
-
-      if (dataType === "color") {
-        task.color = data;
-      } else if (dataType === "title") {
-        task.title = data;
-      }
-
-      user.save(function(err, done) {
-        if (err) return done(err);
-
-        res.json({ success: true });
+        res.json({ task: task });
       });
   });
 };

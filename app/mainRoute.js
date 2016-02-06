@@ -10,37 +10,35 @@ module.exports = function(app) {
   /**
    * auth stuff
    **/
-  app.post("/signup", auth.signup);
-  app.post("/login", auth.login);
+  app.post("/auth/signup", auth.signup);
+  app.post("/auth/login", auth.login);
 
 
   /**
    * user stuff
    **/
   app.get("/api/user", user.getUserData);
-  app.post("/api/user", user.saveUserData);
-  app.post("/api/user/password", user.saveUserPassword);
-  app.post("/api/user/avatar", user.saveAvatarImage);
+  app.put("/api/user", user.saveUserData);
+  app.post("/api/user", user.saveUserPassword);
+  app.put("/api/user/avatar", user.saveAvatarImage);
+  app.put("/api/user/interests", user.saveInterest);
   app.get("/api/user/interests", user.getInterestsList);
-  app.post("/api/user/interests", user.saveInterest);
   /**
    * list stuff
    **/
-  app.get("/api/lists", list.getlists);
-  app.post("/api/list", list.addList);
-  app.delete("/api/list/:id", list.removeList);
-  app.post("/api/list/:id/title", list.setNewTitle);
-  app.post("/api/list/:id/image", list.setNewBackground);
+  app.get("/api/lists", list.getLists);
+  app.post("/api/lists", list.addList);
+  app.delete("/api/lists/:id", list.removeList);
+  app.put("/api/lists/:id", list.updateList)
 
   /**
    * task stuff
    **/
-  app.post("/api/list/:id/task", task.addTask);
-  app.get("/api/list/:id_list/task", task.getTasks);
-  app.get("/api/list/:id_list/task/:id_task", task.getTask);
-  app.put("/api/list/:id_list/task/:id_task", task.changeTask);
-  app.delete("/api/list/:id_list/task/:id_task", task.removeTask);
-  app.put("/api/list/:id_list/task/:id_task/completed", task.setTaskCompleted);
+  app.post("/api/lists/:id/task", task.addTask);
+  app.get("/api/lists/:id_list/task", task.getTasks);
+  app.get("/api/lists/:id_list/task/:id_task", task.getTask);
+  app.put("/api/lists/:id_list/task/:id_task", task.updateTask);
+  app.delete("/api/lists/:id_list/task/:id_task", task.removeTask);
 
   // redirect all others router to the index (HTML5 history)
   app.all("/*", function(req, res) {

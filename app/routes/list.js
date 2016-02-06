@@ -3,7 +3,7 @@ var User    = require("../../app/models/user"); // load up the user model
 /**
  * get all lists request
  */
-exports.getlists = function(req, res) {
+exports.getLists = function(req, res) {
   var queryUser = { _id: req.user._id };
 
   User
@@ -68,21 +68,25 @@ exports.removeList = function(req, res) {
 };
 
 /**
- * set new background for list request
+ * put changes in list
  */
-exports.setNewBackground = function(req, res) {
+exports.updateList = function(req, res) {
   var listId    = req.params.id;
-  var image     = req.body.imageName;
   var queryUser = { _id: req.user._id };
 
   User
     .findOne(queryUser)
-    .select("lists._id lists.image")
+    .select("lists")
     .exec(function(err, user) {
       if (err) throw err;
 
       var list = user.lists.id(listId);
-      list.image = image;
+
+      if (req.body.image) {
+        list.image = req.body.image;
+      } else if (req.body.title) {
+        list.title = req.body.title;
+      }
 
       user.save(function(err, done) {
         if (err) return done(err);
@@ -90,30 +94,4 @@ exports.setNewBackground = function(req, res) {
         res.json({ success: true });
       });
   });
-};
-
-
-/**
- * set new background for list request
- */
-exports.setNewTitle = function(req, res) {
-  var listId    = req.params.id;
-  var title     = req.body.title;
-  var queryUser = { _id: req.user._id };
-
-  User
-    .findOne(queryUser)
-    .select("lists._id lists.title")
-    .exec(function(err, user) {
-      if (err) throw err;
-
-      var list = user.lists.id(listId);
-      list.title = title;
-
-      user.save(function(err, done) {
-        if (err) return done(err);
-
-        res.json({ success: true });
-      });
-  });
-};
+}

@@ -31,7 +31,7 @@
           name="userTask"
           placeholder="Write something..."
           click-enter="addNewTask(taskForm.$valid)"
-          ng-model="taskTitle"
+          ng-model="taskText"
           ng-focus="focused=true"
           ng-blur="focused=false"
           ng-class="{'is-dirty': !taskForm.userTask.$error.required}"

@@ -2,10 +2,10 @@
   "use strict";
 
   angular.module("llamaLists")
-    .controller("llamaLists.core.main.main-interests.interestsPageCtrl", InterestsPageCtrl);
+    .controller("interestsPageCtrl", InterestsPageCtrl);
 
-    InterestsPageCtrl.$inject = ["userDataService", "$timeout", "$state"];
-    function InterestsPageCtrl(userDataService, $timeout, $state) {
+    InterestsPageCtrl.$inject = ["$timeout", "$state", "UserService"];
+    function InterestsPageCtrl($timeout, $state, UserService) {
       var vm = this;
       var i = 0;
       var colorsArray = ["red", "orange", "yellow", "green", "indigo", "violet"];
@@ -17,7 +17,7 @@
       vm.saveInterests = saveInterests;
       vm.skipInterests = skipInterests;
       // delay is necessary to run the animation
-      userDataService.getInterestsList().then(function (response) {
+      UserService.getInterests({}, function (response) {
         $timeout(function() {
           vm.interests = response.interests;
         }, 100);
@@ -55,15 +55,13 @@
       // i know this code between fuck and shit
 
       function saveInterests() {
-        var body = {};
         var arrayToSend = [];
 
         if (vm.selectedInterest.length > 0) {
           vm.selectedInterest.forEach(function(item) {
             arrayToSend.push(item.text);
           });
-          body.interests = arrayToSend;
-          userDataService.saveInterests(body).then(function (response) {
+          UserService.setInterests({}, { interests: arrayToSend }, function (response) {
             $state.go("main.lists");
           });
         } else {

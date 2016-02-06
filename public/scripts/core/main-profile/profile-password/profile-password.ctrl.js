@@ -3,10 +3,10 @@
 
   angular
     .module("llamaLists")
-    .controller("llamaLists.core.profile-password.passwordPageCtrl", PasswordPageCtrl);
+    .controller("passwordPageCtrl", PasswordPageCtrl);
 
-    PasswordPageCtrl.$inject = ["userDataService"];
-    function PasswordPageCtrl(userDataService) {
+    PasswordPageCtrl.$inject = ["UserService"];
+    function PasswordPageCtrl(UserService) {
       var vm = this;
 
       vm.savePassword = savePassword;
@@ -24,12 +24,11 @@
               newPass: vm.newPassConfirm
             }
 
-            userDataService.saveUserPassword(body)
-              .then(function (response) {
-                vm.messageDone = response.message;
-              }, function (error) {
-                vm.message = error.message;
-              });
+            UserService.save({}, body, function (response) {
+              vm.messageDone = response.message;
+            }, function (error) {
+              vm.message = error.data.message;
+            });
           } else {
             vm.errorConfirmPass = true;
           }

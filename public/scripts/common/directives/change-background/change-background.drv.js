@@ -8,8 +8,8 @@
     .module("llamaLists")
     .directive("listBackground", listBackgroundDirective);
 
-    listBackgroundDirective.$inject = ["$rootScope","listDataService"];
-    function listBackgroundDirective($rootScope, listDataService) {
+    listBackgroundDirective.$inject = ["$rootScope", "ListsService", "backgroundDataService"];
+    function listBackgroundDirective($rootScope, ListsService, backgroundDataService) {
       var directive = {
         restrict: "E",
         replace: true,
@@ -33,12 +33,12 @@
          */
         scope.$watch(
           function() {
-            return listDataService.getBackgroundPopup();
+            return backgroundDataService.getBackgroundPopup();
           }, function() {
-            scope.editedBackgroundWindow = listDataService.getBackgroundPopup();
+            scope.editedBackgroundWindow = backgroundDataService.getBackgroundPopup();
             if(scope.editedBackgroundWindow === true) {
-              currentListId = listDataService.getListId();
-              scope.currentBackground = listDataService.getCurrentBackground();
+              currentListId = backgroundDataService.getListId();
+              scope.currentBackground = backgroundDataService.getCurrentBackground();
             }
           }
         );
@@ -55,15 +55,14 @@
          * And broadcast to right list changes (maybe it's vare bad solution)
          */
         function changeBackground(event) {
-          var image = {};
           var responseData = {};
 
           if (!angular.element(event.target).hasClass("active-background")) {
-            image.imageName = event.target.className;
-            scope.currentBackground = event.target.className;
-            listDataService.setBackgroundForList(currentListId, image).then( function (response) {
+            var image = event.target.className;
+            scope.currentBackground = image;
+            ListsService.update({id: currentListId}, { image: image}, function (response) {
               responseData.listId = currentListId;
-              listDataService.setCurrentBackground(image.imageName);
+              backgroundDataService.setCurrentBackground(image);
               scope.$parent.$broadcast("listChanged", responseData);
             });
           }
@@ -73,7 +72,7 @@
          * When fog directive broadcast closing event -> calling this func
          */
         function closePopup() {
-          listDataService.closeBackgroundPopup();
+          backgroundDataService.closeBackgroundPopup();
         }
       }
     }

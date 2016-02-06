@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="llamaLists">
+<html lang="en">
 <head>
   <base href="/">
   <meta charset="UTF-8">
@@ -19,16 +19,18 @@
   <script src="libs/angular/angular.min.js"></script>
   <script src="libs/angular-animate/angular-animate.min.js"></script>
   <script src="libs/angular-messages/angular-messages.min.js"></script>
+  <script src="libs/angular-resource/angular-resource.min.js"></script>
   <script src="libs/angular-ui-router/release/angular-ui-router.min.js"></script>
   <!-- Main file -->
   <script src="scripts/core/app.mdl.js"></script>
   <!-- Controllers, directives, factory file -->
   <script src="scripts/common/services/auth-interceptor.fctr.js"></script>
   <script src="scripts/common/services/exception-handler.fctr.js"></script>
-  <script src="scripts/common/services/list-data.srv.js"></script>
-  <script src="scripts/common/services/task-data.srv.js"></script>
-  <script src="scripts/common/services/user-auth.srv.js"></script>
-  <script src="scripts/common/services/user-data.srv.js"></script>
+  <script src="scripts/common/services/background-data.srv.js"></script>
+  <script src="scripts/common/services/auth.fctr.js"></script>
+  <script src="scripts/common/services/user.fctr.js"></script>
+  <script src="scripts/common/services/lists.fctr.js"></script>
+  <script src="scripts/common/services/task.fctr.js"></script>
   <script src="scripts/common/directives/user-list/user-list.drv.js"></script>
   <script src="scripts/common/directives/user-task/user-task.drv.js"></script>
   <script src="scripts/common/directives/change-background/change-background.drv.js"></script>
@@ -42,8 +44,12 @@
   <script src="scripts/core/auth/auth-signup/auth-signup.ctrl.js"></script>
   <script src="scripts/core/main/main-lists/main-lists.ctrl.js"></script>
   <script src="scripts/core/main/main-interests/main-interests.ctrl.js"></script>
+  <script src="scripts/core/main-profile/main-profile.ctrl.js"></script>
   <script src="scripts/core/main-profile/profile-account/profile-account.ctrl.js"></script>
   <script src="scripts/core/main-profile/profile-password/profile-password.ctrl.js"></script>
   <script src="scripts/core/navbar/navbar-user/navbar-user.ctrl.js"></script>
+
+  <!-- Bootstrap -->
+  <script src="scripts/core/app-bootstrap.js"></script>
 </body>
 </html>

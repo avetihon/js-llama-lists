@@ -2536,6 +2536,7 @@ img {
 .mainSubview__link {
   position: relative;
   display: inline-block;
+  vertical-align: top;
   font-size: 1em;
   padding: 10px 16px;
   color: #acb1be;
@@ -2837,9 +2838,13 @@ img {
   border-radius: 50%;
   -webkit-transition: opacity 300ms ease;
   transition: opacity 300ms ease;
+  /* prevent load avatar when user in the account page */
 }
 .userData__avatar:hover .userData__avatarIcon {
   opacity: 1;
+}
+#account-page .userData__avatar:hover .userData__avatarIcon {
+  opacity: 0;
 }
 
 .userData__avatarImage {
@@ -2858,6 +2863,11 @@ img {
   height: 100%;
   overflow: hidden;
   opacity: 0;
+}
+
+/* prevent load avatar when user in the account page */
+#account-page .userData__uploadAvatar {
+  display: none;
 }
 
 .userData__link {

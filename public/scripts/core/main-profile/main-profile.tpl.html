@@ -1,4 +1,4 @@
-<section class="mainSubview" ng-init="currentView = 'account'">
+<section class="mainSubview">
   <div class="container container--fullHeight container--relative">
     <a class="navbar__brand mainSubview__logo" href="#">
       <img class="navbar__image" alt="brand-logo" src="img/brandlogo.png">
@@ -8,15 +8,15 @@
       <li class="mainSubview__list">
         <a ui-sref="main.profile.account"
            class="mainSubview__link"
-           ng-class="{'is-active': 'account' === currentView}"
-           ng-click="currentView = 'account'">Account</a>
+           ng-class="{'is-active': 'account' === vm.currentView}"
+           ng-click="vm.currentView = 'account'">Account</a>
       </li>
       <!-- /.mainSubview__list -->
       <li class="mainSubview__list">
         <a ui-sref="main.profile.password"
            class="mainSubview__link"
-           ng-class="{'is-active': 'password' === currentView}"
-           ng-click="currentView = 'password'">Password</a>
+           ng-class="{'is-active': 'password' === vm.currentView}"
+           ng-click="vm.currentView = 'password'">Password</a>
       </li>
       <!-- /.mainSubview__list -->
     </div>

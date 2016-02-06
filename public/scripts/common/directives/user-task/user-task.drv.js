@@ -8,8 +8,8 @@
     .module("llamaLists")
     .directive("userTask", taskDirective);
 
-    taskDirective.$inject = ["taskDataService"];
-    function taskDirective(taskDataService) {
+    taskDirective.$inject = ["TaskService"];
+    function taskDirective(TaskService) {
 
       var directive = {
         require: "^list",
@@ -31,7 +31,7 @@
 
         scope.setTaskCompleted = setTaskCompleted;
         scope.saveEditedText = saveEditedText;
-        scope.editTaskTitle = editTaskTitle;
+        scope.editTaskText = editTaskText;
         scope.closeEditMode = closeEditMode;
         scope.closeDropdown = closeDropdown;
         scope.openDropdown = openDropdown;
@@ -39,14 +39,12 @@
         scope.removeTask = removeTask;
 
         scope.dropdownIsOpen = false;
-        // scope.$on("taskChanged", changeTask);
 
         function setTaskCompleted(event) {
           if (scope.editMode !== true) {
-            taskDataService.setTaskCompleted(listId, taskId)
-              .then(function (response) {
-                scope.task.completed = response.completed;
-              });
+            TaskService.update({ list: listId, task: taskId }, { completed: true }, function (response) {
+              scope.task.completed = response.task.completed;
+            });
           }
         }
 
@@ -64,8 +62,8 @@
         }
 
         // activate div attr content editable
-        function editTaskTitle() {
-          textBeforeEdit = scope.task.title;
+        function editTaskText() {
+          textBeforeEdit = scope.task.text;
           scope.editMode = true;
           scope.focusOn = true;
 
@@ -73,19 +71,18 @@
         }
 
         function saveEditedText() {
-          var task = {
-            data: scope.task.title,
-            type: "title"
+          if (scope.task.text) {
+            TaskService.update({ list: listId, task: taskId }, { text: scope.task.text }, function (response) {
+              scope.editMode = false;
+            });
+          } else {
+            closeEditMode();
           }
-
-          taskDataService.changeTask(listId, taskId, task).then(function (response) {
-            scope.editMode = false;
-          });
         }
 
         // disable div attr content editable, remove changes
         function closeEditMode() {
-          scope.task.title = textBeforeEdit;
+          scope.task.text = textBeforeEdit;
           scope.editMode = false;
         }
 
@@ -93,14 +90,11 @@
         function changeColor(event) {
           var className = event.target.className;
           var target = angular.element(event.target);
-          var task = {};
+
           if (!target.hasClass("task__color--active")) {
             className = className.replace("task__color ", ""); // remove unnecessary part of class name
 
-            task.data = className; // make body request
-            task.type = "color";
-
-            taskDataService.changeTask(listId, taskId, task).then(function (response) {
+            TaskService.update({ list: listId, task: taskId }, { color: className }, function (response) {
               scope.task.color = className;
             });
           }
@@ -108,9 +102,9 @@
 
         // remove task
         function removeTask() {
-          taskDataService.removeTask(listId, taskId).then(function (response) {
+          TaskService.delete({ list: listId, task: taskId }, function (response) {
             listController.reloadTasks(listId);
-          });
+          })
         }
       }
     }

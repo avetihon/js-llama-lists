@@ -3,10 +3,10 @@
 
   angular
     .module("llamaLists")
-    .controller("llamaLists.core.profile-account.accountPageCtrl", AccountPageCtrl);
+    .controller("accountPageCtrl", AccountPageCtrl);
 
-    AccountPageCtrl.$inject = ["$rootScope", "userDataService"];
-    function AccountPageCtrl($rootScope, userDataService) {
+    AccountPageCtrl.$inject = ["$rootScope", "UserService"];
+    function AccountPageCtrl($rootScope, UserService) {
       var vm = this;
       vm.saveChanges = saveChanges;
       vm.changeAvatar = changeAvatar;
@@ -15,13 +15,12 @@
       activate();
 
       function activate() {
-        userDataService.getUserData()
-          .then( function (response) {
-            vm.avatarImage = response.user.avatar;
-            vm.name = response.user.name;
-            vm.email = response.user.email;
-            vm.bio = response.user.bio;
-          });
+        UserService.get(function (response) {
+          vm.avatarImage = response.user.avatar;
+          vm.name = response.user.name;
+          vm.email = response.user.email;
+          vm.bio = response.user.bio;
+        });
       }
 
       function saveChanges(validation) {
@@ -31,21 +30,20 @@
           body.name = vm.name;
           body.email = vm.email;
           body.bio = vm.bio;
-          userDataService.saveUserData(body)
-            .then(function (response) {
-              vm.message = null;
-              vm.messageDone = response.message;
-              $rootScope.$emit("reloadNavbar");
-            }, function (error) {
-              vm.messageDone = null;
-              vm.message = error.message;
-            });
+
+          vm.message = null;
+          vm.messageDone = null;
+          UserService.update({}, body, function (response) {
+            vm.messageDone = response.message;
+            $rootScope.$emit("reloadNavbar");
+          }, function (error) {
+            vm.message = error.data.message;
+          });
         }
       }
 
       function changeAvatar(image) {
         var reader;
-        var body = {};
 
         if (image.type.localeCompare("image/jpeg") !== 0 && image.type.localeCompare("image/png") !== 0) {
           console.log("error")
@@ -53,12 +51,10 @@
 
         reader = new FileReader();
         reader.onload = function (event) {
-          body.avatar = event.target.result;
-          userDataService.saveAvatarImage(body).then(function (response) {
+          UserService.avatar({}, { avatar: event.target.result }, function (response) {
             vm.avatarImage = response.avatar;
             $rootScope.$emit("reloadNavbar");
           });
-
         }
         reader.readAsDataURL(image);
       }

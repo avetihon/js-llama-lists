@@ -4,7 +4,7 @@
       <img class="navbar__image" alt="brand-logo" src="img/brandlogo.png">
     </a>
     <p class="mainSubview__page">Lists</p>
-    <button class="mainSubview__newList" ng-click="homeVm.createNewList()">
+    <button class="mainSubview__newList" ng-click="listsVm.createNewList()">
       <span class="mainSubview__newListIcon"></span>
     </button>
   </div>
@@ -17,8 +17,8 @@
         <span class="icon-search"></span>
         <input type="text"
                placeholder="Start typing to search lists..."
-               ng-model="homeVm.search.title"
-               ng-class="{ 'search--active': homeVm.search.title.length }">
+               ng-model="listsVm.search.title"
+               ng-class="{ 'search--active': listsVm.search.title.length }">
         <span class="icon-close"></span>
       </div>
       <!-- /.list-search -->
@@ -31,8 +31,8 @@
     </div>
     <!-- /.list-toolbar -->
     <div class="lists-wrapper row">
-      <div class="col-sm-4" ng-repeat="list in homeVm.lists | filter:homeVm.search">
-        <list list-data="list" update-lists="homeVm.updateList()"></list>
+      <div class="col-sm-4" ng-repeat="list in listsVm.lists | filter:listsVm.search">
+        <list list-data="list" update-lists="listsVm.updateList()"></list>
       </div>
       <!-- /.list-elemnt -->
     </div>

@@ -35,6 +35,11 @@
       .userData__avatar:hover & {
         opacity: 1;
       }
+
+      /* prevent load avatar when user in the account page */
+      #account-page .userData__avatar:hover & {
+        opacity: 0;
+      }
     }
 
     .userData__avatarImage {
@@ -52,6 +57,11 @@
       height: 100%;
       overflow: hidden;
       opacity: 0;
+    }
+
+    /* prevent load avatar when user in the account page */
+    #account-page .userData__uploadAvatar {
+      display: none;
     }
 
 .userData__link {

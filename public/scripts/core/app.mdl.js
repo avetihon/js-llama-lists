@@ -2,7 +2,7 @@
   "use strict";
 
   angular
-    .module("llamaLists", ["ui.router", "ngMessages", "ngAnimate", "exceptionOverride"])
+    .module("llamaLists", ["ui.router", "ngMessages", "ngResource", "ngAnimate", "exceptionOverride"])
     .config(configRoute)
     .run(configRun);
 
@@ -31,7 +31,7 @@
         views: {
           "content@": {
             templateUrl:  "auth/auth-login/auth-login.tpl.html",
-            controller:   "llamaLists.core.auth-login.loginPageCtrl",
+            controller:   "loginPageCtrl",
             controllerAs: "loginVm"
           }
         }
@@ -41,7 +41,7 @@
         views: {
           "content@": {
             templateUrl:  "auth/auth-signup/auth-signup.tpl.html",
-            controller:   "llamaLists.core.auth-signup.signupPageCtrl",
+            controller:   "signupPageCtrl",
             controllerAs: "signupVm"
           }
         }
@@ -52,7 +52,7 @@
         views: {
           "navbar": {
             templateUrl:  "navbar/navbar-user/navbar-user.tpl.html",
-            controller:   "llamaLists.core.navbar.navbar-user.userNavCtrl",
+            controller:   "userNavCtrl",
             controllerAs: "navVm"
           }
         }
@@ -62,8 +62,8 @@
         views: {
           "content@": {
             templateUrl:  "main/main-lists/main-lists.tpl.html",
-            controller:   "llamaLists.core.main.main-lists.homePageCtrl",
-            controllerAs: "homeVm"
+            controller:   "listsPageCtrl",
+            controllerAs: "listsVm"
           }
         }
       })
@@ -72,7 +72,7 @@
         views: {
           "content@": {
             templateUrl:  "main/main-interests/main-interests.tpl.html",
-            controller:   "llamaLists.core.main.main-interests.interestsPageCtrl",
+            controller:   "interestsPageCtrl",
             controllerAs: "vm"
           }
         }
@@ -81,7 +81,9 @@
         url: "/profile",
         views: {
           "content@": {
-            templateUrl:  "main-profile/main-profile.tpl.html"
+            templateUrl:  "main-profile/main-profile.tpl.html",
+            controller: "profilePageCtrl",
+            controllerAs: "vm"
           }
         }
       })
@@ -90,7 +92,7 @@
         views: {
           "profile": {
             templateUrl:  "main-profile/profile-account/profile-account.tpl.html",
-            controller:   "llamaLists.core.profile-account.accountPageCtrl",
+            controller:   "accountPageCtrl",
             controllerAs: "vm"
           }
         }
@@ -100,7 +102,7 @@
         views: {
           "profile": {
             templateUrl:  "main-profile/profile-password/profile-password.tpl.html",
-            controller:   "llamaLists.core.profile-password.passwordPageCtrl",
+            controller:   "passwordPageCtrl",
             controllerAs: "vm"
           }
         }

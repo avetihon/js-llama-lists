@@ -8,8 +8,8 @@
     .module("llamaLists")
     .directive("list", listDirective);
 
-    listDirective.$inject = ["listDataService", "taskDataService"];
-    function listDirective(listDataService, taskDataService) {
+    listDirective.$inject = ["ListsService", "TaskService", "backgroundDataService"];
+    function listDirective(ListsService, TaskService, backgroundDataService) {
       var directive = {
         restrict: "E",
         replace: true,
@@ -34,6 +34,8 @@
         scope.saveEditedTitle = saveEditedTitle;
         scope.openBackgroundPopup = openBackgroundPopup;
         scope.$on("listChanged", listChanged);
+        // console.log(ListsService.get())
+
 
         /**
          * This function create new task, save its to DB
@@ -42,33 +44,32 @@
         function addNewTask(validation) {
 
           if (validation && allowSavingTask) {
-            var task = {};
-            task.title = scope.taskTitle;
             allowSavingTask = false;
 
-            taskDataService.addNewTask(listId, task)
-              .then(function (response) {
-                scope.listData.tasks = response.tasks;
-                scope.taskTitle = null;
-                allowSavingTask = true;
-              });
+            TaskService.save({ list: listId }, { text: scope.taskText}, function (response) {
+              scope.listData.tasks = response.tasks;
+              scope.taskText = null;
+              allowSavingTask = true;
+            });
           }
         }
 
         function removeList() {
-          listDataService.removeList(listId)
-            .then(function (response) {
-              scope.updateLists();
+          ListsService.delete({id: listId}, function (response) {
+            scope.updateLists();
           });
         }
 
         function openBackgroundPopup() {
-          listDataService.openBackgroundPopup(listId, scope.listData.image);
+          backgroundDataService.openBackgroundPopup(listId, scope.listData.image);
         }
 
+        /**
+         * This function find the list by id and change his background
+         */
         function listChanged(event, data) {
           if (scope.listData._id == data.listId) {
-              scope.listData.image = listDataService.getCurrentBackground();
+              scope.listData.image = backgroundDataService.getCurrentBackground();
           }
         }
 
@@ -77,33 +78,32 @@
           // browser automaticaly add br tag
           // i dont know this bug or feature
           var editedText = scope.listData.title.replace(/<br>/, "");
-          var body = {};
+
           if (editedText) {
-            body.title = editedText;
-            listDataService.setNewTitle(listId, body)
-              .then(function (response) {
-                textBeforeEdit = editedText;
-              })
+            ListsService.update({ id: listId }, { title: editedText }, function (response) {
+              textBeforeEdit = editedText;
+            });
           } else {
             scope.listData.title = textBeforeEdit;
           }
         }
 
         function clearInput() {
-          scope.taskTitle = null;
+          scope.taskText = null;
         }
       }
     }
 
-    controllerFunc.$inject = ["$scope", "taskDataService"];
-    function controllerFunc($scope, taskDataService) {
+    controllerFunc.$inject = ["$scope", "TaskService"];
+    function controllerFunc($scope, TaskService) {
       this.listId = $scope.listData._id; // send data to inner directive
       this.reloadTasks = reloadTasks;
 
       function reloadTasks(listId) {
-        taskDataService.getAllTask(listId).then(function (response) {
+        TaskService.query({list: listId}, function (response) {
           $scope.listData.tasks = response.tasks;
         });
+
       }
     }
 })();

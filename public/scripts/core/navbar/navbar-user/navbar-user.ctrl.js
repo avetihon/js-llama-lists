@@ -3,10 +3,10 @@
 
   angular
     .module("llamaLists")
-    .controller("llamaLists.core.navbar.navbar-user.userNavCtrl", UserNavCtrl);
+    .controller("userNavCtrl", UserNavCtrl);
 
-    UserNavCtrl.$inject = ["$rootScope", "$scope", "$state", "$window", "userDataService"];
-    function UserNavCtrl($rootScope, $scope, $state, $window, userDataService) {
+    UserNavCtrl.$inject = ["$rootScope", "$scope", "$state", "$window", "UserService"];
+    function UserNavCtrl($rootScope, $scope, $state, $window, UserService) {
       var navVm = this;
       navVm.logout = logout;
       navVm.openDropdown = openDropdown;
@@ -17,8 +17,7 @@
       load();
 
       function load() {
-        userDataService.getUserData().then(function (response) {
-          console.log(response.user.name)
+        UserService.get({}, function (response) {
           navVm.name = response.user.name;
           navVm.avatarImage = response.user.avatar;
         });
@@ -34,7 +33,6 @@
 
       function changeAvatar(image) {
         var reader;
-        var body = {};
 
         if (image.type.localeCompare("image/jpeg") !== 0 && image.type.localeCompare("image/png") !== 0) {
           console.log("error")
@@ -42,11 +40,9 @@
 
         reader = new FileReader();
         reader.onload = function (event) {
-          body.avatar = event.target.result;
-          userDataService.saveAvatarImage(body).then(function (response) {
+          UserService.avatar({}, { avatar: event.target.result }, function (response) {
             navVm.avatarImage = response.avatar;
           });
-
         }
         reader.readAsDataURL(image);
       }

@@ -3,16 +3,16 @@
 
   angular
     .module("llamaLists")
-    .controller("llamaLists.core.main.main-lists.homePageCtrl", HomePageCtrl);
+    .controller("listsPageCtrl", ListsPageCtrl);
 
-    HomePageCtrl.$inject = ["$scope", "$rootScope", "listDataService"];
-    function HomePageCtrl($scope, $rootScope, listDataService) {
-      var homeVm = this;
-      homeVm.newListPopup; // check open popup
-      homeVm.newListSubmitted; // check press submit button
-      homeVm.createNewList = createNewList;
-      homeVm.saveNewList = saveNewList;
-      homeVm.updateList = activate;
+    ListsPageCtrl.$inject = ["$scope", "$rootScope", "ListsService"];
+    function ListsPageCtrl($scope, $rootScope, ListsService) {
+      var listsVm = this;
+      listsVm.newListPopup; // check open popup
+      listsVm.newListSubmitted; // check press submit button
+      listsVm.createNewList = createNewList;
+      listsVm.saveNewList = saveNewList;
+      listsVm.updateList = activate;
 
       // fog broadcast
       $scope.$on('closePopup', closePopup);
@@ -22,41 +22,36 @@
       activate();
 
       function activate() {
-        listDataService.getAllLists()
-          .then( function (response) {
-            homeVm.lists = response.lists;
-          });
+        ListsService.get(function (response) {
+          listsVm.lists = response.lists;
+        });
       }
 
       function createNewList() {
-        homeVm.newListPopup = true;
-        homeVm.focus = true;
+        listsVm.newListPopup = true;
+        listsVm.focus = true;
         $rootScope.$emit("showFogOverlay");
       }
 
       function saveNewList(validation) {
-        homeVm.newListSubmitted = true;
+        listsVm.newListSubmitted = true;
 
         if (validation) {
-          var listData = {
-            title: homeVm.newListTitle
-          }
 
-          listDataService.saveNewList(listData)
-            .then(function (response) {
-              homeVm.lists = response.lists;
+        ListsService.save({title: listsVm.newListTitle}, function (response) {
+          listsVm.lists = response.lists;
 
-              // end work with popup
-              $rootScope.$emit("hideFogOverlay");
-              homeVm.newListTitle = null;
-              homeVm.newListForm.$setPristine();
-              homeVm.newListSubmitted = false;
-            });
+          // end work with popup
+          $rootScope.$emit("hideFogOverlay");
+          listsVm.newListTitle = null;
+          listsVm.newListForm.$setPristine();
+          listsVm.newListSubmitted = false;
+        });
         }
       }
 
       function closePopup() {
-        homeVm.newListPopup = false;
+        listsVm.newListPopup = false;
       }
     };
 
