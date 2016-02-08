@@ -8,15 +8,15 @@
       <li class="mainSubview__list">
         <a ui-sref="main.profile.account"
            class="mainSubview__link"
-           ng-class="{'is-active': 'account' === vm.currentView}"
-           ng-click="vm.currentView = 'account'">Account</a>
+           ui-sref-active="is-active"
+           >Account</a>
       </li>
       <!-- /.mainSubview__list -->
       <li class="mainSubview__list">
         <a ui-sref="main.profile.password"
            class="mainSubview__link"
-           ng-class="{'is-active': 'password' === vm.currentView}"
-           ng-click="vm.currentView = 'password'">Password</a>
+           ui-sref-active="is-active"
+           >Password</a>
       </li>
       <!-- /.mainSubview__list -->
     </div>

@@ -15,9 +15,8 @@
       vm.chooseInterest = chooseInterest;
       vm.removeInterest = removeInterest;
       vm.saveInterests = saveInterests;
-      vm.skipInterests = skipInterests;
       // delay is necessary to run the animation
-      UserService.getInterests({}, function (response) {
+      UserService.getInterests(function (response) {
         $timeout(function() {
           vm.interests = response.interests;
         }, 100);
@@ -70,10 +69,6 @@
             ? false
             : true;
         }
-      }
-
-      function skipInterests() {
-        $state.go("main.lists");
       }
     }
 })();

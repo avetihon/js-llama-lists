@@ -5,9 +5,10 @@
     .module("llamaLists")
     .controller("listsPageCtrl", ListsPageCtrl);
 
-    ListsPageCtrl.$inject = ["$scope", "$rootScope", "ListsService"];
-    function ListsPageCtrl($scope, $rootScope, ListsService) {
+    ListsPageCtrl.$inject = ["$scope", "$rootScope", "$stateParams", "ListsService"];
+    function ListsPageCtrl($scope, $rootScope, $stateParams, ListsService) {
       var listsVm = this;
+      var username = $stateParams.username;
       listsVm.newListPopup; // check open popup
       listsVm.newListSubmitted; // check press submit button
       listsVm.createNewList = createNewList;
@@ -22,7 +23,7 @@
       activate();
 
       function activate() {
-        ListsService.get(function (response) {
+        ListsService.get({ user: username }, function (response) {
           listsVm.lists = response.lists;
         });
       }

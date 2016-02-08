@@ -1346,6 +1346,10 @@ img {
 
 .task-group {
   position: relative;
+  /*padding: 5px 0;*/
+}
+.task-group:first-child {
+  margin-top: 5px;
 }
 .task-group .task-change-position {
   position: relative;
@@ -1600,6 +1604,7 @@ img {
   -webkit-transition: all 300ms ease;
   transition: all 300ms ease;
   box-shadow: 0 1px 2px rgba(43, 59, 93, 0.29);
+  /*background: rgba(51, 65, 72, .75); coll color uncoment this*/
 }
 .list:hover {
   box-shadow: 0 1px 2px rgba(43, 59, 93, 0.29), 0 0 13px rgba(43, 59, 93, 0.29);
@@ -2081,6 +2086,7 @@ img {
 .user-login-form .form-group {
   position: relative;
   margin-bottom: 5px;
+  text-align: center;
 }
 .user-signup-form h2,
 .user-login-form h2 {
@@ -2090,9 +2096,8 @@ img {
 }
 .user-signup-form label,
 .user-login-form label {
-  font-size: 0.75em;
+  font-size: 0.85em;
   font-weight: 400;
-  text-transform: uppercase;
   color: #a2aabd;
 }
 .user-signup-form .has-error input,
@@ -2109,6 +2114,7 @@ img {
   border: 0;
   border-bottom: 1px solid #dadee6;
   margin-bottom: 6%;
+  padding: 6px 0;
   color: #303F60;
 }
 .user-signup-form input:focus,
@@ -2135,7 +2141,7 @@ img {
 }
 .user-signup-form .have-an,
 .user-login-form .have-an {
-  margin-top: 2%;
+  margin-top: 3%;
   font-size: 0.9em;
   color: #303F60;
 }

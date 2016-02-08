@@ -4,7 +4,7 @@ var User    = require("../../app/models/user"); // load up the user model
  * get all lists request
  */
 exports.getLists = function(req, res) {
-  var queryUser = { _id: req.user._id };
+  var queryUser = { name: req.params.id };
 
   User
     .findOne(queryUser)

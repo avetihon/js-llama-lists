@@ -47,7 +47,7 @@
         }
       })
       .state("main", {
-        url: "/main",
+        url: "/main/:username",
         abstract: true,
         views: {
           "navbar": {
@@ -81,9 +81,7 @@
         url: "/profile",
         views: {
           "content@": {
-            templateUrl:  "main-profile/main-profile.tpl.html",
-            controller: "profilePageCtrl",
-            controllerAs: "vm"
+            templateUrl:  "main-profile/main-profile.tpl.html"
           }
         }
       })

@@ -34,8 +34,6 @@
         scope.saveEditedTitle = saveEditedTitle;
         scope.openBackgroundPopup = openBackgroundPopup;
         scope.$on("listChanged", listChanged);
-        // console.log(ListsService.get())
-
 
         /**
          * This function create new task, save its to DB

@@ -39,7 +39,6 @@ exports.getTask = function(req, res) {
   User
     .findOne(queryUser)
     .select("lists._id lists.tasks")
-    .lean()
     .exec(function (err, user) {
       if (err) throw err;
 
@@ -52,13 +51,13 @@ exports.getTask = function(req, res) {
  * get all tasks request
  */
 exports.getTasks = function(req, res) {
+  console.log(req.params)
   var listId    = req.params.id_list;
   var queryUser = { _id: req.user._id };
 
   User
     .findOne(queryUser)
     .select("lists._id lists.tasks")
-    .lean()
     .exec(function (err, user) {
       if (err) throw err;
 

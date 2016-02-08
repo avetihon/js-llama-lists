@@ -28,7 +28,11 @@
 
 .task-group {
   position: relative;
-  // padding: 5px 0;
+
+  &:first-child {
+    margin-top: 5px;
+  }
+  /*padding: 5px 0;*/
 
   .task-change-position {
     position: relative;
