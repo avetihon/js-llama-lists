@@ -1,8 +1,6 @@
 /* bootstrap !important */
 .navbar {
   height: 50px;
-  border-bottom: 1px solid #292c3b;
-  background-color: #292c3b;
 }
 
 .navbar__header {
@@ -41,16 +39,12 @@
       display: block;
       font-size: 0.9em;
       padding: 15px;
-      color: #acb1be;
-
-      &:link,
-      &:visited {
-        color: #acb1be;
-      }
+      color: #fff;
+      font-weight: 600;
 
       &:hover,
       &:active {
-        color: #fff;
+        border-bottom: 2px solid #fff;
       }
     }
 

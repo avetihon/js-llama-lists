@@ -49,7 +49,7 @@
 
       function logout() {
         delete $window.localStorage.token;
-        $state.go("index");
+        $state.go("home");
       }
 
       $scope.$on('$destroy', listener);

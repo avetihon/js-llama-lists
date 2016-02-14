@@ -9,21 +9,22 @@
   configRoute.$inject = ["$locationProvider", "$stateProvider", "$urlRouterProvider"];
   function configRoute($locationProvider, $stateProvider, $urlRouterProvider) {
     $stateProvider
-      .state("index", {
+      .state("home", {
         url: "/",
         views: {
           "navbar": {
             templateUrl:  "navbar/navbar-auth/navbar-auth.tpl.html"
+          },
+          "content": {
+            templateUrl: "home/home.tpl.html"
           }
         }
       })
       .state("auth", {
         url: "",
         abstract: true,
-        views: {
-          "navbar": {
-            templateUrl:  "navbar/navbar-auth/navbar-auth.tpl.html"
-          }
+        resolve: {
+          isUserLogged: isUserLogged
         }
       })
       .state("auth.login", {
@@ -118,12 +119,22 @@
     $locationProvider.html5Mode(true);
   }
 
+  function isUserLogged(userLogged) {
+    return userLogged.logged();
+  }
+
   /* set body id for css style */
-  configRun.$inject = ["$rootScope"];
-  function configRun($rootScope) {
+  configRun.$inject = ["$rootScope", "$state", "$window"];
+  function configRun($rootScope, $state, $window) {
     $rootScope.$on('$stateChangeSuccess', function(event, toState){
       var stateNames = toState.name.split(".");
       document.body.id = stateNames[stateNames.length - 1] + "-page";
+    });
+
+    $rootScope.$on("$stateChangeError", function(event, toState, toParams, fromState, fromParams, error) {
+      if (error === "isAlreadyLogged") {
+        $state.go("main.lists", { username: $window.localStorage.user });
+      }
     });
   }
 })();

@@ -7,7 +7,6 @@ var User    = require("../../app/models/user"), // load up the user model
  * signup request
  */
 exports.signup = function(req, res) {
-
   if (!req.body.username || !req.body.email || !req.body.password) {
 
     return res.status(400).send({

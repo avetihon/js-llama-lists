@@ -1,0 +1,19 @@
+#home-page {
+  background-image: url('../img/home-background.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 50% 50%;
+}
+
+.home {
+  height: calc(100vh - 50px); /* 50 px is the navbar height */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  flex-direction: column;
+
+  &__description {
+    color: #fff;
+  }
+}

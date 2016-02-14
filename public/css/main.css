@@ -2067,6 +2067,41 @@ img {
             transform: scale3d(1, 1, 1);
   }
 }
+#home-page {
+  background-image: url("../img/home-background.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 50% 50%;
+}
+
+.home {
+  height: calc(100vh - 50px);
+  /* 50 px is the navbar height */
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+.home__description {
+  color: #fff;
+}
+
 /* this state use same style like in signup  */
 #signup-page,
 #login-page {
@@ -2075,10 +2110,27 @@ img {
   background-size: cover;
 }
 
+.users-signup,
+.users-auth {
+  height: 100vh;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
 .user-signup-form,
 .user-login-form {
   width: 45%;
-  margin: 5% auto;
+  /*margin: 5% auto;*/
   padding: 1% 5% 4%;
   background-color: #fff;
 }
@@ -2710,8 +2762,6 @@ img {
 /* bootstrap !important */
 .navbar {
   height: 50px;
-  border-bottom: 1px solid #292c3b;
-  background-color: #292c3b;
 }
 
 .navbar__header {
@@ -2756,13 +2806,11 @@ img {
   display: block;
   font-size: 0.9em;
   padding: 15px;
-  color: #acb1be;
-}
-.navbar__link:link, .navbar__link:visited {
-  color: #acb1be;
+  color: #fff;
+  font-weight: 600;
 }
 .navbar__link:hover, .navbar__link:active {
-  color: #fff;
+  border-bottom: 2px solid #fff;
 }
 
 .navbar__links {
@@ -2808,6 +2856,36 @@ img {
   position: relative;
   background-color: #292c3b;
   /*background-color: #2b2e36;*/
+}
+.userNavbar__links {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  float: left;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+.userNavbar__list {
+  display: block;
+  float: left;
+}
+.userNavbar__link {
+  display: block;
+  font-size: 0.9em;
+  padding: 15px;
+  color: #acb1be;
+}
+.userNavbar__link:link, .userNavbar__link:visited {
+  color: #acb1be;
+}
+.userNavbar__link:hover, .userNavbar__link:active {
+  color: #fff;
 }
 
 .userData {

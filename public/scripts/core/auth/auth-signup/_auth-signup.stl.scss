@@ -5,10 +5,18 @@
   background-size: cover;
 }
 
+.users-signup,
+.users-auth {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .user-signup-form,
 .user-login-form {
   width: 45%;
-  margin: 5% auto;
+  /*margin: 5% auto;*/
   padding: 1% 5% 4%;
   background-color: #fff;
 

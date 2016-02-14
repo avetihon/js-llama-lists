@@ -2,6 +2,37 @@
   position: relative;
   background-color: #292c3b;
   /*background-color: #2b2e36;*/
+
+  &__links {
+    display: flex;
+    align-items: center;
+    float: left;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+  }
+
+  &__list {
+    display: block;
+    float: left;
+  }
+
+  &__link {
+    display: block;
+    font-size: 0.9em;
+    padding: 15px;
+    color: #acb1be;
+
+    &:link,
+    &:visited {
+      color: #acb1be;
+    }
+
+    &:hover,
+    &:active {
+      color: #fff;
+    }
+  }
 }
 
 .userData {
