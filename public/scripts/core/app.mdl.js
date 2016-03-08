@@ -48,7 +48,7 @@
         }
       })
       .state("main", {
-        url: "/main/:username",
+        url: "",
         abstract: true,
         views: {
           "navbar": {
@@ -59,7 +59,7 @@
         }
       })
       .state("main.lists", {
-        url: "/lists",
+        url: "/:username",
         views: {
           "content@": {
             templateUrl:  "main/main-lists/main-lists.tpl.html",

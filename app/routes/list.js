@@ -12,7 +12,6 @@ exports.getLists = function(req, res) {
     .lean() // return plain js object, faster then mongo document
     .exec(function(err, user) {
       if (err) throw err;
-      console.log(user)
 
       if (user) {
         res.json({ lists: user.lists });

@@ -12,6 +12,7 @@
       navVm.openDropdown = openDropdown;
       navVm.changeAvatar = changeAvatar;
       navVm.closeDropdown = closeDropdown;
+      navVm.username = $window.localStorage.user;
       var listener = $rootScope.$on("reloadNavbar", load);
 
       load();

@@ -51,7 +51,6 @@ exports.getTask = function(req, res) {
  * get all tasks request
  */
 exports.getTasks = function(req, res) {
-  console.log(req.params)
   var listId    = req.params.id_list;
   var queryUser = { _id: req.user._id };
 

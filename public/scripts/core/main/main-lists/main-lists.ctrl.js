@@ -5,8 +5,8 @@
     .module("llamaLists")
     .controller("listsPageCtrl", ListsPageCtrl);
 
-    ListsPageCtrl.$inject = ["$scope", "$rootScope", "$stateParams", "ListsService"];
-    function ListsPageCtrl($scope, $rootScope, $stateParams, ListsService) {
+    ListsPageCtrl.$inject = ["$scope", "$rootScope", "$stateParams", "$window", "ListsService"];
+    function ListsPageCtrl($scope, $rootScope, $stateParams, $window, ListsService) {
       var listsVm = this;
       var username = $stateParams.username;
       listsVm.newListPopup; // check open popup
