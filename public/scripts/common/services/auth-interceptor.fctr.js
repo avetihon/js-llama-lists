@@ -2,13 +2,7 @@
   "use strict";
 
   angular.module("llamaLists")
-    .factory('AuthInterceptor', authInterceptor)
-    .config(configInterceptors);
-
-    configInterceptors.$inject = ["$httpProvider"];
-    function configInterceptors($httpProvider) {
-      $httpProvider.interceptors.push("AuthInterceptor");
-    }
+    .factory('AuthInterceptor', authInterceptor);
 
     authInterceptor.$inject = ["$rootScope", "$q", "$window", "$injector"];
     function authInterceptor($rootScope, $q, $window, $injector) {

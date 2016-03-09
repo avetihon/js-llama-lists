@@ -1,140 +1,21 @@
 (function() {
-  "use strict";
+  'use strict';
 
   angular
-    .module("llamaLists", ["ui.router", "ngMessages", "ngResource", "ngAnimate", "exceptionOverride"])
-    .config(configRoute)
-    .run(configRun);
+    .module('llamaLists', ['ui.router', 'ngMessages', 'ngResource', 'ngAnimate'])
+    .config(configure)
+    .run(runBlock);
 
-  configRoute.$inject = ["$locationProvider", "$stateProvider", "$urlRouterProvider"];
-  function configRoute($locationProvider, $stateProvider, $urlRouterProvider) {
-    $stateProvider
-      .state("home", {
-        url: "/",
-        views: {
-          "navbar": {
-            templateUrl:  "navbar/navbar-auth/navbar-auth.tpl.html"
-          },
-          "content": {
-            templateUrl: "home/home.tpl.html"
-          }
-        }
-      })
-      .state("auth", {
-        url: "",
-        abstract: true,
-        resolve: {
-          isUserLogged: isUserLogged
-        }
-      })
-      .state("auth.login", {
-        url: "/login",
-        views: {
-          "content@": {
-            templateUrl:  "auth/auth-login/auth-login.tpl.html",
-            controller:   "loginPageCtrl",
-            controllerAs: "loginVm"
-          }
-        }
-      })
-      .state("auth.signup", {
-        url: "/signup",
-        views: {
-          "content@": {
-            templateUrl:  "auth/auth-signup/auth-signup.tpl.html",
-            controller:   "signupPageCtrl",
-            controllerAs: "signupVm"
-          }
-        }
-      })
-      .state("main", {
-        url: "",
-        abstract: true,
-        views: {
-          "navbar": {
-            templateUrl:  "navbar/navbar-user/navbar-user.tpl.html",
-            controller:   "userNavCtrl",
-            controllerAs: "navVm"
-          }
-        }
-      })
-      .state("main.lists", {
-        url: "/:username",
-        views: {
-          "content@": {
-            templateUrl:  "main/main-lists/main-lists.tpl.html",
-            controller:   "listsPageCtrl",
-            controllerAs: "listsVm"
-          }
-        }
-      })
-      .state("main.interests", {
-        url: "/interests",
-        views: {
-          "content@": {
-            templateUrl:  "main/main-interests/main-interests.tpl.html",
-            controller:   "interestsPageCtrl",
-            controllerAs: "vm"
-          }
-        }
-      })
-      .state("main.profile", {
-        url: "/profile",
-        views: {
-          "content@": {
-            templateUrl:  "main-profile/main-profile.tpl.html"
-          }
-        }
-      })
-      .state("main.profile.account", {
-        url: "/account",
-        views: {
-          "profile": {
-            templateUrl:  "main-profile/profile-account/profile-account.tpl.html",
-            controller:   "accountPageCtrl",
-            controllerAs: "vm"
-          }
-        }
-      })
-      .state("main.profile.password", {
-        url: "/password",
-        views: {
-          "profile": {
-            templateUrl:  "main-profile/profile-password/profile-password.tpl.html",
-            controller:   "passwordPageCtrl",
-            controllerAs: "vm"
-          }
-        }
-      })
-      .state("404", {
-        url: "/404",
-        views: {
-          "content": {
-            templateUrl: "404/404.tpl.html"
-          }
-        }
-      });
 
-    $urlRouterProvider.otherwise("/404");
-    $locationProvider.html5Mode(true);
+  configure.$inject = ["$locationProvider", "$stateProvider", "$urlRouterProvider", '$httpProvider', 'configRouter', 'configInterceptors'];
+  function configure($locationProvider, $stateProvider, $urlRouterProvider, $httpProvider, configRouter, configInterceptors) {
+    configRouter($locationProvider, $stateProvider, $urlRouterProvider);
+    configInterceptors($httpProvider);
   }
-
-  function isUserLogged(userLogged) {
-    return userLogged.logged();
-  }
-
   /* set body id for css style */
-  configRun.$inject = ["$rootScope", "$state", "$window"];
-  function configRun($rootScope, $state, $window) {
-    $rootScope.$on('$stateChangeSuccess', function(event, toState){
-      var stateNames = toState.name.split(".");
-      document.body.id = stateNames[stateNames.length - 1] + "-page";
-    });
-
-    $rootScope.$on("$stateChangeError", function(event, toState, toParams, fromState, fromParams, error) {
-      if (error === "isAlreadyLogged") {
-        $state.go("main.lists", { username: $window.localStorage.user });
-      }
-    });
+  runBlock.$inject = ['stateChangeSuccess', 'stateChangeError'];
+  function runBlock(stateChangeSuccess, stateChangeError) {
+    stateChangeSuccess.initialize();
+    stateChangeError.initialize();
   }
 })();

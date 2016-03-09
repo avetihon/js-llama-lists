@@ -8,7 +8,7 @@
     .module("llamaLists")
     .directive("fileReader", fileReaderDirective);
 
-    fileReaderDirective.$injection = ["$parse"];
+    fileReaderDirective.$inject = ["$parse"];
     function fileReaderDirective($parse) {
       var directive = {
         restrict: "A",

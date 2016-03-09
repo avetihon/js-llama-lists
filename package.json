@@ -4,6 +4,7 @@
   "description": "This app use MEAN stack",
   "main": "server.js",
   "scripts": {
+    "start": "nodemon server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -35,5 +36,8 @@
     "passport-facebook": "^2.0.0",
     "passport-google-oauth": "^0.2.0",
     "randomstring": "^1.1.3"
+  },
+  "devDependencies": {
+    "gulp-sass": "^2.2.0"
   }
 }

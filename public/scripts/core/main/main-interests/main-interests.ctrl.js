@@ -4,8 +4,8 @@
   angular.module("llamaLists")
     .controller("interestsPageCtrl", InterestsPageCtrl);
 
-    InterestsPageCtrl.$inject = ["$timeout", "$state", "UserService"];
-    function InterestsPageCtrl($timeout, $state, UserService) {
+    InterestsPageCtrl.$inject = ["$timeout", "$window", "$state", "UserService"];
+    function InterestsPageCtrl($timeout, $window, $state, UserService) {
       var vm = this;
       var i = 0;
       var colorsArray = ["red", "orange", "yellow", "green", "indigo", "violet"];
@@ -15,6 +15,7 @@
       vm.chooseInterest = chooseInterest;
       vm.removeInterest = removeInterest;
       vm.saveInterests = saveInterests;
+      vm.username = $window.localStorage.user; // send to ui-router
       // delay is necessary to run the animation
       UserService.getInterests(function (response) {
         $timeout(function() {
@@ -51,7 +52,7 @@
         colorsArray.push(event.target.dataset.color)
         i--;
       }
-      // i know this code between fuck and shit
+      // i know this code placing between fuck and shit
 
       function saveInterests() {
         var arrayToSend = [];
