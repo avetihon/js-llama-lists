@@ -10,7 +10,7 @@ var userSchema = mongoose.Schema({
   avatar:    { type: String, default: "no-avatar.jpg" },
   interests: Array,
   bio:       String,
-  lists:     [listShema]
+  lists:     { type: mongoose.Schema.Types.ObjectId, ref: 'List' }
 });
 
 // generating a hash

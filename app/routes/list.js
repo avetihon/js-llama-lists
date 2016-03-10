@@ -1,25 +1,17 @@
-var User    = require("../../app/models/user"); // load up the user model
+var List    = require("../../app/models/list"); // load up the list model
 
 /**
  * get all lists request
  */
 exports.getLists = function(req, res) {
-  var queryUser = { name: req.params.id };
 
-  User
-    .findOne(queryUser)
-    .select("lists")
+  List
+    .find({ 'createdBy': req.params.id })
     .lean() // return plain js object, faster then mongo document
-    .exec(function(err, user) {
+    .exec(function(err, lists) {
       if (err) throw err;
 
-      if (user) {
-        res.json({ lists: user.lists });
-      } else {
-        return res.status(404).send({
-          success: false
-        });
-      }
+      res.json({ lists: lists });
   });
 };
 
@@ -27,46 +19,35 @@ exports.getLists = function(req, res) {
  * save list request
  */
 exports.addList = function(req, res) {
-  var queryUser = { _id: req.user._id };
 
-  User
-    .findOne(queryUser)
-    .select("lists")
-    .exec(function(err, user) {
-      if (err) throw err;
+  var newList  = new List();
+  newList.title = req.body.title;
+  newList.createdBy = req.user.name;
 
-      user.lists.push({
-        title: req.body.title,
-        date: req.body.date
-      });
+  newList.save(function(err, done) {
+    if (err) return done(err);
 
-      user.save(function(err, done) {
-        if (err) return done(err);
-
-        res.json({ lists: done.lists });
-      });
-    });
+    res.json({ success: true });
+  });
 };
 
 /**
  * remove list request
  */
 exports.removeList = function(req, res) {
-  var listId    = req.params.id;
-  var queryUser = { _id: req.user._id };
+  var listId = req.params.id;
 
-  User
-    .findOne(queryUser)
-    .select("lists")
-    .exec(function(err, user) {
+  List
+    .findById(listId)
+    .exec(function(err, list) {
       if (err) throw err;
 
-      user.lists.id(listId).remove();
+      list.remove();
 
-      user.save(function (err, done) {
+      list.save(function (err, done) {
         if (err) return done(err);
 
-        res.json({ lists: done.lists }); // return new array of list
+        res.json({ success: true });
       });
   });
 };
@@ -75,16 +56,12 @@ exports.removeList = function(req, res) {
  * put changes in list
  */
 exports.updateList = function(req, res) {
-  var listId    = req.params.id;
-  var queryUser = { _id: req.user._id };
+  var listId = req.params.id;
 
-  User
-    .findOne(queryUser)
-    .select("lists")
-    .exec(function(err, user) {
+  List
+    .findById(listId)
+    .exec(function(err, list) {
       if (err) throw err;
-
-      var list = user.lists.id(listId);
 
       if (req.body.image) {
         list.image = req.body.image;
@@ -92,7 +69,7 @@ exports.updateList = function(req, res) {
         list.title = req.body.title;
       }
 
-      user.save(function(err, done) {
+      list.save(function(err, done) {
         if (err) return done(err);
 
         res.json({ success: true });

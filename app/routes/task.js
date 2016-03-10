@@ -1,31 +1,20 @@
-var User    = require("../../app/models/user"); // load up the user model
+var List    = require("../../app/models/list"); // load up the list model
 
 /**
- * save task request
+ * get all tasks request
  */
-exports.addTask = function(req, res) {
-  var listId    = req.params.id;
-  var taskText  = req.body.text;
-  var queryUser = { _id: req.user._id };
+exports.getTasks = function(req, res) {
+  var listId    = req.params.id_list;
 
-  User
-    .findOne(queryUser)
-    .select("lists._id lists.tasks")
-    .exec(function (err, user) {
+  List
+    .findById(listId)
+    .select("tasks")
+    .exec(function (err, list) {
       if (err) throw err;
 
-      var list = user.lists.id(listId);
-
-      list.tasks.push({
-        text: taskText,
-      });
-
-      user.save(function(err, done) {
-        if (err) return done(err);
-
-        res.json({ tasks: list.tasks });
-      });
-    });
+      var tasks = list.tasks;
+      res.json({ tasks: tasks });
+  });
 };
 
 /**
@@ -34,35 +23,40 @@ exports.addTask = function(req, res) {
 exports.getTask = function(req, res) {
   var listId    = req.params.id_list;
   var taskId    = req.params.id_task;
-  var queryUser = { _id: req.user._id };
 
-  User
-    .findOne(queryUser)
-    .select("lists._id lists.tasks")
-    .exec(function (err, user) {
+  List
+    .findById(listId)
+    .select("tasks")
+    .exec(function (err, list) {
       if (err) throw err;
 
-      var task = user.lists.id(listId).tasks.id(taskId);
+      var task = list.tasks.id(taskId);
       res.json({ task: task });
   });
 };
 
 /**
- * get all tasks request
+ * save task request
  */
-exports.getTasks = function(req, res) {
-  var listId    = req.params.id_list;
-  var queryUser = { _id: req.user._id };
+exports.addTask = function(req, res) {
+  var listId    = req.params.id;
 
-  User
-    .findOne(queryUser)
-    .select("lists._id lists.tasks")
-    .exec(function (err, user) {
+  List
+    .findById(listId)
+    .select("tasks")
+    .exec(function (err, list) {
       if (err) throw err;
 
-      var tasks = user.lists.id(listId).tasks;
-      res.json({ tasks: tasks });
-  });
+      list.tasks.push({
+        text: req.body.text,
+      });
+
+      list.save(function(err, done) {
+        if (err) return done(err);
+
+        res.json({ tasks: list.tasks });
+      });
+    });
 };
 
 /**
@@ -71,16 +65,16 @@ exports.getTasks = function(req, res) {
 exports.removeTask = function(req, res) {
   var listId    = req.params.id_list;
   var taskId    = req.params.id_task;
-  var queryUser = { _id: req.user._id };
 
-  User
-    .findOne(queryUser)
-    .select("lists._id lists.tasks")
-    .exec(function (err, user) {
+  List
+    .findById(listId)
+    .select("tasks")
+    .exec(function (err, list) {
       if (err) throw err;
 
-      user.lists.id(listId).tasks.id(taskId).remove();
-      user.save(function (err, done) {
+      list.tasks.id(taskId).remove();
+
+      list.save(function (err, done) {
         if (err) return done(err);
 
         res.json({ success: true });
@@ -94,15 +88,14 @@ exports.removeTask = function(req, res) {
 exports.updateTask = function(req, res, next) {
   var listId    = req.params.id_list;
   var taskId    = req.params.id_task;
-  var queryUser = { _id: req.user._id };
 
-  User
-    .findOne(queryUser)
-    .select("lists._id lists.tasks")
-    .exec(function (err, user) {
+  List
+    .findById(listId)
+    .select("tasks")
+    .exec(function (err, list) {
       if (err) throw err;
 
-      var task = user.lists.id(listId).tasks.id(taskId);
+      var task = list.tasks.id(taskId);
 
       if (req.body.completed) {
         task.completed = (task.completed)
@@ -115,7 +108,7 @@ exports.updateTask = function(req, res, next) {
       }
 
 
-      user.save(function (err, done) {
+      list.save(function (err, done) {
         if (err) return done(err);
 
         res.json({ task: task });

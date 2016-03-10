@@ -35,7 +35,7 @@ exports.signup = function(req, res) {
             newUser.name = req.body.username;
             newUser.email = req.body.email;
             newUser.password = newUser.generateHash(req.body.password);
-            newUser.lists = list;
+            // newUser.lists = list;
 
             newUser.save(function(err, done) {
               if (err) return done(err);
