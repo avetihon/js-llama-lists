@@ -32,14 +32,11 @@
     <!-- /.list-toolbar -->
     <div class="lists-wrapper row">
       <div class="col-sm-4" ng-repeat="list in listsVm.lists | filter:listsVm.search">
-        <list list-data="list" update-lists="listsVm.updateList()"></list>
+        <list data="list" reload="listsVm.reloadList()"></list>
       </div>
       <!-- /.list-elemnt -->
     </div>
     <!-- /.lists-wrapper -->
   </div>
-  <!-- <change-task></change-task> -->
-  <list-background></list-background>
-  <list-invite></list-invite>
   <fog></fog>
 </section>

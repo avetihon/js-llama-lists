@@ -17,10 +17,12 @@
 
 // Import style page
 // Directives
-@import "../scripts/common/directives/user-task/user-task.stl";
-@import "../scripts/common/directives/user-list/user-list.stl";
 @import "../scripts/common/directives/fog/fog.stl";
-@import "../scripts/common/directives/change-background/change-background.stl";
+@import "../scripts/common/directives/list-invite/list-invite.stl";
+
+// Components
+@import "../scripts/common/components/list/list.stl";
+@import "../scripts/common/components/task/task.stl";
 
 // Controllers
 @import "../scripts/core/home/home.stl";
@@ -36,3 +38,4 @@
 
 // ng-include style
 @import "../scripts/core/popup/new-list/new-list.stl";
+@import "../scripts/core/popup/list-background/list-background.stl";

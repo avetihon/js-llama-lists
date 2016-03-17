@@ -6,7 +6,7 @@ var List    = require("../../app/models/list"); // load up the list model
 exports.getLists = function(req, res) {
 
   List
-    .find({ 'createdBy': req.params.id })
+    .find({ 'owner': req.params.id })
     .lean() // return plain js object, faster then mongo document
     .exec(function(err, lists) {
       if (err) throw err;
@@ -22,7 +22,7 @@ exports.addList = function(req, res) {
 
   var newList  = new List();
   newList.title = req.body.title;
-  newList.createdBy = req.user.name;
+  newList.owner = req.user.name;
 
   newList.save(function(err, done) {
     if (err) return done(err);

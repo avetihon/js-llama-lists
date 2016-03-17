@@ -5,8 +5,8 @@ var mongoose   = require('mongoose')
 var listSchema = mongoose.Schema({
   title:     String,
   image:     { type: String, default: "list-background-1" },
-  createdBy: { type: String, ref: 'User' },
-  owners:    [{ type: String, ref: 'User' }],
+  owner:     { type: String, ref: 'User' },
+  members:   [{ type: String, ref: 'User' }],
   tasks:     [taskShema]
 });
 

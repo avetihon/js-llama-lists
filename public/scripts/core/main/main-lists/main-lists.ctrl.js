@@ -13,12 +13,12 @@
       listsVm.newListSubmitted; // check press submit button
       listsVm.createNewList = createNewList;
       listsVm.saveNewList = saveNewList;
-      listsVm.updateList = activate;
+      listsVm.reloadList = reloadList;
 
       // fog broadcast
       $scope.$on('closePopup', closePopup);
       // list broadcast
-      // $scope.$on('updateList', activate);
+      // $scope.$on('reloadLists', activate);
 
       activate();
 
@@ -34,20 +34,30 @@
         $rootScope.$emit("showFogOverlay");
       }
 
+      function reloadList(callback) {
+        ListsService.get({ user: username }, function (response) {
+          listsVm.lists = response.lists;
+
+          if (callback) {
+            callback();
+          }
+        });
+      }
+
       function saveNewList(validation) {
         listsVm.newListSubmitted = true;
 
         if (validation) {
 
-        ListsService.save({title: listsVm.newListTitle}, function (response) {
-          listsVm.lists = response.lists;
-
-          // end work with popup
-          $rootScope.$emit("hideFogOverlay");
-          listsVm.newListTitle = null;
-          listsVm.newListForm.$setPristine();
-          listsVm.newListSubmitted = false;
-        });
+          ListsService.save({title: listsVm.newListTitle}, function (response) {
+            reloadList(function() {
+              // end work with popup
+              $rootScope.$emit("hideFogOverlay");
+              listsVm.newListTitle = null;
+              listsVm.newListForm.$setPristine();
+              listsVm.newListSubmitted = false;
+            });
+          });
         }
       }
 
