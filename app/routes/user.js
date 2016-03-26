@@ -7,7 +7,6 @@ var User         = require("../../app/models/user"), // load up the user model
  * get all data from current user
  */
 exports.getUserData = function(req, res) {
-  console.log(req.user)
   var queryUser = { _id: req.user._id };
   User
     .findOne(queryUser)

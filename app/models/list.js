@@ -4,6 +4,7 @@ var mongoose   = require('mongoose')
 
 var listSchema = mongoose.Schema({
   title:     String,
+  tags:      Array,
   image:     { type: String, default: "list-background-1" },
   owner:     { type: String, ref: 'User' },
   members:   [{ type: String, ref: 'User' }],

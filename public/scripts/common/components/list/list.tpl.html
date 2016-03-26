@@ -1,0 +1,75 @@
+<div class="list" ng-mouseleave="$ctrl.editedState = false">
+  <header class="list-header">
+    <div class="list__members">
+      <a class="list__member">
+        <img class="list__memberImage" ng-src="" alt="avatar">
+      </a>
+    </div>
+    <div class="list-header-edited">
+      <div class="list-edited-icon" ng-show="$ctrl.editedState">
+        <i class="fa fa-picture-o" ng-click="$ctrl.openBackgroundPopup()"></i>
+        <i class="fa fa-trash" ng-click="$ctrl.removeList()"></i>
+      </div>
+      <div class="list-preference-icon" ng-click="$ctrl.editedState = true" ng-show="!$ctrl.editedState">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+           x="0px" y="0px"
+           width="408px" height="408px" viewBox="0 0 408 408" style="enable-background:new 0 0 408 408;" xml:space="preserve">
+          <g>
+            <path fill="#ececec" d="M204,102c28.05,0,51-22.95,51-51S232.05,0,204,0s-51,22.95-51,51S175.95,102,204,102z M204,153c-28.05,0-51,22.95-51,51
+              s22.95,51,51,51s51-22.95,51-51S232.05,153,204,153z M204,306c-28.05,0-51,22.95-51,51s22.95,51,51,51s51-22.95,51-51
+              S232.05,306,204,306z"/>
+          </g>
+        </svg>
+      </div>
+    </div>
+    <div class="list-header-image" ng-class="$ctrl.data.image"></div>
+    <!-- /.list-header-edited -->
+    <div class="list-header-text">
+      <h2 class="list-title"
+          ng-model="$ctrl.data.title"
+          ng-blur="$ctrl.saveEditedTitle()"
+          contenteditable="true"></h2>
+      <div class="list__tags">
+        <p class="list__tag" ng-repeat="tag in $ctrl.data.tags" ng-bind="tag"></p>
+      </div>
+    </div>
+  </header>
+  <!-- /.list-header -->
+  <form name="taskForm" novalidate>
+    <input type="text"
+          class="list__add-task"
+          name="userTask"
+          placeholder="Write something..."
+          click-enter="$ctrl.addNewTask(taskForm.$valid)"
+          ng-model="$ctrl.taskText"
+          ng-focus="$ctrl.focused=true"
+          ng-blur="f$ctrl.focused=false"
+          ng-class="{'is-dirty': !taskForm.userTask.$error.required}"
+          required>
+    <div ng-show="!taskForm.userTask.$error.required" class="list-button-add-task">
+      <button type="button" class="done" ng-click="$ctrl.addNewTask(taskForm.$valid)">Done</button>
+      <button type="button" class="cancel" ng-click="$ctrl.clearInput()">Cancel</button>
+    </div>
+  </form>
+  <div class="task-wrapper">
+    <hr class="task-top-underline">
+    <div class="task-group" ng-repeat="task in $ctrl.data.tasks">
+      <task data="task"></task>
+    </div>
+    <!-- /.task-group -->
+  </div>
+  <!-- /.task-wrapper -->
+  <footer class="list-footer">
+    <i class="fa fa-users" ng-click="$ctrl.invitePeople()"></i>
+    <i class="fa fa-share-alt list-footer-invite"></i>
+    <div class="list-footer-svg-love">
+      <svg enable-background="new 0 0 24 24" version="1.0" viewBox="0 0 24 24" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <path d="M16.4,4C14.6,4,13,4.9,12,6.3C11,4.9,9.4,4,7.6,4C4.5,4,2,6.5,2,9.6C2,14,12,22,12,22s10-8,10-12.4C22,6.5,19.5,4,16.4,4z"/>
+      </svg>
+      <!-- <span class="list-footer-count-love">2</span> -->
+    </div>
+  </footer>
+  <!-- /.list-footer -->
+  <ng-include src="'../popup/list-background/list-background.tpl.html'"></ng-include>
+  <list-invite ng-show="$ctrl.showInviteList"></list-invite>
+</div>

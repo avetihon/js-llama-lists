@@ -2,19 +2,21 @@
   <h2>Create new list</h2>
   <form name="listsVm.newListForm" class="form-group" novalidate>
     <input
+      class="popup-list-name"
       type="text"
       name="listName"
-      placeholder="List name"
+      placeholder="List name*"
       custom-focus="listsVm.focus"
       ng-model="listsVm.newListTitle"
       ng-class="{ 'has-error': (listsVm.newListForm.listName.$invalid && listsVm.newListForm.listName.$dirty) ||
                                (listsVm.newListForm.listName.$pristine && listsVm.newListSubmitted) }"
       required>
     <p
-      class="error-new-list"
-      ng-show="(listsVm.newListForm.listName.$invalid && listsVm.newListForm.listName.$dirty) ||
-               (listsVm.newListForm.listName.$pristine && listsVm.newListSubmitted)">
-      Ooops! Empty list name
+      ng-class="{ 'has-error': (listsVm.newListForm.listName.$invalid && listsVm.newListForm.listName.$dirty) ||
+                               (listsVm.newListForm.listName.$pristine && listsVm.newListSubmitted) }"
+      class="popup-list-subnote"
+      >
+      * you can add #tags
     </p>
     <p class="popup-member-title">List member</p>
     <input type="text" placeholder="Name or email adress...">

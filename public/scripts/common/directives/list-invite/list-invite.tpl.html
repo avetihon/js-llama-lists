@@ -1,0 +1,35 @@
+<section class="listInvite ng-hide">
+  <p class="listInvite__title">Share your list</p>
+  <div>
+    <div class="listInvite__searchWrapper">
+      <input class="listInvite__input"
+             type="text"
+             ng-model="members"
+             ng-model-options="{ debounce: 400 }"
+             ng-change="searchPeople()">
+      <i class="fa fa-search listInvite__searchIcon"></i>
+      <div class="listInvite__findedUsers" ng-show="showSearchResult">
+        <div class="listInvite__findedUser" ng-repeat="user in users" ng-click="saveToStash(user)">
+          <img class="listInvite__memberImage" ng-src="../img/users-avatar/{{ user.avatar }}" alt="avatar">
+          <div class="listInvite__memberData">
+            <p class="listInvite__memberName" ng-bind="user.name"></p>
+            <p class="listInvite__memberInterests" ng-bind="user.interests"></p>
+            <p class="listInvite__memberEmail" ng-bind="user.email"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="listInvite__members">
+      <div class="listInvite__member" ng-repeat="member in stash track by $index">
+        <img class="listInvite__memberImage" ng-src="../img/users-avatar/{{ member.avatar }}" alt="avatar">
+        <div class="listInvite__memberData">
+          <p class="listInvite__memberName" ng-bind="member.name"></p>
+          <p class="listInvite__memberInterests" ng-bind="member.interests"></p>
+          <p class="listInvite__memberEmail" ng-bind="member.email"></p>
+        </div>
+        <span class="listInvite__remove" ng-click="removeFromStash(member)"><i class="fa fa-times"></i></span>
+      </div>
+    </div>
+    <button type="submit" class="listInvite__shareButton" ng-click="saveToMembers()">Share</button>
+  </div>
+</section>

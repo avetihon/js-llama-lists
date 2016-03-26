@@ -34,11 +34,17 @@
     position: relative;
   }
 
-  .error-new-list {
-    position: absolute;
-    top: 40px;
+  .popup-list-subnote {
+    margin: 0 0 10px;
     font-size: 0.8em;
-    color: $luckyRed;
+    color: #68728a;
+
+    &.has-error {
+      color: $luckyRed;
+    }
+  }
+
+  .popup-list-name {
     margin: 0;
   }
 

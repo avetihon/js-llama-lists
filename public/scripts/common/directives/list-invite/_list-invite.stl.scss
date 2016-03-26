@@ -1,0 +1,154 @@
+.listInvite {
+  position: fixed;
+  top: 130px;
+  left: 0;
+  right: 0;
+  width: 420px;
+  margin: auto;
+  padding: 15px 30px 20px;
+  z-index: 11;
+  background: #fff;
+  border-radius: 3px;
+  opacity: 1;
+  transform: scale(1);
+  /*display: none;*/
+
+  &.ng-hide-add,
+  &.ng-hide-remove {
+    transition: transform .2s, opacity .2s;
+  }
+
+  &.ng-hide {
+    opacity: 0;
+    transform: scale(0);
+  }
+
+  &__title {
+    text-align: center;
+    font-size: 1.3em;
+    /*font-weight: 600;*/
+  }
+
+  &__searchWrapper {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__input {
+    width: 94%;
+    margin-bottom: 20px;
+    font-size: 1em;
+    color: #555e71;
+    border: 0;
+    border-bottom: 1px solid #ebebeb;
+  }
+
+  &__searchIcon {
+    color: #d8d8d8;
+  }
+
+  &__findedUsers {
+    position: absolute;
+    top: 35px;
+    left: 0;
+    width: 100%;
+    padding: 5px;
+    background-color: #ffffff;
+    box-shadow: 0 1px 2px rgba(43, 59, 93, .29);
+    z-index: 2;
+  }
+
+  &__findedUser {
+    padding: 5px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #328ad6;
+    }
+
+    &:hover .listInvite__memberName,
+    &:hover .listInvite__memberInterests,
+    &:hover .listInvite__memberEmail {
+      color: #ffffff;
+    }
+
+    &:not(:last-child) {
+      margin-bottom: 10px;
+    }
+  }
+
+  &__members {
+    margin-bottom: 15px;
+  }
+
+  &__member {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  &__memberImage {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    object-fit: cover;
+    vertical-align: top;
+  }
+
+  &__memberData {
+    display: inline-block;
+    width: calc(95% - 62px);
+    margin: -3px 0 0 10px;
+  }
+
+  &__memberName {
+    margin: 0 0 2px;
+    font-size: 0.9em;
+    font-weight: 600;
+    color: #328ad6;
+  }
+
+  &__memberInterests {
+    margin: -3px 0;
+    text-transform: lowercase;
+    font-size: 0.75em;
+    color: #b5b5b5;
+  }
+
+  &__memberEmail {
+    font-size: 0.8em;
+    color: #555e71;
+    margin: 0;
+  }
+
+  &__remove {
+    display: inline-block;
+    height: 100%;
+    /*position: absolute;*/
+    color: #cccccc;
+    cursor: pointer;
+
+    &:hover {
+      color: #bbbbbb;
+    }
+  }
+
+  &__shareButton {
+    width: 100%;
+    height: 3em;
+    font-size: .9em;
+    font-weight: 400;
+    text-transform: uppercase;
+    color: #fff;
+    border: 0;
+    background-color: #328ad6;
+    border-radius: 3px;
+
+    &:hover {
+      background-color: #5ba1de;
+    }
+  }
+}
