@@ -20,6 +20,14 @@
       </div>
     </div>
     <div class="listInvite__members">
+      <div class="listInvite__member listInvite__member--owner">
+        <img class="listInvite__memberImage" ng-src="../img/users-avatar/{{ owner.avatar }}" alt="avatar">
+        <div class="listInvite__memberData">
+          <p class="listInvite__memberName"><span ng-bind="owner.name"></span> <span class="listInvite__owner">owner</span></p>
+          <p class="listInvite__memberInterests" ng-bind="owner.interests"></p>
+          <p class="listInvite__memberEmail" ng-bind="owner.email"></p>
+        </div>
+      </div>
       <div class="listInvite__member" ng-repeat="member in stash track by $index">
         <img class="listInvite__memberImage" ng-src="../img/users-avatar/{{ member.avatar }}" alt="avatar">
         <div class="listInvite__memberData">

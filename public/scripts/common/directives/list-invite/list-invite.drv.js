@@ -22,6 +22,7 @@
 
       function linkFunc(scope, elem, attrs, listCtrl) {
         var alreadyAddedUsers = [];
+        scope.owner = listCtrl.data.owner;
         scope.stash = [];
         scope.searchPeople = searchPeople;
         scope.saveToStash = saveToStash;
@@ -43,6 +44,8 @@
             scope.stash.push(i);
             alreadyAddedUsers.push(i.name);
           });
+
+          alreadyAddedUsers.push(listCtrl.data.owner.name);
         }
 
         function searchPeople() {

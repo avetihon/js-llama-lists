@@ -942,7 +942,7 @@ img {
     margin: 0 0 2px;
     font-size: 0.9em;
     font-weight: 600;
-    color: #328ad6; }
+    color: #00ab6b; }
   .listInvite__memberInterests {
     margin: -3px 0;
     text-transform: lowercase;
@@ -960,6 +960,14 @@ img {
     cursor: pointer; }
     .listInvite__remove:hover {
       color: #bbbbbb; }
+  .listInvite__owner {
+    color: #00b672;
+    font-weight: 400;
+    font-size: .7em;
+    border: 1px solid #00b672;
+    border-radius: 8px;
+    padding: 0 4px;
+    margin-left: 4px; }
   .listInvite__shareButton {
     width: 100%;
     height: 3em;
@@ -968,10 +976,10 @@ img {
     text-transform: uppercase;
     color: #fff;
     border: 0;
-    background-color: #328ad6;
+    background-color: #00ab6b;
     border-radius: 3px; }
     .listInvite__shareButton:hover {
-      background-color: #5ba1de; }
+      background-color: #00b672; }
 
 .list {
   position: relative;
@@ -1213,11 +1221,11 @@ img {
     content: "";
     position: absolute;
     top: 0;
-    left: 39px;
+    left: 40px;
     display: block;
-    width: 2px;
+    width: 1px;
     height: 100%;
-    background-color: #e7e9ea; }
+    background-color: #eaeded; }
 
 .task-top-underline {
   position: absolute;

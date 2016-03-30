@@ -108,7 +108,7 @@
     margin: 0 0 2px;
     font-size: 0.9em;
     font-weight: 600;
-    color: #328ad6;
+    color: #00ab6b;
   }
 
   &__memberInterests {
@@ -136,6 +136,16 @@
     }
   }
 
+  &__owner {
+    color: #00b672;
+    font-weight: 400;
+    font-size: .7em;
+    border: 1px solid #00b672;
+    border-radius: 8px;
+    padding: 0 4px;
+    margin-left: 4px;
+  }
+
   &__shareButton {
     width: 100%;
     height: 3em;
@@ -144,11 +154,11 @@
     text-transform: uppercase;
     color: #fff;
     border: 0;
-    background-color: #328ad6;
+    background-color: #00ab6b;
     border-radius: 3px;
 
     &:hover {
-      background-color: #5ba1de;
+      background-color: #00b672;
     }
   }
 }

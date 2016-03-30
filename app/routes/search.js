@@ -5,7 +5,7 @@ exports.getUsers = function(req, res) {
   var queryUser = {
     $and: [
       { name: { $nin : req.body.usedNames } },
-      { name: new RegExp(req.body.name , 'i' ) }
+      { name: new RegExp(req.body.name , 'i' ) },
     ]};
   User
     .find(queryUser)
