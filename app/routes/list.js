@@ -1,5 +1,6 @@
 var User    = require("../../app/models/user"); // load up the user model
 var List    = require("../../app/models/list"); // load up the list model
+var twitter = require('twitter-text');
 
 /**
  * get all lists request
@@ -29,7 +30,6 @@ exports.getLists = function(req, res) {
         .lean() // return plain js object, faster then mongo document
         .exec(function(err, lists) {
           if (err) throw err;
-          console.log(lists)
 
           res.json({ lists: lists });
       });
@@ -41,13 +41,9 @@ exports.getLists = function(req, res) {
  */
 exports.addList = function(req, res) {
 
-  // i use two regural expression because i dont know how write regexp .... in my shame
-  var text = req.body.title.replace(/\B\#\w\w+\b/g, '').replace(/\s\s+/g, ' ');
-  var hashTags = req.body.title.match(/\B\#\w\w+\b/g);
-
   var newList  = new List();
-  newList.title = text;
-  newList.tags = hashTags;
+  newList.title = req.body.title;
+  newList.tags = req.body.hashTags;
   newList.owner = req.user._id;
 
   newList.save(function(err, done) {
@@ -93,11 +89,22 @@ exports.updateList = function(req, res) {
       list.image = bodyList.image;
       list.title = bodyList.title;
       list.members = bodyList.members;
+      list.tags = bodyList.tags;
+
+      // // if we have are new tags
+      // if (divideTextAndTags(bodyList.title).hashTags) {
+      //   // check before concatenate two array, don't dublicating the new tags already existing values
+      //   list.tags = list.tags.concat(divideTextAndTags(bodyList.title).hashTags.filter(function(item) {
+      //     return list.tags.indexOf(item) < 0;
+      //   }));
+      // }
 
       list.save(function(err, done) {
         if (err) return done(err);
 
-        res.json({ success: true });
+        res.json({ list: done });
       });
   });
 }
+
+

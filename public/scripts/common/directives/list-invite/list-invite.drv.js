@@ -41,9 +41,11 @@
 
         function loadData() {
           listCtrl.data.members.forEach(function(i) {
+            i.interests = i.interests.slice(0, 3);
             scope.stash.push(i);
             alreadyAddedUsers.push(i.name);
           });
+          console.log(listCtrl.data.members)
 
           alreadyAddedUsers.push(listCtrl.data.owner.name);
         }

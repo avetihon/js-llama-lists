@@ -11,7 +11,7 @@ exports.getUsers = function(req, res) {
     .find(queryUser)
     .limit(10)
     .select("-lists")
-    // .slice('interests', 3) // get in interests only 3 interest
+    .slice('interests', 3) // get in interests only 3 interest
     .lean()
     .exec(function(err, users) {
       res.json({ users: users });

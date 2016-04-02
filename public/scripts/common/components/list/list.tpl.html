@@ -30,7 +30,13 @@
           ng-blur="$ctrl.saveEditedTitle()"
           contenteditable="true"></h2>
       <div class="list__tags">
-        <p class="list__tag" ng-repeat="tag in $ctrl.data.tags" ng-bind="tag"></p>
+        <p
+          class="list__tag"
+          ng-repeat="tag in $ctrl.data.tags"
+          ng-model="tag"
+          ng-click="$ctrl.saveTagToTemp(tag)"
+          ng-blur="$ctrl.saveEditedTags(tag)"
+          contenteditable="true" ></p>
       </div>
     </div>
   </header>
