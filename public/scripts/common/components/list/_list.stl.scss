@@ -70,24 +70,6 @@
     }
   }
 
-  .list-header-text {
-    width: 100%;
-    align-self: flex-end;
-    padding: 0 6% 0 3%;
-    z-index: 1;
-  }
-
-  &__tags {
-    max-width: 95%;
-    margin-bottom: 5px;
-    font-weight: 600;
-    color: #ffc316;
-  }
-
-  &__tag {
-    display: inline-block;
-    margin: 0 5px 0 0;
-  }
 }
 
 
@@ -182,9 +164,10 @@
 .list-title {
   position: relative;
   max-height: 90px;
-  max-width: 95%;
   display: inline;
+  align-self: flex-end;
   white-space: pre-wrap;
+  padding: 0 3% 0 3%;
   margin: 0 0 10px;
   text-align: left;
   font-size: 1.4em;
@@ -194,13 +177,9 @@
   outline: 0;
   cursor: text;
 
-  &:hover:after,
-  &:focus:after {
-    opacity: 1;
-  }
-
-  &:focus {
-    /*cursor: text;*/
+  > span {
+    // font-weight: 600;
+    color: #ffc316;
   }
 
   /*&:after {

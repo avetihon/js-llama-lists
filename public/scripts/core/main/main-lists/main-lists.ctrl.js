@@ -5,8 +5,8 @@
     .module("llamaLists")
     .controller("listsPageCtrl", ListsPageCtrl);
 
-    ListsPageCtrl.$inject = ["$scope", "$rootScope", "$stateParams", "$window", "ListsService"];
-    function ListsPageCtrl($scope, $rootScope, $stateParams, $window, ListsService) {
+    ListsPageCtrl.$inject = ["$scope", "$rootScope", "$stateParams", "$window", "ListsService", "tags"];
+    function ListsPageCtrl($scope, $rootScope, $stateParams, $window, ListsService, tags) {
       var listsVm = this;
       var username = $stateParams.username;
       listsVm.newListPopup; // check open popup
@@ -48,8 +48,12 @@
         listsVm.newListSubmitted = true;
 
         if (validation) {
+          var result = tags.getTagsAndText(listsVm.newListTitle);
 
-          ListsService.save({title: listsVm.newListTitle}, function (response) {
+          var title = result.text;
+          var hashTags = result.hashTags;
+
+          ListsService.save({ title: title, tags: hashTags }, function (response) {
             reloadList(function() {
               // end work with popup
               $rootScope.$emit("hideFogOverlay");

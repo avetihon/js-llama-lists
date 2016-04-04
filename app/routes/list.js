@@ -43,7 +43,7 @@ exports.addList = function(req, res) {
 
   var newList  = new List();
   newList.title = req.body.title;
-  newList.tags = req.body.hashTags;
+  newList.tags = req.body.tags;
   newList.owner = req.user._id;
 
   newList.save(function(err, done) {

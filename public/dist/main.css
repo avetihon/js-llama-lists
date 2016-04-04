@@ -1036,19 +1036,6 @@ img {
     cursor: pointer; }
     .list .edit-place:hover {
       transform: scale(1.1, 1.1); }
-  .list .list-header-text {
-    width: 100%;
-    align-self: flex-end;
-    padding: 0 6% 0 3%;
-    z-index: 1; }
-  .list__tags {
-    max-width: 95%;
-    margin-bottom: 5px;
-    font-weight: 600;
-    color: #ffc316; }
-  .list__tag {
-    display: inline-block;
-    margin: 0 5px 0 0; }
 
 .list:hover .list-header-edited {
   opacity: 1; }
@@ -1118,9 +1105,10 @@ img {
 .list-title {
   position: relative;
   max-height: 90px;
-  max-width: 95%;
   display: inline;
+  align-self: flex-end;
   white-space: pre-wrap;
+  padding: 0 3% 0 3%;
   margin: 0 0 10px;
   text-align: left;
   font-size: 1.4em;
@@ -1142,10 +1130,8 @@ img {
     background-size: 16px 16px;
     background-repeat: no-repeat;
   }*/ }
-  .list-title:hover:after, .list-title:focus:after {
-    opacity: 1; }
-  .list-title:focus {
-    /*cursor: text;*/ }
+  .list-title > span {
+    color: #ffc316; }
 
 .list:hover .list-settings {
   display: inline-block; }
