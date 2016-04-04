@@ -10,7 +10,6 @@
       this.getTagsAndText = function(text) {
         var hashTags = [];
         var twitterTags = twttr.txt.extractHashtags(text);
-        console.log(twitterTags)
 
         twitterTags.forEach(function(item) {
 
@@ -20,12 +19,11 @@
           }
 
           if (text.indexOf('<span>#' + item + '</span>') === -1) {
-            console.log(text)
             text = text.replace(new RegExp('#' + item, 'g'), '<span>#' + item + '</span>');
-            console.log(text)
           }
 
-          // text = text.replace('#' + item, '<span>#' + item + '</span>').replace(/\s\s+/g, ' ');
+          // text = text.replace(/(^|\s)#ama(\s|$)/, '<span>#' + item + '</span>'); // maybe work replace word
+          // text = text.replace('#' + item, '<span>#' + item + '</span>').replace(/\s\s+/g, ' '); // replace spaces
         });
 
         return {

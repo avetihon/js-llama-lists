@@ -98,14 +98,6 @@
           this.data.title = result.text;
           this.data.tags = result.hashTags;
 
-          // if we have are new tags
-          // if (hashtags.length > 0) {
-          //   // check before concatenate two array, don't dublicating the new tags already existing values
-          //   this.data.tags = this.data.tags.concat(hashtags.filter(function(item) {
-          //     return self.data.tags.indexOf(item) < 0;
-          //   }));
-          // }
-
           ListsService.update({ id: this.listID }, { list: this.data });
         } else {
           this.data.title = textBeforeEdit;
