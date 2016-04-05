@@ -39,6 +39,8 @@
     "twitter-text": "^1.13.4"
   },
   "devDependencies": {
+    "autoprefixer": "^6.3.6",
+    "gulp-postcss": "^6.1.0",
     "gulp-sass": "^2.2.0"
   }
 }

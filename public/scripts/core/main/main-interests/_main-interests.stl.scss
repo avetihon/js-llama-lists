@@ -18,7 +18,7 @@
 }
 
 .user-interest__wrapper-interests {
-  width: 65%;
+  width: 60%;
   margin: 0 auto;
   text-align: center;
 }
@@ -32,9 +32,9 @@
 }
 
 .user-interest__button--interest {
-  font-size: 1em;
+  font-size: .85em;
   color: #5e5e73;
-  border: 2px solid $luckyRed;
+  border: 1px solid rgba(255, 51, 102, 0.34);
   background-color: #fff;
 
   &:hover {
@@ -50,7 +50,7 @@
 }
 .user-interest__button.ng-enter-stagger {
   /* this will have a 100ms delay between each successive leave animation */
-  transition-delay: 0.08s;
+  transition-delay: 0.06s;
 
   /* As of 1.4.4, this must always be set: it signals ngAnimate
     to not accidentally inherit a delay property from another CSS class */
@@ -62,14 +62,14 @@
 }
 
 .chosen-interest {
-  animation: chooseInterest 0.6s 0s 1 ease alternate;
+  animation: chooseInterest 0.3s 0s 1 ease alternate;
   animation-fill-mode: forwards;
 }
 
 .user-interest__underline-line {
   width: 55%;
   height: 1px;
-  margin: 0 auto 20px;
+  margin: 20px auto;
   border: 0;
   background-color: #e7e9ea;
 }
@@ -127,25 +127,24 @@
   margin-left: 5px;
 }
 
-
-
 .user-interest__wrapper-main-button {
-  margin-top: 20px;
-  float: right;
+  width: 60%;
+  margin: 20px auto 0;
+  /*float: right;*/
 }
 
 .user-interest__button--save {
-  font-size: 1.2em;
+  font-size: 0.85em;
   color: #fff;
   background-color: #7ec58d;
-  border: 2px solid #7ec58d;
+  border: 1px solid #7ec58d;
 }
 
 .user-interest__button--cancel {
-  font-size: 1.2em;
+  font-size: 0.85em;
   color: #5e5e73;
   background-color: #fff;
-  border: 2px solid #5e5e73;
+  border: 1px solid rgba(94, 94, 115, 0.37);
 }
 
 @keyframes chooseInterest {

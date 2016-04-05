@@ -19,7 +19,7 @@
           }
 
           if (text.indexOf('<span>#' + item + '</span>') === -1) {
-            text = text.replace(new RegExp('#' + item, 'g'), '<span>#' + item + '</span>');
+            text = text.replace('#' + item, '<span>#' + item + '</span>');
           }
 
           // text = text.replace(/(^|\s)#ama(\s|$)/, '<span>#' + item + '</span>'); // maybe work replace word
