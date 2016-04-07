@@ -45,7 +45,6 @@
             scope.stash.push(i);
             alreadyAddedUsers.push(i.name);
           });
-          console.log(listCtrl.data.members)
 
           alreadyAddedUsers.push(listCtrl.data.owner.name);
         }
