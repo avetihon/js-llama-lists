@@ -8,9 +8,9 @@
 </section>
 <section class="user-interest">
   <div class="container container--fullHeight container--relative">
-    <p class="user-interest__logo">Tell us your interests</p>
+    <p class="user-interest__logo">Choose your interests</p>
     <p class="user-interest__footnote" ng-class="{'user-interest__footnote--error': vm.emptyInterests }">
-      select 6 or less interests
+      select up to 6 items
     </p>
     <div class="user-interest__wrapper-interests">
       <span class="user-interest__button user-interest__button--interest" ng-repeat="interest in vm.interests track by $index" ng-click="vm.chooseInterest($event, $index)" ng-bind="interest" data-id="{{ ::$index }}">
