@@ -5,7 +5,7 @@
   right: 0;
   width: 380px;
   margin: auto;
-  padding: 15px 30px 20px;
+  padding: 15px 20px 20px;
   z-index: 11;
   background: #fff;
   border-radius: 2px;
@@ -56,6 +56,7 @@
   }
 
   input {
+    position: relative;
     width: 100%;
     height: 1em;
     margin: 0 0 20px;
@@ -64,6 +65,8 @@
     font-weight: 400;
     color: #464d5d;
     border: 1px solid #DEE3E9;
+    border-radius: 4px;
+    background-color: #ffffff;
 
     &:focus {
       border-color: #56b169;
@@ -74,32 +77,80 @@
     }
   }
 
-  .popup-list-member {
-    img {
-      width: 32px;
-      height: 32px;
-      border-radius: 50% 50%;
-      vertical-align: top;
+  .popup-wrapper-finded-users {
+    position: relative;
+  }
+
+  .popup-finded-users {
+    width: 100%;
+    position: absolute;
+    top: -15px;
+    padding: 5px;
+    box-shadow: 0 1px 2px rgba(43, 59, 93, .29);
+    background-color: #ffffff;
+    z-index: 10;
+  }
+
+  .popup-finded-user {
+    padding: 5px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #328ad6;
     }
+
+    &:hover .popup-member-name,
+    &:hover .popup-member-email {
+      color: #ffffff;
+    }
+  }
+
+  .popup-list-member {
+    position: relative;
+    margin-bottom: 5px;
+  }
+
+
+  .popup-list-member-image {
+    width: 32px;
+    height: 32px;
+    border-radius: 50% 50%;
+    vertical-align: top;
+    object-fit: cover;
   }
 
   .popup-list-member-data {
     display: inline-block;
-    width: calc(95% - 36px);
+    width: calc(95% - 48px);
     margin: -3px 0 0 10px;
+    vertical-align: middle;
 
     .popup-member-name {
       margin: 0;
       font-size: 0.9em;
-      color: #464d5d;
+      /*color: #464d5d;*/
+      color: #00ab6b;
     }
 
     .popup-member-email {
       font-size: 0.8em;
       color: #555e71;
-      margin: 0 0 10px;
+      margin: 0 0 5px;
     }
   }
+
+  .popup-member-remove {
+    display: inline-block;
+    height: 100%;
+    /*position: absolute;*/
+    color: #cccccc;
+    cursor: pointer;
+
+    &:hover {
+      color: #bbbbbb;
+    }
+  }
+
 
   .popup-close {
     position: absolute;

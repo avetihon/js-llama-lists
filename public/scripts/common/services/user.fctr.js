@@ -3,34 +3,42 @@
  */
 
 (function() {
-  "use strict";
+  'use strict';
 
   angular
-    .module("llamaLists")
-    .factory("UserService", UserService);
+    .module('llamaLists')
+    .factory('UserService', UserService);
 
-    UserService.$inject = ["$resource"];
-    function UserService($resource) {
-      var data = $resource("/api/user/:type", { type: "@type" }, {
+    UserService.$inject = ['$resource', '$window'];
+    function UserService($resource, $window) {
+      var currentUser = $window.localStorage.user;
+
+      var data = $resource('/api/user/:name:type', { name: '@name', type: '@type' }, {
         update:  {
-          method: "PUT"
+          method: 'PUT'
+        },
+        getCurrentUser: {
+          method: 'GET',
+          params: {
+            name: currentUser
+          }
         },
         avatar: {
-          method: "PUT",
+          method: 'PUT',
           params: {
-            type: "avatar"
+            type: 'avatar'
           }
         },
         getInterests: {
-          method: "GET",
+          method: 'GET',
           params: {
-            type: "interests"
+            type: 'interests'
           }
         },
         setInterests: {
-          method: "PUT",
+          method: 'PUT',
           params: {
-            type: "interests"
+            type: 'interests'
           }
         }
       });

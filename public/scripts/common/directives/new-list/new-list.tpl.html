@@ -1,0 +1,60 @@
+<div class="popup-new-list">
+  <h2>Create new list</h2>
+  <form name="newListForm" class="form-group" novalidate>
+    <input
+      class="popup-list-name"
+      type="text"
+      name="listName"
+      placeholder="List title*"
+      custom-focus="focus"
+      ng-model="newListTitle"
+      ng-class="{ 'has-error': (newListForm.listName.$invalid && newListForm.listName.$dirty) ||
+                               (newListForm.listName.$pristine && newListSubmitted) }"
+      required>
+    <p
+      ng-class="{ 'has-error': (newListForm.listName.$invalid && newListForm.listName.$dirty) ||
+                               (newListForm.listName.$pristine && newListSubmitted) }"
+      class="popup-list-subnote"
+      >
+      * you can add #tags
+    </p>
+    <p class="popup-member-title">List member</p>
+    <input
+      type="text"
+      placeholder="Enter name..."
+      ng-model="searchUser"
+      ng-model-options="{ debounce: 400 }"
+      ng-change="searchPeople()">
+    <div class="popup-wrapper-finded-users" ng-show="showSearchResult">
+      <div class="popup-finded-users">
+        <div class="popup-finded-user" ng-repeat="user in users" ng-click="saveToMembers(user)">
+          <img class="popup-list-member-image" ng-src="../img/users-avatar/{{ user.avatar }}" alt="avatar">
+          <div class="popup-list-member-data">
+            <p class="popup-member-name" ng-bind="user.name"></p>
+            <p class="popup-member-email" ng-bind="user.email"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="popup-list-members">
+      <div class="popup-list-member">
+        <img class="popup-list-member-image" ng-src="../img/users-avatar/{{ currentUserData.avatar }}" alt="avatar">
+        <div class="popup-list-member-data">
+          <p class="popup-member-name"> <span ng-bind="currentUserData.name"></span> <span class="listInvite__owner">owner</span></p>
+          <p class="popup-member-email" ng-bind="currentUserData.email"></p>
+        </div>
+      </div>
+      <div class="popup-list-member" ng-repeat="member in members track by $index">
+        <img class="popup-list-member-image" ng-src="../img/users-avatar/{{ member.avatar }}" alt="avatar">
+        <div class="popup-list-member-data">
+          <p class="popup-member-name" ng-bind="member.name"></p>
+          <p class="popup-member-email" ng-bind="member.email"></p>
+        </div>
+        <span class="popup-member-remove" ng-click="removeFromMembers(member)"><i class="fa fa-times"></i></span>
+      </div>
+    </div>
+    <!-- /.popup-list-member -->
+    <button type="submit" class="done-button" ng-click="saveNewList(newListForm.$valid)">Save list</button>
+  </form>
+  <!-- /.form-group -->
+</div>

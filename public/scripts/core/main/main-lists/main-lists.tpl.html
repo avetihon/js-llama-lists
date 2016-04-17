@@ -1,4 +1,4 @@
-<section class="mainSubview">
+<section class="mainSubview" ng-show="listsVm.isOwner">
   <div class="container container--fullHeight container--relative">
     <a class="navbar__brand mainSubview__logo" href="#">
       <img class="navbar__image" alt="brand-logo" src="img/brandlogo.png">
@@ -9,9 +9,18 @@
     </button>
   </div>
 </section>
+<section class="userSubview" ng-hide="listsVm.isOwner">
+  <div class="container container--fullHeight container--relative">
+    <div class="userSubview__elementsWrapper">
+      <p class="userSubview__name" ng-bind="listsVm.user.name"></p>
+      <p class="userSubview__info" ng-bind="listsVm.user.bio"></p>
+      <img class="userSubview__avatar" ng-src="img/users-avatar/{{ listsVm.user.avatar}}" alt="avatar">
+    </div>
+  </div>
+</section>
 <section>
   <div class="container">
-    <ng-include src="'../popup/new-list/new-list.html'"></ng-include>
+    <new-list ng-show="listsVm.showNewList" lists="listsVm.lists" show="listsVm.showNewList"></new-list>
     <div class="list-toolbar">
       <div class="list-search">
         <span class="icon-search"></span>
@@ -23,15 +32,15 @@
       </div>
       <!-- /.list-search -->
       <div class="list-sort">
-        <p class="sort-mylist">My lists</p>
-        <p class="sort-inbox">Inbox</p>
-        <p class="sort-recommended">Recommended</p>
+        <p class="sort-mylist" ng-click="listsVm.selectSort('own')">My lists</p>
+        <p class="sort-inbox" ng-click="listsVm.selectSort('inbox')">Inbox</p>
+        <p class="sort-recommended" ng-click="listsVm.selectSort('recommended')">Recommended</p>
       </div>
       <!-- /.list-sort -->
     </div>
     <!-- /.list-toolbar -->
     <div class="lists-wrapper row">
-      <div class="col-sm-4" ng-repeat="list in listsVm.lists | filter:listsVm.search">
+      <div class="col-sm-4" ng-repeat="list in listsVm.lists | filter:listsVm.search | filter:listsVm.filter">
         <list data="list" reload="listsVm.reloadList()"></list>
       </div>
       <!-- /.list-elemnt -->

@@ -3,7 +3,7 @@
     <p class="account__serverError" ng-bind="vm.message"></p>
     <p class="account__serverDone" ng-bind="vm.messageDone"></p>
     <div class="account__avatarWrapper">
-      <img width="86px" height="86px" ng-src="img/users-avatar/{{ vm.avatarImage }}" alt="avatar" class="account__image">
+      <img width="86px" height="86px" ng-src="img/users-avatar/{{ vm.user.avatar }}" alt="avatar" class="account__image">
       <div class="account__changeAvatar">
         <p class="account__text">Your avatar</p>
         <div type="button" class="account__uploadAvatar">
@@ -20,7 +20,7 @@
       <input type="text"
              name="username"
              class="account__input"
-             ng-model="vm.name"
+             ng-model="vm.user.name"
              required
              ng-change="vm.clearMessageError()"
              ng-class="{'account__input--error': accountForm.username.$invalid && accountForm.username.$dirty}">
@@ -37,7 +37,7 @@
       <input type="email"
              name="email"
              class="account__input"
-             ng-model="vm.email" required
+             ng-model="vm.user.email" required
              ng-class="{'account__input--error': accountForm.email.$invalid && accountForm.email.$dirty}">
       <p
         class="account__inputError"
@@ -49,8 +49,12 @@
     </div>
     <!-- /.account__fromGroup -->
     <div>
+      <p class="account__text">Your interests <span class="account__footnote">(add new interest separate by coma)</span></p>
+      <textarea name="interests" class="account__textarea account__textarea--interests" ng-model="vm.user.interests" ng-list></textarea>
+    </div>
+    <div>
       <p class="account__text">Tell about yourself</p>
-      <textarea name="addition" class="account__textarea" ng-model="vm.bio"></textarea>
+      <textarea name="addition" class="account__textarea" ng-model="vm.user.bio"></textarea>
     </div>
     <button type="button" class="done-button" ng-click="vm.saveChanges(accountForm.$valid)">save changes</button>
   </form>

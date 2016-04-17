@@ -1,7 +1,7 @@
 <nav class="userNavbar">
   <div class="container container--fullHeight container--relative">
     <ul class="userNavbar__links">
-      <li class="userNavbar__list"><a class="userNavbar__link" ui-sref="main.lists({username: navVm.username})">Lists</a></li>
+      <li class="userNavbar__list"><a class="userNavbar__link" ui-sref="main.lists({ username: navVm.user.name })">Lists</a></li>
       <li class="userNavbar__list"><a class="userNavbar__link">Activity</a></li>
       <li class="userNavbar__list"><a class="userNavbar__link">Frends</a></li>
     </ul>
@@ -10,14 +10,14 @@
       <div class="userData__avatar">
         <span class="userData__avatarIcon"></span>
         <input class="userData__uploadAvatar" type="file" file-reader="navVm.changeAvatar(image)">
-        <img class="userData__avatarImage" ng-src="img/users-avatar/{{ navVm.avatarImage }}" alt="avatar">
+        <img class="userData__avatarImage" ng-src="img/users-avatar/{{ navVm.user.avatar }}" alt="avatar">
       </div>
       <!-- /.userNavbar__avatar -->
       <div class="userData__profile"
            click-outside="navVm.closeDropdown()"
            ng-class="{'userData__dropdown--open': navVm.dropdownIsOpen }">
         <span class="userData__link" ng-click="navVm.openDropdown()">
-          <span ng-bind="navVm.name"></span>
+          <span ng-bind="navVm.user.name"></span>
           <span class="userData__caret"></span>
         </span>
         <!-- /.userData__link -->

@@ -1,8 +1,8 @@
 <div class="list" ng-mouseleave="$ctrl.editedState = false">
   <header class="list-header">
     <div class="list__members">
-      <a class="list__member">
-        <img class="list__memberImage" ng-src="" alt="avatar">
+      <a class="list__member" ui-sref="main.lists({username: $ctrl.data.owner.name})" ng-hide="$ctrl.isOwnFilter">
+        <img class="list__memberImage" ng-src="img/users-avatar/{{$ctrl.data.owner.avatar}}" alt="avatar" data-hover="$ctrl.data.owner.name">
       </a>
     </div>
     <div class="list-header-edited">
@@ -32,7 +32,7 @@
     </h2>
   </header>
   <!-- /.list-header -->
-  <form name="taskForm" novalidate>
+  <form name="taskForm" novalidate ng-show="$ctrl.isOwner">
     <input type="text"
           class="list__add-task"
           name="userTask"

@@ -34,11 +34,11 @@
 .user-interest__button--interest {
   font-size: .85em;
   color: #5e5e73;
-  border: 1px solid rgba(255, 51, 102, 0.34);
+  border: 1px solid rgba(255, 145, 113, 0.44);
   background-color: #fff;
 
   &:hover {
-    background-color: $luckyRed;
+    background-color: #ff9171;
     color: #fff;
   }
 }

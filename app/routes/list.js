@@ -7,12 +7,11 @@ var twitter = require('twitter-text');
  */
 exports.getLists = function(req, res) {
 
-  var queryList = {
-    $and: [
-      { members: req.params.id },
-      { owner: req.params.id }
-    ]
-  };
+  // var queryList = {
+  //   $and: [
+  //     { members: req.params.id },
+  //     { owner: req.params.id }
+  // ]};
 
   User
     .findOne({ name: req.params.id })
@@ -20,8 +19,8 @@ exports.getLists = function(req, res) {
 
       var queryList = {
         $or: [
-        { members: user._id },
-        { owner: user._id }
+          { members: user._id },
+          { owner: user._id }
       ]};
 
       List
@@ -31,7 +30,7 @@ exports.getLists = function(req, res) {
         .exec(function(err, lists) {
           if (err) throw err;
 
-          res.json({ lists: lists });
+          res.status(200).json({ lists: lists });
       });
     });
 };
@@ -44,12 +43,15 @@ exports.addList = function(req, res) {
   var newList  = new List();
   newList.title = req.body.title;
   newList.tags = req.body.tags;
+  newList.members = req.body.members;
   newList.owner = req.user._id;
 
   newList.save(function(err, done) {
     if (err) return done(err);
 
-    res.json({ success: true });
+    done.populate('owner members', function(err) {
+     res.status(200).json({ success: true, list: done });
+    });
   });
 };
 

@@ -51,6 +51,45 @@
       background-image: url("../img/icon/plus.svg");
     }
 
+.userSubview {
+  position: relative;
+
+  &:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 96px;
+    background-color: #292c3b;
+  }
+
+  &__elementsWrapper {
+    position: relative;
+    text-align: center;
+    z-index: 1;
+  }
+
+  &__avatar {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  &__name {
+    margin: 0;
+    font-size: 1.5em;
+    color: #ededed;
+  }
+
+  &__info {
+    margin: 5px 0;
+    font-size: 0.9em;
+    color: #d0d0d0;
+  }
+}
+
 
 .lists-wrapper {
   margin-top: 2%;
@@ -137,7 +176,7 @@
 
   p {
     font-weight: 400;
-    font-size: 0.9em;
+    font-size: 0.85em;
     cursor: pointer;
   }
 

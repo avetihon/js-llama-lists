@@ -112,10 +112,11 @@
   }
 
   &__memberInterests {
-    margin: -3px 0;
+    margin: 0px 0 1px;
     text-transform: lowercase;
-    font-size: 0.75em;
-    color: #b5b5b5;
+    font-size: .75em;
+    color: #797979;
+    line-height: 1.25em;
   }
 
   &__memberEmail {

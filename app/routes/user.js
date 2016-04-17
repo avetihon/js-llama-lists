@@ -7,13 +7,15 @@ var User         = require("../../app/models/user"), // load up the user model
  * get all data from current user
  */
 exports.getUserData = function(req, res) {
-  var queryUser = { _id: req.user._id };
+
+  var queryUser = { name: req.params.name };
+
   User
     .findOne(queryUser)
     .select("-lists")
     .lean()
     .exec(function(err, user) {
-      res.json({ user: user });
+      res.status(200).json({ user: user });
     });
 }
 
@@ -21,11 +23,9 @@ exports.getUserData = function(req, res) {
  * save some data to current user (with checks)
  */
 exports.saveUserData = function(req, res) {
-  var userData = req.body;
   var queryUser = { _id: req.user._id };
 
   // im using nested query, because i didn't find more pretty solution, sorry =(o_o)=
-
   User
     .findOne(queryUser)
     .select("-lists")
@@ -33,7 +33,7 @@ exports.saveUserData = function(req, res) {
       var currentName = user.name;
 
       User
-        .findOne({ name: userData.name })
+        .findOne({ name: req.body.user.name })
         .select("name")
         .exec(function(err, done) {
           if (done && done.name !== currentName) {
@@ -42,9 +42,11 @@ exports.saveUserData = function(req, res) {
                 message: "This name is already used",
             });
           } else {
-            user.name = userData.name;
-            user.email = userData.email;
-            user.bio = userData.bio;
+
+            user.name = req.body.user.name;
+            user.email = req.body.user.email;
+            user.interests = req.body.user.interests;
+            user.bio = req.body.user.bio;
 
             user.save(function (err) {
               if (err) return handleError(err);
@@ -135,7 +137,7 @@ exports.getInterestsList = function(req, res) {
     var parsedData = JSON.parse(data);
     var interests = Object.keys(parsedData).map(function(k) { return parsedData[k] });
 
-    res.json({interests: interests})
+    res.json({ interests: interests });
   });
 };
 

@@ -35,7 +35,7 @@
           if (newVal === true) {
             loadData();
           } else {
-            scope.stash = [];
+            cleanInputs();
           }
         });
 
@@ -93,12 +93,22 @@
 
         function saveToMembers() {
           var list = listCtrl.data;
+
           list.members = scope.stash;
 
           ListsService.update({ id: listCtrl.listID }, { list: list }, function (response) {
+            cleanInputs();
             listCtrl.showInviteList = true;
             listCtrl.closePopupAndOverlay();
           });
+        }
+
+        function cleanInputs() {
+          alreadyAddedUsers = [];
+          scope.showSearchResult = false;
+          scope.members = null;
+          scope.stash = [];
+          scope.users = [];
         }
       }
     }

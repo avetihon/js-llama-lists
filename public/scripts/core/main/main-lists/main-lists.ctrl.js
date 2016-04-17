@@ -5,68 +5,64 @@
     .module("llamaLists")
     .controller("listsPageCtrl", ListsPageCtrl);
 
-    ListsPageCtrl.$inject = ["$scope", "$rootScope", "$stateParams", "$window", "ListsService", "tags"];
-    function ListsPageCtrl($scope, $rootScope, $stateParams, $window, ListsService, tags) {
+    ListsPageCtrl.$inject = ["$scope", "$rootScope", "$stateParams", "ListsService", 'UserService', 'userData', 'listsFilter'];
+    function ListsPageCtrl($scope, $rootScope, $stateParams, ListsService, UserService, userData, listsFilter) {
       var listsVm = this;
       var username = $stateParams.username;
-      listsVm.newListPopup; // check open popup
+      listsVm.showNewList; // check open popup
       listsVm.newListSubmitted; // check press submit button
       listsVm.createNewList = createNewList;
-      listsVm.saveNewList = saveNewList;
+      listsVm.selectSort = selectSort;
       listsVm.reloadList = reloadList;
+      listsVm.isOwner = userData.isOwnerPage();
 
       // fog broadcast
       $scope.$on('closePopup', closePopup);
-      // list broadcast
-      // $scope.$on('reloadLists', activate);
 
       activate();
 
       function activate() {
+        // if we work with page of another user
+        if (listsVm.isCurrentUser !== true) {
+          // load his data
+          UserService.get({ name: username }, function (response) {
+            listsVm.user = response.user;
+          });
+        }
+
+        // get all lists of user
         ListsService.get({ user: username }, function (response) {
           listsVm.lists = response.lists;
         });
       }
 
       function createNewList() {
-        listsVm.newListPopup = true;
-        listsVm.focus = true;
+        listsVm.showNewList = true;
         $rootScope.$emit("showFogOverlay");
       }
 
-      function reloadList(callback) {
+      function reloadList() {
         ListsService.get({ user: username }, function (response) {
           listsVm.lists = response.lists;
-
-          if (callback) {
-            callback();
-          }
         });
       }
 
-      function saveNewList(validation) {
-        listsVm.newListSubmitted = true;
+      function selectSort(type) {
+        listsVm.filter = {
+          owner: {}
+        };
 
-        if (validation) {
-          var result = tags.getTagsAndText(listsVm.newListTitle);
-
-          var title = result.text;
-          var hashTags = result.hashTags;
-
-          ListsService.save({ title: title, tags: hashTags }, function (response) {
-            reloadList(function() {
-              // end work with popup
-              $rootScope.$emit("hideFogOverlay");
-              listsVm.newListTitle = null;
-              listsVm.newListForm.$setPristine();
-              listsVm.newListSubmitted = false;
-            });
-          });
+        if (type === 'own') {
+          listsVm.filter.owner.name = 'Eugene';
+          listsFilter.setIsOwnFilter(true);
+        } else if (type === 'inbox') {
+          listsVm.filter.owner.name = '!Eugene';
+          listsFilter.setIsOwnFilter(false);
         }
       }
 
       function closePopup() {
-        listsVm.newListPopup = false;
+        listsVm.showNewList = false;
       }
     };
 

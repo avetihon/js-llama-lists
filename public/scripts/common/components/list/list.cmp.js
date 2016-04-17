@@ -15,14 +15,22 @@
       templateUrl: 'scripts/common/components/list/list.tpl.html'
     });
 
-    listController.$inject = ['$scope', '$rootScope', '$timeout', 'ListsService', 'TaskService', 'tags'];
-    function listController($scope, $rootScope, $timeout, ListsService, TaskService, tags) {
+    listController.$inject = ['$scope', '$rootScope', 'ListsService', 'TaskService', 'listsFilter', 'userData', 'tags'];
+    function listController($scope, $rootScope, ListsService, TaskService, listsFilter, userData, tags) {
       //variable
       var allowSavingTask = true;
       var textBeforeEdit = '';
       var textTemp = '';
       var self = this;
       this.listID = this.data._id;
+      this.isOwner = userData.isOwnerList(this.data.owner.name);
+
+      // watcher
+      $scope.$watch(function() {
+        return listsFilter.getIsOwnFilter();
+      }, function() {
+        self.isOwnFilter = listsFilter.getIsOwnFilter();
+      });
 
       // function
       this.addNewTask = addNewTask;

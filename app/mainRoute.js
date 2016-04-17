@@ -18,7 +18,7 @@ module.exports = function(app) {
   /**
    * user stuff
    **/
-  app.get('/api/user', user.getUserData);
+  app.get('/api/user/:name', user.getUserData);
   app.put('/api/user', user.saveUserData);
   app.post('/api/user', user.saveUserPassword);
   app.put('/api/user/avatar', user.saveAvatarImage);
@@ -35,9 +35,9 @@ module.exports = function(app) {
   /**
    * task stuff
    **/
-  app.post('/api/lists/:id/task', task.addTask);
-  app.get('/api/lists/:id_list/task', task.getTasks);
   app.get('/api/lists/:id_list/task/:id_task', task.getTask);
+  app.get('/api/lists/:id_list/task', task.getTasks);
+  app.post('/api/lists/:id/task', task.addTask);
   app.put('/api/lists/:id_list/task/:id_task', task.updateTask);
   app.delete('/api/lists/:id_list/task/:id_task', task.removeTask);
 

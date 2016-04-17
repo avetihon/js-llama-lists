@@ -4,39 +4,189 @@ FORMAT: 1A
 # Llama lists API
 
 
+This is the lists API for retrieving lists data
+
+
+# Group Auth
+
+## Save new user [POST /auth/signup]
+Save new user
+
++ Attributes
+    + username: `Eugene` (string, required) - The name of new user
+    + email: `tutu@gmail.com` (string, required) - The email of new user
+    + password: `123456` (string, required) - The password of new user
+
++ Request (application/json)
+
++ Response 200 (application/json)
+    + Attributes
+        + token: `swredftygufsgfu3434tugyihufd` (string) - The unique token that need save
+
+
+## Login  [POST /auth/login]
+Login to app
+
++ Attributes
+    + username: `Eugene` (string, required) - The name of existing user
+    + password: `123456` (string, required) - The password of existing user
+
++ Request (application/json)
+
++ Response 200 (application/json)
+    + Attributes
+        + token: `swredftygufsgfu3434tugyihufd` (string) - The unique token that need save
+
+
 # Group Lists
 
 
-## Lists Collection [/api/lists]
+## Lists Collection [/api/lists/{id}]
+The list contains tasks that a user creates
 
 
-### Get All Lists [GET /api/lists/{id}]
-
-- Parameter
-
-    - id: `Eugene` - The Login Of The User
+### Get All Lists [GET]
++ Parameter
+    + id: `Eugene` - The name of the user
 
 
-- Response 200 (application/json)
++ Response 200 (application/json)
 
-    - Attributes
-
-        - Include Lists
+    + Attributes (List)
 
 
-# Data Structures
+### Create a List [POST]
+Creates a new List.
+
++ Attributes
+    + title: `My new list` (string, required) - The title of new list
+    + owner: `570c111e170218c32f1b1890` (string, required) - The id of the owner list
+    + tags: #cool, #beer (array[string], optional) - The tags of the new list
+    + members (array[User]) - The members of the new list
+
++ Request (application/json)
+
++ Response 200 (application/json)
+    + Attributes (List)
+
+### Delete a List [DELETE]
++ Parameter
+    + id: `570c111e170218c32f1b1890` - The unique id of the list
+
++ Response 200 (application/json)
+    + Attributes
+        + success: true (boolean) - The result of operation
+
+### Update a List [PUT]
++ Parameter
+    + id: `570c111e170218c32f1b1890` - The unique id of the list
+
++ Attributes (List)
+
++ Request (application/json)
+
++ Response 200 (application/json)
+    + Attributes (List)
 
 
-## Lists (object)
+# Group Task
 
-- id: `570c111e170218c32f1b1890` (string) - The ID of the list
+## Task [/api/lists/{id_list}/task/{id_task}]
+A task contains text, color and current completed status
 
-- title: `My awesome list` (string) - The Title Of The List
++ Parameters
+    + id_list: `570c111e170218c32f1b1890` (string) - The unique ID of the list that contain task
+    + id_task: `570c111e170218c32f1b1111` (string) - The unique ID of the needed task
 
-- image: `list-background-1` (string) - The Image Of The List
+### Retrieve a Task [GET]
+Retrieves the task with the given ID.
+
++ Response 200 (application/json)
+    + Attributes (Task)
 
 
-# Group Tasks
+### Delete a Task [DELETE]
+Delete the task with the given ID
+
++ Response 200 (application/json)
+    + Attributes
+        + success: true (boolean) - The result of operation
 
 
-# Group Users
+### Update a Task [PUT]
+Update the task with the given ID
+
++ Attributes (Task)
+
++ Request (application/json)
+
++ Response 200 (application/json)
+    + Attributes (Task)
+
+## Tasks [/api/lists/:id/task]
++ Parameters
+    + id: `570c111e170218c32f1b1890` (string) - The ID of the list that contain tasks
+
+### Retrieve a Tasks [GET]
+Retrive all tasks
+
++ Response 200 (application/json)
+    + Attributes (array[Task])
+
+### Create a Task [POST]
+Creates a new task.
+
++ Attributes
+    + text: `My new task` (string, required) - The title of new task
+
++ Request (application/json)
+
++ Response 200 (application/json)
+    + Attributes (array[Task])
+
+
+## Data Structures
+
+### List (object)
+
++ id: `570c111e170218c32f1b1890` (string) - The unique ID of the list
+
++ title: `My awesome list` (string) - The title of the list
+
++ image: `name background` (string) - The image of the list
+
++ tags: #cool, #beer (array[string]) - The tags of the list
+
++ owner (User) - The owner of the list
+
++ members (array[User]) - The members of the list
+
++ tasks (array[Task])
+
+
+### Task (object)
+
++ id: `570c111e170218c32f1b1890` (string) - The unique ID of the task
+
++ text: `Running every day` (string) - The text of the task
+
++ color: `task__color--red` (string) - The color of the task
+
++ completed: true (boolean) - The indicated is task completed or not
+
+
+### User (object)
+
++ id: `570c111e170218c32f1b1890` (string) - The unique ID of the user
+
++ name: `Eugene` (string) - The unique name of the user
+
++ email: `tutu@gmail.com` (string) - The email of the user
+
++ password: `$2a$08$4uNXtA8oWJqvROznj6GBU.Ecv2ZwnrotITNcdT/1n8xnYWnUYUJtm` (string) - The hash-password of the user
+
++ avatar: `nEJnC36ItswNUFul4qAbHyxufS6k3VEA.jpg` (string) - The unique avatar of the user
+
++ interests: #yoga, #meditation (array[string]) - The array of the interest
+
++ bio: `I love clouds` (string) - The description of the user

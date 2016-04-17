@@ -1,12 +1,12 @@
 (function() {
-  "use strict";
+  'use strict';
 
   angular
-    .module("llamaLists")
-    .controller("accountPageCtrl", AccountPageCtrl);
+    .module('llamaLists')
+    .controller('accountPageCtrl', AccountPageCtrl);
 
-    AccountPageCtrl.$inject = ["$rootScope", "UserService"];
-    function AccountPageCtrl($rootScope, UserService) {
+    AccountPageCtrl.$inject = ['$window', '$rootScope', 'UserService', 'userData'];
+    function AccountPageCtrl($window, $rootScope, UserService, userData) {
       var vm = this;
       vm.saveChanges = saveChanges;
       vm.changeAvatar = changeAvatar;
@@ -15,27 +15,24 @@
       activate();
 
       function activate() {
-        UserService.get(function (response) {
-          vm.avatarImage = response.user.avatar;
-          vm.name = response.user.name;
-          vm.email = response.user.email;
-          vm.bio = response.user.bio;
-        });
+        if (!userData.getData()) {
+          UserService.getCurrentUser(function (response) {
+            userData.setData(response.user);
+            vm.user = response.user;
+          });
+        } else {
+          vm.user = userData.getData();
+        }
       }
 
       function saveChanges(validation) {
-        var body = {};
 
         if (validation) {
-          body.name = vm.name;
-          body.email = vm.email;
-          body.bio = vm.bio;
-
           vm.message = null;
           vm.messageDone = null;
-          UserService.update({}, body, function (response) {
+          UserService.update({}, { user: vm.user }, function (response) {
             vm.messageDone = response.message;
-            $rootScope.$emit("reloadNavbar");
+            $rootScope.$emit('reloadNavbar');
           }, function (error) {
             vm.message = error.data.message;
           });
@@ -45,15 +42,15 @@
       function changeAvatar(image) {
         var reader;
 
-        if (image.type.localeCompare("image/jpeg") !== 0 && image.type.localeCompare("image/png") !== 0) {
-          console.log("error")
+        if (image.type.localeCompare('image/jpeg') !== 0 && image.type.localeCompare('image/png') !== 0) {
+          console.log('error')
         }
 
         reader = new FileReader();
         reader.onload = function (event) {
           UserService.avatar({}, { avatar: event.target.result }, function (response) {
             vm.avatarImage = response.avatar;
-            $rootScope.$emit("reloadNavbar");
+            $rootScope.$emit('reloadNavbar');
           });
         }
         reader.readAsDataURL(image);
