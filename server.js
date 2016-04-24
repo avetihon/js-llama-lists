@@ -30,7 +30,7 @@ app.use("/api", expressJwt({
 // catch unauthorization error
 app.use(function (err, req, res, next) {
   if (err.name === 'UnauthorizedError') {
-    return res.status(401).send({ success: false });
+    return res.status(401).send({ success: false, message: 'Unauthorized request' });
   }
 });
 

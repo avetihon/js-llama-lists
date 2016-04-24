@@ -32,6 +32,7 @@
 
         // get all lists of user
         ListsService.get({ user: username }, function (response) {
+          console.log(response)
           listsVm.lists = response.lists;
         });
       }
