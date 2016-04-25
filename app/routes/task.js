@@ -53,8 +53,9 @@ exports.addTask = function(req, res) {
 
       list.save(function(err, done) {
         if (err) return done(err);
+        var newTask = done.tasks[done.tasks.length - 1];
 
-        res.json({ tasks: list.tasks });
+        res.json({ tasks: newTask });
       });
     });
 };
