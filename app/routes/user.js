@@ -1,5 +1,5 @@
 var User         = require("../../app/models/user"), // load up the user model
-    randomString = require("randomstring")
+    randomString = require("randomstring"),
     fs           = require("fs");
 
 

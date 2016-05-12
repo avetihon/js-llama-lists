@@ -1634,8 +1634,8 @@ img {
     font-size: 0.95em;
     border: 0;
     border-bottom: 1px solid #dadee6;
-    margin-bottom: 5%;
-    padding: 6px 0;
+    margin-bottom: 6%;
+    padding: 0 0 6px 0;
     color: #303F60; }
     .user-signup-form input:focus,
     .user-login-form input:focus {
@@ -1646,7 +1646,7 @@ img {
     left: 0;
     bottom: 0;
     margin: 0;
-    font-size: 0.85em;
+    font-size: 0.80em;
     color: #f36; }
   .user-signup-form button,
   .user-login-form button {

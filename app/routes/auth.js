@@ -30,7 +30,7 @@ exports.signup = function(req, res) {
           });
         } else {
           // save to new user test list
-          preloadList(function (list) {
+          // preloadList(function (list) {
             var newUser  = new User();
             newUser.name = req.body.username;
             newUser.email = req.body.email;
@@ -41,13 +41,13 @@ exports.signup = function(req, res) {
               if (err) return done(err);
 
               var token = jwt.sign(done.toObject(), app.app.get('mylittlesecret'), {
-                expiresIn: "60" // expires in 168 hours
+                expiresIn: "7d" // expires in 168 hours
               });
 
               // return the information including token as JSON
               res.json({ token: token });
             });
-          });
+          // });
         }
     });
   }
@@ -93,11 +93,11 @@ exports.login = function(req, res) {
 };
 
 
-function preloadList(callback) {
-  fs.readFile('config/preload.json', 'utf8', function (err, data) {
-    if (err) throw err;
-    var json = JSON.parse(data);
+// function preloadList(callback) {
+//   fs.readFile('config/preload.json', 'utf8', function (err, data) {
+//     if (err) throw err;
+//     var json = JSON.parse(data);
 
-    callback(json);
-  });
-}
+//     callback(json);
+//   });
+// }

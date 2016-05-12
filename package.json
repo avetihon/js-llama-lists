@@ -1,10 +1,10 @@
 {
   "name": "js-llama-list",
-  "version": "0.9.0",
+  "version": "1.2.0",
   "description": "This app use MEAN stack",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon server.js & open http://localhost:3000",
+    "start": "nodemon server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
