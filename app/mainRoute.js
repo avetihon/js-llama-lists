@@ -3,6 +3,7 @@ var auth      = require('../app/routes/auth'),
     user      = require('../app/routes/user'),
     list      = require('../app/routes/list'),
     task      = require('../app/routes/task'),
+    data      = require('../app/routes/data'),
     search    = require('../app/routes/search'),
     path      = require('path');
 
@@ -22,8 +23,8 @@ module.exports = function(app) {
   app.put('/api/user', user.saveUserData);
   app.post('/api/user', user.saveUserPassword);
   app.put('/api/user/avatar', user.saveAvatarImage);
-  app.put('/api/user/interests', user.saveInterest);
-  app.get('/api/user/interests', user.getInterestsList);
+  // app.put('/api/user/interests', user.saveInterest);
+
   /**
    * list stuff
    **/
@@ -41,6 +42,10 @@ module.exports = function(app) {
   app.put('/api/lists/:id_list/task/:id_task', task.updateTask);
   app.delete('/api/lists/:id_list/task/:id_task', task.removeTask);
 
+  /**
+   * Different data stuff
+   **/
+  app.get('/api/data/interests', data.getInterestsList);
 
   /**
    * search stuff

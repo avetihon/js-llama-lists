@@ -16,8 +16,9 @@
     </div>
     <!-- /.account__avatarWrapper -->
     <div class="account__fromGroup">
-      <p class="account__text">Your name</p>
+      <label class="account__text" for="username">Your name</label>
       <input type="text"
+             id="username"
              name="username"
              class="account__input"
              ng-model="vm.user.name"
@@ -33,8 +34,9 @@
     </div>
     <!-- /.account__fromGroup -->
     <div class="account__fromGroup">
-      <p class="account__text">Your email</p>
+      <label class="account__text" for="email">Your email</label>
       <input type="email"
+             id="email"
              name="email"
              class="account__input"
              ng-model="vm.user.email" required
@@ -49,12 +51,12 @@
     </div>
     <!-- /.account__fromGroup -->
     <div>
-      <p class="account__text">Your interests <span class="account__footnote">(add new interest separate by coma)</span></p>
-      <textarea name="interests" class="account__textarea account__textarea--interests" ng-model="vm.user.interests" ng-list></textarea>
+      <label class="account__text" for="interests">Your interests <span class="account__footnote">(add new interest separate by coma)</span></label>
+      <textarea id="interests" name="interests" class="account__textarea account__textarea--interests" ng-model="vm.user.interests" ng-list></textarea>
     </div>
     <div>
-      <p class="account__text">Tell about yourself</p>
-      <textarea name="addition" class="account__textarea" ng-model="vm.user.bio"></textarea>
+      <label class="account__text" for="addition">Tell about yourself</label>
+      <textarea id="addition" name="addition" class="account__textarea" ng-model="vm.user.bio"></textarea>
     </div>
     <button type="button" class="done-button" ng-click="vm.saveChanges(accountForm.$valid)">save changes</button>
   </form>

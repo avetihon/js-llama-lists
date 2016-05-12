@@ -57,6 +57,20 @@
           <span ng-bind="signupVm.message"></span>
         </p>
         <button type="button" ng-click="signupVm.submitData(signupForm.$valid)">Create account</button>
+        <div class="userAuth__or">
+          <span class="userAuth__orText">or</span>
+          <hr class="userAuth__orLine">
+        </div>
+        <div class="userAuth__socialRegistration">
+          <div class="userAuth__social userAuth__social--google">
+            <i class="fa fa-google" aria-hidden="true"></i>
+            <span class="userAuth__socialText">Use Google</span>
+          </div>
+          <div class="userAuth__social userAuth__social--twitter">
+            <i class="fa fa-twitter" aria-hidden="true"></i>
+            <span class="userAuth__socialText">Use Twitter</span>
+          </div>
+        </div>
         <div class="have-an">
           <span>Have an account?</span>
           <a ui-sref="auth.login">Sign in</a>

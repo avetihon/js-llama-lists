@@ -8,6 +8,7 @@ var listSchema = mongoose.Schema({
   image:     { type: String, default: "list-background-1" },
   owner:     { type: String, ref: 'User' },
   members:   [{ type: String, ref: 'User' }],
+  likes:     Array,
   tasks:     [taskShema]
 });
 

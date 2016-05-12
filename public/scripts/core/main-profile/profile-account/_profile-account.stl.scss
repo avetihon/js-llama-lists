@@ -60,7 +60,9 @@
 }
 
 .account__text {
+  display: inline-block;
   margin-top: 0;
+  margin-bottom: 12px;
   font-size: 0.75em;
   color: #a2aabd;
   text-transform: uppercase;

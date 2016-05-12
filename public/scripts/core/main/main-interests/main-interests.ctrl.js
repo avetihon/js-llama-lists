@@ -4,8 +4,8 @@
   angular.module("llamaLists")
     .controller("interestsPageCtrl", InterestsPageCtrl);
 
-    InterestsPageCtrl.$inject = ["$timeout", "$window", "$state", "UserService"];
-    function InterestsPageCtrl($timeout, $window, $state, UserService) {
+    InterestsPageCtrl.$inject = ["$timeout", "$window", "$state", "UserService", 'InterestsService'];
+    function InterestsPageCtrl($timeout, $window, $state, UserService, InterestsService) {
       var vm = this;
       var i = 0;
       var colorsArray = ["red", "orange", "yellow", "green", "indigo", "violet"];
@@ -17,7 +17,7 @@
       vm.saveInterests = saveInterests;
       vm.username = $window.localStorage.user; // send to ui-router
       // delay is necessary to run the animation
-      UserService.getInterests(function (response) {
+      InterestsService.get(function (response) {
         $timeout(function() {
           vm.interests = response.interests;
         }, 100);
@@ -55,15 +55,21 @@
       // i know this code placing between fuck and shit
 
       function saveInterests() {
-        var arrayToSend = [];
+        var interestsArray = [];
 
         if (vm.selectedInterest.length > 0) {
           vm.selectedInterest.forEach(function(item) {
-            arrayToSend.push(item.text);
+            interestsArray.push(item.text);
           });
-          UserService.setInterests({}, { interests: arrayToSend }, function (response) {
-            $state.go("main.lists");
-          });
+
+          UserService.getCurrentUser(function (response) {
+            response.user.interests = interestsArray;
+
+            UserService.update({}, { user: response.user }, function (response) {
+              $state.go("main.lists", { username: vm.username });
+            });
+          })
+
         } else {
 
           vm.emptyInterests = (vm.emptyInterests)

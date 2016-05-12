@@ -16,8 +16,11 @@
         },
         responseError: function (response) {
           if (response.status === 401) {
+
+            // remove just in case
+            delete $window.localStorage.token;
             // handle the case where the user is not authenticated
-            $injector.get('$state').go("home"); // redirect to home page
+            $injector.get('$state').go("auth.signup"); // redirect to home page
           } else if (response.status === 404) {
             $injector.get('$state').go("404");
           }

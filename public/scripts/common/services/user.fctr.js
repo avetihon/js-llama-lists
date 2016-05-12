@@ -29,12 +29,6 @@
             type: 'avatar'
           }
         },
-        getInterests: {
-          method: 'GET',
-          params: {
-            type: 'interests'
-          }
-        },
         setInterests: {
           method: 'PUT',
           params: {

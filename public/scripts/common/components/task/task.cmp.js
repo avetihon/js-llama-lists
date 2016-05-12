@@ -39,6 +39,7 @@
       this.$onInit = function() {
         listID = this.listCtrl.listID;
         reloadTasks = this.listCtrl.reloadTasks;
+        this.isOwner = this.listCtrl.isOwner;
       }
 
 
@@ -78,7 +79,7 @@
       }
 
       function setTaskCompleted(event) {
-        if (this.editMode !== true) {
+        if (this.editMode !== true && this.isOwner) {
           TaskService.update({ list: listID, task: taskID }, { completed: true }, function (response) {
             self.data.completed = response.task.completed;
           });

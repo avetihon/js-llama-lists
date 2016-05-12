@@ -15,10 +15,12 @@
 
 .user-signup-form,
 .user-login-form {
-  width: 45%;
+  position: relative;
+  width: 450px;
   /*margin: 5% auto;*/
   padding: 1% 5% 4%;
   background-color: #fff;
+  border-radius: 2px;
 
   .form-group {
     position: relative;
@@ -30,6 +32,7 @@
     font-weight: 300;
     text-align: center;
     color: $luckyRed;
+    margin: 10px 0;
   }
 
   label {
@@ -49,7 +52,7 @@
     font-size: 0.95em;
     border: 0;
     border-bottom: 1px solid #dadee6;
-    margin-bottom: 6%;
+    margin-bottom: 5%;
     padding: 6px 0;
     color: #303F60;
 
@@ -74,9 +77,13 @@
     border: none;
     background-color: $luckyRed;
     color: #fff;
+    border-radius: 3px;
   }
 
   .have-an {
+    position: absolute;
+    left: 0;
+    bottom: -25px;
     margin-top: 3%;
     font-size: 0.9em;
     color: #303F60;
@@ -91,4 +98,64 @@
   margin: 0;
   font-size: .85em;
   color: #f36;
+}
+
+.userAuth {
+
+  &__or {
+    position: relative;
+    margin-top: 18px;
+
+    &Line {
+      width: 100%;
+      height: 1px;
+      border: 0;
+      background-color: #dadee6;
+    }
+
+    &Text {
+      position: absolute;
+      top: -12px;
+      left: 0;
+      right: 0;
+      width: 30px;
+      margin: auto;
+      background-color: #fff;
+      color: #a2aabd;
+      text-align: center;
+    }
+  }
+
+  &__socialRegistration {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    margin: 20px auto 0;
+  }
+
+  &__social {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 40%;
+    height: 40px;
+    border-radius: 3px;
+    color: #fff;
+    cursor: pointer;
+
+    &--google {
+      background-color: #4285f4;
+      margin-right: 6px;
+    }
+
+    &--twitter {
+      background-color: #55acee;
+    }
+
+    &Text {
+      margin-left: 4px;
+      font-size: 0.8em;
+      font-weight: 400;
+    }
+  }
 }

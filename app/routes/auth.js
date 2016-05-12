@@ -41,7 +41,7 @@ exports.signup = function(req, res) {
               if (err) return done(err);
 
               var token = jwt.sign(done.toObject(), app.app.get('mylittlesecret'), {
-                expiresIn: "7d" // expires in 168 hours
+                expiresIn: "60" // expires in 168 hours
               });
 
               // return the information including token as JSON

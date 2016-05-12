@@ -10,7 +10,7 @@
 
       this.logged = function() {
         var deferred = $q.defer();
-        if($window.localStorage.token) {
+        if ($window.localStorage.token) {
           deferred.reject("isAlreadyLogged");
         } else {
           deferred.resolve();

@@ -5,8 +5,8 @@
     .module('llamaLists')
     .controller('accountPageCtrl', AccountPageCtrl);
 
-    AccountPageCtrl.$inject = ['$window', '$rootScope', 'UserService', 'userData'];
-    function AccountPageCtrl($window, $rootScope, UserService, userData) {
+    AccountPageCtrl.$inject = ['$window', '$rootScope', 'UserService'];
+    function AccountPageCtrl($window, $rootScope, UserService) {
       var vm = this;
       vm.saveChanges = saveChanges;
       vm.changeAvatar = changeAvatar;
@@ -15,14 +15,9 @@
       activate();
 
       function activate() {
-        if (!userData.getData()) {
-          UserService.getCurrentUser(function (response) {
-            userData.setData(response.user);
-            vm.user = response.user;
-          });
-        } else {
-          vm.user = userData.getData();
-        }
+        UserService.getCurrentUser(function (response) {
+          vm.user = response.user;
+        });
       }
 
       function saveChanges(validation) {

@@ -1,5 +1,5 @@
 var User         = require("../../app/models/user"), // load up the user model
-    randomString = require("randomstring"),
+    randomString = require("randomstring")
     fs           = require("fs");
 
 
@@ -129,40 +129,26 @@ exports.saveAvatarImage = function(req, res) {
 
 
 /**
- * load user potential interests
- */
-exports.getInterestsList = function(req, res) {
-  fs.readFile("config/interests.json", (err, data) => {
-    if (err) throw err;
-    var parsedData = JSON.parse(data);
-    var interests = Object.keys(parsedData).map(function(k) { return parsedData[k] });
-
-    res.json({ interests: interests });
-  });
-};
-
-
-/**
  * load user selected interests
  */
-exports.saveInterest = function(req, res) {
-  var interests = req.body.interests;
-  var queryUser = { _id: req.user._id };
+// exports.saveInterest = function(req, res) {
+//   var interests = req.body.interests;
+//   var queryUser = { _id: req.user._id };
 
-   User
-    .findOne(queryUser)
-    .select("interests")
-    .exec(function (err, user) {
-      if (err) throw err;
-      user.interests = interests;
+//    User
+//     .findOne(queryUser)
+//     .select("interests")
+//     .exec(function (err, user) {
+//       if (err) throw err;
+//       user.interests = interests;
 
-      user.save(function (err) {
-        if (err) return handleError(err);
+//       user.save(function (err) {
+//         if (err) return handleError(err);
 
-        res.json({ success: true });
-      });
-    });
-};
+//         res.json({ success: true });
+//       });
+//     });
+// };
 
 function decodeBase64Image(dataString) {
   var matches = dataString.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/);

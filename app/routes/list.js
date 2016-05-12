@@ -17,6 +17,10 @@ exports.getLists = function(req, res) {
     .findOne({ name: req.params.id })
     .exec(function(err, user) {
 
+      // if (!user) {
+      //   res.sendStatus(404);
+      // }
+
       var queryList = {
         $or: [
           { members: user._id },
@@ -25,7 +29,7 @@ exports.getLists = function(req, res) {
 
       List
         .find(queryList)
-        .populate('members owner')
+        .populate('members owner', '-password')
         .lean() // return plain js object, faster then mongo document
         .exec(function(err, lists) {
           if (err) throw err;
@@ -92,6 +96,9 @@ exports.updateList = function(req, res) {
       list.title = bodyList.title;
       list.members = bodyList.members;
       list.tags = bodyList.tags;
+      list.likes = bodyList.likes;
+
+      console.log(list)
 
       // // if we have are new tags
       // if (divideTextAndTags(bodyList.title).hashTags) {

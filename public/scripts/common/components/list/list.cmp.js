@@ -23,7 +23,13 @@
       var textTemp = '';
       var self = this;
       this.listID = this.data._id;
+
+      // check if user is owner list
       this.isOwner = userData.isOwnerList(this.data.owner.name);
+
+
+      // count likes
+      this.likes = this.data.likes.length;
 
       // watcher
       $scope.$watch(function() {
@@ -33,6 +39,7 @@
       });
 
       // function
+      this.addLike = addLike;
       this.addNewTask = addNewTask;
       this.clearInput = clearInput;
       this.closePopupAndOverlay = closePopupAndOverlay;
@@ -44,13 +51,36 @@
       this.reloadTasks = reloadTasks;
       $scope.$on('closePopup', closePopup);
 
+      /**
+       * This function add likes to lists
+       * Like - it's a name user, who pressed the button
+       * If is like already in list - remove its
+       **/
+      function addLike() {
+        if (!this.isOwner) {
+          var currentUser = userData.getCurrentUser();
+
+          var index = this.data.likes.indexOf(currentUser);
+
+          if (index > -1) {
+            this.data.likes.splice(index, 1);
+          } else {
+            this.data.likes.push(currentUser);
+          }
+
+          this.likes = this.data.likes.length;
+
+          ListsService.update({ id: this.listID }, { list: this.data });
+        }
+      }
+
       function addNewTask(validation) {
 
         if (validation && allowSavingTask) {
           allowSavingTask = false;
 
           TaskService.save({ list: this.listID }, { text: this.taskText }, function (response) {
-            self.data.tasks = response.tasks;
+            self.data.tasks.push(response.task);
             self.taskText = null;
             allowSavingTask = true;
           });
@@ -82,16 +112,37 @@
         $rootScope.$emit("showFogOverlay");
       }
 
+      /**
+       * Check is this owner list who want remove
+       * If yes - remove list from DB
+       * Else - remove this user from list members
+       **/
       function removeList() {
-        ListsService.delete({ id: this.listID }, function () {
-          self.reload();
-        });
+        if (this.isOwner) {
+          ListsService.delete({ id: this.listID }, function () {
+            self.reload();
+          });
+        } else {
+          var currentUser = userData.getCurrentUser();
+
+          var newMembersArray = this.data.members.filter(function(item) {
+            return item.name !== currentUser;
+          });
+
+          this.data.members = newMembersArray;
+
+          ListsService.update({ id: self.listID }, { list: this.data }, function (response) {
+            self.reload();
+          });
+        }
       }
 
       function saveTextToTemp() {
-        textBeforeEdit = this.data.title;
-        this.data.title = this.data.title.replace(/(<([^>]+)>)/ig, '');
-        textTemp = this.data.title;
+        if (this.isOwner) {
+          textBeforeEdit = this.data.title;
+          this.data.title = this.data.title.replace(/(<([^>]+)>)/ig, '');
+          textTemp = this.data.title;
+        }
 
       }
 

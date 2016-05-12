@@ -23,7 +23,7 @@
 
       function activate() {
         // if we work with page of another user
-        if (listsVm.isCurrentUser !== true) {
+        if (listsVm.isOwner !== true) {
           // load his data
           UserService.get({ name: username }, function (response) {
             listsVm.user = response.user;
@@ -32,9 +32,17 @@
 
         // get all lists of user
         ListsService.get({ user: username }, function (response) {
-          console.log(response)
           listsVm.lists = response.lists;
         });
+      }
+
+      function masonry() {
+        // var elem = document.querySelector('.lists-wrapper');
+        // var msnry = new Masonry( elem, {
+        //   // options
+        //   itemSelector: '.col-sm-4',
+        //   percentPosition: true
+        // });
       }
 
       function createNewList() {

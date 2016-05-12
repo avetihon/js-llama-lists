@@ -55,7 +55,7 @@ exports.addTask = function(req, res) {
         if (err) return done(err);
         var newTask = done.tasks[done.tasks.length - 1];
 
-        res.json({ tasks: newTask });
+        res.json({ task: newTask });
       });
     });
 };

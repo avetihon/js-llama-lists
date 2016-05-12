@@ -8,18 +8,20 @@
     <!-- This div contain self realisation contenteditable,
          which makes the div behaviour like input or textarea elements
          and contolled on click -->
-    <div class="task-text"
-         ng-model="$ctrl.data.text"
-         custom-focus="$ctrl.focusOn"
-         ng-blur="$ctrl.saveEditedText()"
-         ng-click="$ctrl.setTaskCompleted($event)"
-         ng-attr-contenteditable="{{ $ctrl.editMode || undefined }}">
+    <div class="task-input-controll-wrapper">
+      <div class="task-text"
+           ng-model="$ctrl.data.text"
+           custom-focus="$ctrl.focusOn"
+           ng-blur="$ctrl.saveEditedText()"
+           ng-click="$ctrl.setTaskCompleted($event)"
+           ng-attr-contenteditable="{{ $ctrl.editMode || undefined }}">
+      </div>
+      <div class="list-button-add-task task__buttonEdit" ng-show="$ctrl.editMode">
+        <button type="button" class="done" ng-click="$ctrl.saveEditedText($event)">Save</button>
+        <button type="button" class="cancel" ng-click="$ctrl.closeEditMode($event)">Cancel</button>
+      </div>
     </div>
-    <div class="list-button-add-task task__buttonEdit" ng-show="$ctrl.editMode">
-      <button type="button" class="done" ng-click="$ctrl.saveEditedText($event)">Save</button>
-      <button type="button" class="cancel" ng-click="$ctrl.closeEditMode($event)">Cancel</button>
-    </div>
-    <span class="task-preference" ng-click="$ctrl.openDropdown($event)" click-outside="$ctrl.closeDropdown()">
+    <span class="task-preference" ng-click="$ctrl.openDropdown($event)" click-outside="$ctrl.closeDropdown()" ng-show="$ctrl.isOwner">
       <div class="task__dropdown" ng-class="{ 'task__dropdown--open': $ctrl.dropdownIsOpen }">
         <ul class="task__dropdownLists">
           <li class="task__list" ng-click="$ctrl.editTaskText()">Edit task</li>

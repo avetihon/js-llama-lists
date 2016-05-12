@@ -41,13 +41,13 @@
         var reader;
 
         if (image.type.localeCompare('image/jpeg') !== 0 && image.type.localeCompare('image/png') !== 0) {
-          console.log('error')
+          alert('File format not support');
         }
 
         reader = new FileReader();
         reader.onload = function (event) {
           UserService.avatar({}, { avatar: event.target.result }, function (response) {
-            navVm.avatarImage = response.avatar;
+            navVm.user.avatar = response.avatar;
           });
         }
         reader.readAsDataURL(image);

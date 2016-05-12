@@ -36,5 +36,9 @@
           return true;
         }
       }
+
+      this.getCurrentUser = function() {
+        return $window.localStorage.user;
+      }
     }
 })();
