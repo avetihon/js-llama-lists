@@ -17,25 +17,27 @@ exports.getLists = function(req, res) {
     .findOne({ name: req.params.id })
     .exec(function(err, user) {
 
-      // if (!user) {
-      //   res.sendStatus(404);
-      // }
+      if (!user) {
+        res.sendStatus(404);
+      } else {
+        var queryList = {
+          $or: [
+            { members: user._id },
+            { owner: user._id }
+        ]};
 
-      var queryList = {
-        $or: [
-          { members: user._id },
-          { owner: user._id }
-      ]};
 
-      List
-        .find(queryList)
-        .populate('members owner', '-password')
-        .lean() // return plain js object, faster then mongo document
-        .exec(function(err, lists) {
-          if (err) throw err;
 
-          res.status(200).json({ lists: lists });
-      });
+        List
+          .find(queryList)
+          .populate('members owner', '-password')
+          .lean() // return plain js object, faster then mongo document
+          .exec(function(err, lists) {
+            if (err) throw err;
+
+            res.status(200).json({ lists: lists });
+        });
+      }
     });
 };
 
@@ -98,8 +100,6 @@ exports.updateList = function(req, res) {
       list.tags = bodyList.tags;
       list.likes = bodyList.likes;
 
-      console.log(list)
-
       // // if we have are new tags
       // if (divideTextAndTags(bodyList.title).hashTags) {
       //   // check before concatenate two array, don't dublicating the new tags already existing values
@@ -116,4 +116,8 @@ exports.updateList = function(req, res) {
   });
 }
 
+
+exports.recomendationLists = function(req, res) {
+
+}
 

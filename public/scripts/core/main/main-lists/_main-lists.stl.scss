@@ -68,9 +68,15 @@
     position: relative;
     text-align: center;
     z-index: 1;
+    height: 132px;
   }
 
   &__avatar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
     width: 70px;
     height: 70px;
     border-radius: 50%;
@@ -79,15 +85,23 @@
   }
 
   &__name {
+    width: 100%;
     margin: 0;
     font-size: 1.5em;
     color: #ededed;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   &__info {
+    width: 100%;
     margin: 5px 0;
     font-size: 0.9em;
     color: #d0d0d0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }
 

@@ -5,8 +5,8 @@
     .module('llamaLists')
     .controller('accountPageCtrl', AccountPageCtrl);
 
-    AccountPageCtrl.$inject = ['$window', '$rootScope', 'UserService'];
-    function AccountPageCtrl($window, $rootScope, UserService) {
+    AccountPageCtrl.$inject = ['$window', '$rootScope', 'UserService', 'userData'];
+    function AccountPageCtrl($window, $rootScope, UserService, userData) {
       var vm = this;
       vm.saveChanges = saveChanges;
       vm.changeAvatar = changeAvatar;
@@ -15,9 +15,7 @@
       activate();
 
       function activate() {
-        UserService.getCurrentUser(function (response) {
-          vm.user = response.user;
-        });
+        vm.user = userData.getData();
       }
 
       function saveChanges(validation) {
@@ -38,7 +36,7 @@
         var reader;
 
         if (image.type.localeCompare('image/jpeg') !== 0 && image.type.localeCompare('image/png') !== 0) {
-          console.log('error')
+          console.warn('error')
         }
 
         reader = new FileReader();

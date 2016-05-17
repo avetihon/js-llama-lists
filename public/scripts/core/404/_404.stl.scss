@@ -1,0 +1,27 @@
+.errorPage {
+  &__positions {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-image: url('../img/404.jpg');
+    background-size: cover;
+    color: #fff;
+  }
+
+  &__404 {
+    font-size: 12em;
+    margin: 0;
+  }
+
+  &__description {
+    margin: 0;
+  }
+
+  &__link {
+    color: #fff;
+    text-decoration: underline;
+  }
+}

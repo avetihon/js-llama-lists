@@ -15,30 +15,55 @@
       templateUrl: 'scripts/common/components/list/list.tpl.html'
     });
 
-    listController.$inject = ['$scope', '$rootScope', 'ListsService', 'TaskService', 'listsFilter', 'userData', 'tags'];
-    function listController($scope, $rootScope, ListsService, TaskService, listsFilter, userData, tags) {
+    listController.$inject = ['$scope', '$rootScope', 'ListsService', 'TaskService', 'listsFilter', 'userData', 'UserService', 'tags'];
+    function listController($scope, $rootScope, ListsService, TaskService, listsFilter, userData, UserService, tags) {
       //variable
       var allowSavingTask = true;
       var textBeforeEdit = '';
       var textTemp = '';
       var self = this;
       this.listID = this.data._id;
+      this.siteUrl = document.location.href;
+      this.twitterText = 'I create a new to-do list at page ' + this.siteUrl;
 
-      // check if user is owner list
+      // check that user on it's own page
+      this.isOwnerPage = userData.isOwnerPage();
+
+      // check that user is list owner
       this.isOwner = userData.isOwnerList(this.data.owner.name);
-
 
       // count likes
       this.likes = this.data.likes.length;
 
-      // watcher
+      // this watcher hide avatar on lists if user choose sorting by his own lists
       $scope.$watch(function() {
         return listsFilter.getIsOwnFilter();
       }, function() {
         self.isOwnFilter = listsFilter.getIsOwnFilter();
       });
 
+      /**
+       * On init add class to all already liked lists
+       * And class to lists, that were already shared to current users
+       **/
+      this.$onInit = function() {
+        var currentUser = userData.getCurrentUser();
+
+        this.alreadyLiked = this.data.likes.some(function(item) {
+          return item === currentUser;
+        });
+
+        if (!this.isOwnerPage) {
+          this.isUserAlreadyInMembers = this.data.members.some(function(item) {
+            return item.name === currentUser;
+          });
+        }
+      }
+
+
+
       // function
+      this.addCurrentUserToMembers = addCurrentUserToMembers;
       this.addLike = addLike;
       this.addNewTask = addNewTask;
       this.clearInput = clearInput;
@@ -51,6 +76,18 @@
       this.reloadTasks = reloadTasks;
       $scope.$on('closePopup', closePopup);
 
+      function addCurrentUserToMembers() {
+        var currentUser = userData.getData();
+
+        if (!this.isUserAlreadyInMembers) {
+          this.data.members.push(currentUser);
+
+          ListsService.update({ id: this.listID }, { list: this.data }, function() {
+            self.isUserAlreadyInMembers = true;
+          });
+        }
+      }
+
       /**
        * This function add likes to lists
        * Like - it's a name user, who pressed the button
@@ -58,19 +95,39 @@
        **/
       function addLike() {
         if (!this.isOwner) {
-          var currentUser = userData.getCurrentUser();
+          var newListInterest;
+          var currentUser = userData.getData();
 
-          var index = this.data.likes.indexOf(currentUser);
+          // check is user already take the like
+          var isUserTakeLike = this.data.likes.some(function(item) {
+            return item === currentUser.name;
+          });
 
-          if (index > -1) {
-            this.data.likes.splice(index, 1);
+          if (isUserTakeLike) {
+            // if yes remove his like
+            this.data.likes = this.data.likes.filter(function(item) {
+              return item !== currentUser.name;
+            });
+
+            this.alreadyLiked = false;
+
+            // and remove list tags from user lists_interests array
+            newListInterest = _.difference(currentUser.lists_interests, this.data.tags);
           } else {
-            this.data.likes.push(currentUser);
+            this.data.likes.push(currentUser.name);
+            this.alreadyLiked = true;
+
+            newListInterest = _.union(currentUser.lists_interests, this.data.tags);
           }
+
+          // save to user updated lists interests
+          currentUser.lists_interests = newListInterest;
 
           this.likes = this.data.likes.length;
 
+          // send data to server
           ListsService.update({ id: this.listID }, { list: this.data });
+          UserService.update({}, { user: currentUser });
         }
       }
 

@@ -54,6 +54,9 @@
               controller:   "userNavCtrl",
               controllerAs: "navVm"
             }
+          },
+          resolve: {
+            loadUserData: loadUserData
           }
         })
         .state("main.lists", {
@@ -105,7 +108,7 @@
           }
         })
         .state("404", {
-          url: "/404",
+          url: "/404/",
           views: {
             "content": {
               templateUrl: "404/404.tpl.html"
@@ -120,5 +123,14 @@
     isUserLogged.$inject = ['userLogged'];
     function isUserLogged(userLogged) {
       return userLogged.logged();
+    }
+
+    loadUserData.$inject = ['$window', 'UserService', 'userData'];
+    function loadUserData($window, UserService, userData) {
+      var currentUser = $window.localStorage.user;
+
+      UserService.get({ name: currentUser }, function(response) {
+        userData.setData(response.user);
+      })
     }
 })();

@@ -46,6 +46,7 @@ exports.saveUserData = function(req, res) {
             user.name = req.body.user.name;
             user.email = req.body.user.email;
             user.interests = req.body.user.interests;
+            user.lists_interests = req.body.user.lists_interests;
             user.bio = req.body.user.bio;
 
             user.save(function (err) {
@@ -126,29 +127,6 @@ exports.saveAvatarImage = function(req, res) {
       });
   });
 };
-
-
-/**
- * load user selected interests
- */
-// exports.saveInterest = function(req, res) {
-//   var interests = req.body.interests;
-//   var queryUser = { _id: req.user._id };
-
-//    User
-//     .findOne(queryUser)
-//     .select("interests")
-//     .exec(function (err, user) {
-//       if (err) throw err;
-//       user.interests = interests;
-
-//       user.save(function (err) {
-//         if (err) return handleError(err);
-
-//         res.json({ success: true });
-//       });
-//     });
-// };
 
 function decodeBase64Image(dataString) {
   var matches = dataString.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/);

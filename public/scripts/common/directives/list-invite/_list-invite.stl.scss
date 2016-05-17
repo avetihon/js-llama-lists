@@ -80,7 +80,9 @@
   }
 
   &__members {
+    height: 210px;
     margin-bottom: 15px;
+    overflow: auto;
   }
 
   &__member {

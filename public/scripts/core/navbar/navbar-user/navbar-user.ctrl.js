@@ -19,14 +19,7 @@
       load();
 
       function load() {
-        if (!userData.getData()) {
-          UserService.getCurrentUser(function (response) {
-            userData.setData(response.user);
-            navVm.user = response.user;
-          });
-        } else {
-          navVm.user = userData.getData();
-        }
+        navVm.user = userData.getData();
       }
 
       function openDropdown(event) {

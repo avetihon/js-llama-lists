@@ -9,30 +9,17 @@
     .module('llamaLists')
     .factory('UserService', UserService);
 
-    UserService.$inject = ['$resource', '$window'];
-    function UserService($resource, $window) {
-      var currentUser = $window.localStorage.user;
+    UserService.$inject = ['$resource'];
+    function UserService($resource) {
 
       var data = $resource('/api/user/:name:type', { name: '@name', type: '@type' }, {
         update:  {
           method: 'PUT'
         },
-        getCurrentUser: {
-          method: 'GET',
-          params: {
-            name: currentUser
-          }
-        },
         avatar: {
           method: 'PUT',
           params: {
             type: 'avatar'
-          }
-        },
-        setInterests: {
-          method: 'PUT',
-          params: {
-            type: 'interests'
           }
         }
       });

@@ -46,14 +46,7 @@
         loadCurrentUser();
 
         function loadCurrentUser() {
-          if (!userData.getData()) {
-            UserService.getCurrentUser(function (response) {
-              userData.setData(response.user);
-              scope.currentUserData = response.user;
-            });
-          } else {
-            scope.currentUserData = userData.getData();
-          }
+          scope.currentUserData = userData.getData();
         }
 
         function saveNewList(validation) {

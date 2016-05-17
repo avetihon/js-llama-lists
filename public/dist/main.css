@@ -922,7 +922,9 @@ img {
     .listInvite__findedUser:not(:last-child) {
       margin-bottom: 10px; }
   .listInvite__members {
-    margin-bottom: 15px; }
+    height: 210px;
+    margin-bottom: 15px;
+    overflow: auto; }
   .listInvite__member {
     position: relative;
     display: flex;
@@ -1313,11 +1315,38 @@ img {
   color: #bcbbbb;
   border-top: 1px solid #e7e9ea;
   background-color: #fafafa; }
-  .list-footer > i:hover {
+  .list-footer i {
+    cursor: pointer; }
+  .list-footer i:hover {
     color: #e52e5c; }
+  .list-footer i.is-active {
+    color: #e52e5c;
+    cursor: initial; }
+  .list-footer .list-footer-share-icon {
+    position: relative;
+    z-index: 1;
+    background-color: #fafafa; }
+  .list-footer .list-footer-social-icon {
+    position: relative;
+    left: -50px;
+    margin-left: 10px;
+    opacity: 0;
+    transition: opacity 500ms ease, left 500ms ease;
+    pointer-events: none; }
+    .list-footer .list-footer-social-icon.is-opened {
+      left: 0;
+      opacity: 1;
+      pointer-events: initial; }
+    .list-footer .list-footer-social-icon > .twitter-icon {
+      font-size: 1.2em; }
+    .list-footer .list-footer-social-icon > .google-icon {
+      margin-left: 5px;
+      font-size: 1.05em; }
+  .list-footer .list-footer-social-link {
+    color: #bcbbbb; }
 
 .list-footer-invite {
-  margin-left: 16px; }
+  margin-left: 6px; }
 
 .list-footer-svg-love {
   display: flex;
@@ -1326,15 +1355,19 @@ img {
   height: auto;
   margin-left: auto; }
   .list-footer-svg-love .list-footer-count-love {
+    margin-left: 5px;
     font-size: 0.95em; }
   .list-footer-svg-love > svg {
     width: 20px;
     height: 20px;
-    display: block; }
+    display: block;
+    cursor: pointer; }
     .list-footer-svg-love > svg:hover > path {
       fill: #e52e5c; }
     .list-footer-svg-love > svg > path {
       fill: #bcbbbb; }
+    .list-footer-svg-love > svg.is-active > path {
+      fill: #e52e5c; }
 
 .task-wrapper {
   position: relative;
@@ -1776,21 +1809,35 @@ img {
   .userSubview__elementsWrapper {
     position: relative;
     text-align: center;
-    z-index: 1; }
+    z-index: 1;
+    height: 132px; }
   .userSubview__avatar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
     width: 70px;
     height: 70px;
     border-radius: 50%;
     object-fit: cover;
     border: 2px solid #fff; }
   .userSubview__name {
+    width: 100%;
     margin: 0;
     font-size: 1.5em;
-    color: #ededed; }
+    color: #ededed;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; }
   .userSubview__info {
+    width: 100%;
     margin: 5px 0;
     font-size: 0.9em;
-    color: #d0d0d0; }
+    color: #d0d0d0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; }
 
 .lists-wrapper {
   margin-top: 2%; }
@@ -2359,6 +2406,28 @@ img {
   color: #6f7685; }
   .userData__dropdownList:hover {
     color: #333c4e; }
+
+.errorPage__positions {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-image: url("../img/404.jpg");
+  background-size: cover;
+  color: #fff; }
+
+.errorPage__404 {
+  font-size: 12em;
+  margin: 0; }
+
+.errorPage__description {
+  margin: 0; }
+
+.errorPage__link {
+  color: #fff;
+  text-decoration: underline; }
 
 .popup-list-change-background {
   position: fixed;

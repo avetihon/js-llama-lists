@@ -1,4 +1,4 @@
-<div class="list" ng-mouseleave="$ctrl.editedState = false">
+<div class="list" ng-mouseleave="$ctrl.editedState = false; $ctrl.showSocialIcon = false;">
   <header class="list-header">
     <div class="list__members">
       <a class="list__member" ui-sref="main.lists({username: $ctrl.data.owner.name})" ng-hide="$ctrl.isOwnFilter">
@@ -57,14 +57,32 @@
   </div>
   <!-- /.task-wrapper -->
   <footer class="list-footer">
-    <i class="fa fa-star" aria-hidden="true" ng-show="!$ctrl.isOwner"></i>
-    <i class="fa fa-users" ng-click="$ctrl.invitePeople()" ng-show="$ctrl.isOwner"></i>
-    <i class="fa fa-share-alt list-footer-invite" ng-show="$ctrl.isOwner"></i>
+    <i
+      class="fa fa-plus"
+      ng-class="{'is-active': $ctrl.isUserAlreadyInMembers }"
+      ng-click="$ctrl.addCurrentUserToMembers()"
+      aria-hidden="true"
+      ng-show="!$ctrl.isOwner && !$ctrl.isOwnerPage"></i>
+    <div class="list-footer-share-icon">
+      <i class="fa fa-users" ng-click="$ctrl.invitePeople()" ng-show="$ctrl.isOwner"></i>
+      <i class="fa fa-share-alt list-footer-invite" ng-show="$ctrl.isOwner" ng-click="$ctrl.showSocialIcon = !$ctrl.showSocialIcon"></i>
+    </div>
+    <div class="list-footer-social-icon" ng-class="{ 'is-opened': $ctrl.showSocialIcon }">
+      <a href="https://twitter.com/intent/tweet?text={{ ::$ctrl.twitterText }}&hashtags=love" class="list-footer-social-link twitter-icon" data-url="{{ ::$ctrl.siteUrl }}">
+        <i class="fa fa-twitter" aria-hidden="true"></i>
+      </a>
+      <a href="https://plus.google.com/share?url={{ ::$ctrl.siteUrl }}" class="list-footer-social-link google-icon">
+        <i class="fa fa-google-plus" aria-hidden="true"></i>
+      </a>
+    </div>
     <div class="list-footer-svg-love" ng-click="$ctrl.addLike()">
-      <svg enable-background="new 0 0 24 24" version="1.0" viewBox="0 0 24 24" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+      <svg enable-background="new 0 0 24 24" version="1.0" viewBox="0 0 24 24" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" ng-class="{'is-active': $ctrl.alreadyLiked }">
         <path d="M16.4,4C14.6,4,13,4.9,12,6.3C11,4.9,9.4,4,7.6,4C4.5,4,2,6.5,2,9.6C2,14,12,22,12,22s10-8,10-12.4C22,6.5,19.5,4,16.4,4z"/>
       </svg>
-      <span class="list-footer-count-love" ng-bind="$ctrl.likes" ng-hide="$ctrl.likes === 0"></span>
+      <span
+        class="list-footer-count-love"
+        ng-bind="$ctrl.likes"
+        ng-hide="$ctrl.likes === 0"></span>
     </div>
   </footer>
   <!-- /.list-footer -->

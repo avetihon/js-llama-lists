@@ -61,12 +61,25 @@
           owner: {}
         };
 
-        if (type === 'own') {
-          listsVm.filter.owner.name = 'Eugene';
-          listsFilter.setIsOwnFilter(true);
-        } else if (type === 'inbox') {
-          listsVm.filter.owner.name = '!Eugene';
-          listsFilter.setIsOwnFilter(false);
+        switch(type) {
+          case 'all': {
+            // listsVm.filter.owner.name = '';
+            listsFilter.setIsOwnFilter(false);
+            break;
+          }
+          case 'own': {
+            listsVm.filter.owner.name = 'Eugene';
+            listsFilter.setIsOwnFilter(true);
+            break;
+          }
+          case 'inbox': {
+            listsVm.filter.owner.name = '!Eugene';
+            listsFilter.setIsOwnFilter(false);
+            break;
+          }
+          case 'recommended': {
+            listsFilter.setIsOwnFilter(false);
+          }
         }
       }
 

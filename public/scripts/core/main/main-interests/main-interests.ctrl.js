@@ -4,8 +4,8 @@
   angular.module("llamaLists")
     .controller("interestsPageCtrl", InterestsPageCtrl);
 
-    InterestsPageCtrl.$inject = ["$timeout", "$window", "$state", "UserService", 'InterestsService'];
-    function InterestsPageCtrl($timeout, $window, $state, UserService, InterestsService) {
+    InterestsPageCtrl.$inject = ["$timeout", "$window", "$state", "UserService", 'userData', 'InterestsService'];
+    function InterestsPageCtrl($timeout, $window, $state, UserService, userData, InterestsService) {
       var vm = this;
       var i = 0;
       var colorsArray = ["red", "orange", "yellow", "green", "indigo", "violet"];
@@ -62,14 +62,12 @@
             interestsArray.push(item.text);
           });
 
-          UserService.getCurrentUser(function (response) {
-            response.user.interests = interestsArray;
+          var user = userData.getData();
+          user.interests = interestsArray;
 
-            UserService.update({}, { user: response.user }, function (response) {
-              $state.go("main.lists", { username: vm.username });
-            });
-          })
-
+          UserService.update({}, { user: user }, function (response) {
+            $state.go("main.lists", { username: vm.username });
+          });
         } else {
 
           vm.emptyInterests = (vm.emptyInterests)

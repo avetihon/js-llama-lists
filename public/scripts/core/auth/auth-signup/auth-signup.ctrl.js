@@ -4,8 +4,8 @@
   angular.module("llamaLists")
     .controller("signupPageCtrl", SignupPageCtrl);
 
-    SignupPageCtrl.$inject = ["$window", "$state", "AuthService"];
-    function SignupPageCtrl($window, $state, AuthService) {
+    SignupPageCtrl.$inject = ["$window", "$state", "AuthService", 'UserService', 'userData'];
+    function SignupPageCtrl($window, $state, AuthService, UserService, userData) {
       var signupVm = this;
 
       signupVm.submitted;
@@ -17,16 +17,23 @@
         signupVm.submitted = true;
 
         if (validation) {
-          var userData = {
+          var data = {
             username: signupVm.userName,
             email:    signupVm.userEmail,
             password: signupVm.userPassword
           }
 
-          AuthService.save({}, userData, function (response) {
+          AuthService.save({}, data, function (response) {
             $window.localStorage.token = response.token;
             $window.localStorage.user = signupVm.userName;
-            $state.go("main.interests");
+
+
+            // reload user data because if user make log out and after again log in
+            // angular not update user data
+            UserService.get({ name: $window.localStorage.user }, function(response) {
+              userData.setData(response.user);
+              $state.go("main.interests");
+            });
           }, function (error) {
             delete $window.localStorage.token;
             signupVm.message = error.data.message;
