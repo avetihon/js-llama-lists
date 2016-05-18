@@ -116,8 +116,3 @@ exports.updateList = function(req, res) {
   });
 }
 
-
-exports.recomendationLists = function(req, res) {
-
-}
-

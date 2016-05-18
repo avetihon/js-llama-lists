@@ -46,6 +46,7 @@ module.exports = function(app) {
    * Different data stuff
    **/
   app.get('/api/data/interests', data.getInterestsList);
+  app.get('/api/data/recommendation', data.getRecomendationLists);
 
   /**
    * search stuff

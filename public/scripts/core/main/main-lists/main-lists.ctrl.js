@@ -5,8 +5,8 @@
     .module("llamaLists")
     .controller("listsPageCtrl", ListsPageCtrl);
 
-    ListsPageCtrl.$inject = ["$scope", "$rootScope", "$stateParams", "ListsService", 'UserService', 'userData', 'listsFilter'];
-    function ListsPageCtrl($scope, $rootScope, $stateParams, ListsService, UserService, userData, listsFilter) {
+    ListsPageCtrl.$inject = ["$scope", "$rootScope", "$stateParams", "ListsService", 'UserService', 'userData', 'listsFilter', 'ListRecommendationService'];
+    function ListsPageCtrl($scope, $rootScope, $stateParams, ListsService, UserService, userData, listsFilter, ListRecommendationService) {
       var listsVm = this;
       var username = $stateParams.username;
       listsVm.showNewList; // check open popup
@@ -35,6 +35,13 @@
           listsVm.lists = response.lists;
         });
       }
+
+      function getRecommendationLists() {
+        ListRecommendationService.get(function(response) {
+          listsVm.lists = response.lists;
+        });
+      }
+
 
       function masonry() {
         // var elem = document.querySelector('.lists-wrapper');
@@ -78,6 +85,8 @@
             break;
           }
           case 'recommended': {
+            delete listsVm.filter.owner;
+            getRecommendationLists();
             listsFilter.setIsOwnFilter(false);
           }
         }
