@@ -2,6 +2,7 @@ var User    = require("../../app/models/user"); // load up the user model
 var List    = require("../../app/models/list"); // load up the list model
 var twitter = require('twitter-text');
 
+
 /**
  * get all lists request
  */
@@ -26,14 +27,14 @@ exports.getLists = function(req, res) {
             { owner: user._id }
         ]};
 
-
-
         List
           .find(queryList)
           .populate('members owner', '-password')
           .lean() // return plain js object, faster then mongo document
           .exec(function(err, lists) {
             if (err) throw err;
+
+            console.log(lists.tasks)
 
             res.status(200).json({ lists: lists });
         });

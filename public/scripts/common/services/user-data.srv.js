@@ -14,7 +14,7 @@
     function userData($window, $stateParams) {
 
       this.getData = function() {
-          return this.userData;
+        return this.userData;
       }
 
       this.setData = function(user) {

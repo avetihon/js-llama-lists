@@ -14,7 +14,7 @@
       var data = $resource('/api/search/:type', {},
       {
         lists: {
-          method: 'GET',
+          method: 'POST',
           params: {
             type: 'lists'
           }

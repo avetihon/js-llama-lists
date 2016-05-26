@@ -200,3 +200,23 @@
     margin-right: 20px;
   }
 }
+
+.list-no-result {
+  text-align: center;
+}
+
+.title-no-result {
+  position: absolute;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 3em;
+  /*color: #626c77;*/
+  color: #a4b5c8;
+  margin: auto;
+}
+
+.image-no-result {
+  height: auto;
+  max-width: 60%;
+}

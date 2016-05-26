@@ -22,9 +22,17 @@
       var textBeforeEdit = '';
       var textTemp = '';
       var self = this;
+      var currentUser = userData.getData();
+
+      this.completedTask = currentUser.completed; // show or hide completed tasks
+      this.colorFilter = currentUser.color_filter; // filter tasks on color
       this.listID = this.data._id;
       this.siteUrl = document.location.href;
       this.twitterText = 'I create a new to-do list at page ' + this.siteUrl;
+      this.isRecommendation = listsFilter.isRecommendation();
+
+      $scope.$on('taskColorFilter', colorFilterHandler);
+      $scope.$on('taskVisibility', taskVisibilityHandler);
 
       // check that user on it's own page
       this.isOwnerPage = userData.isOwnerPage();
@@ -47,15 +55,13 @@
        * And class to lists, that were already shared to current users
        **/
       this.$onInit = function() {
-        var currentUser = userData.getCurrentUser();
-
         this.alreadyLiked = this.data.likes.some(function(item) {
-          return item === currentUser;
+          return item === currentUser.name;
         });
 
-        if (!this.isOwnerPage) {
+        if (!this.isOwnerPage || this.isRecommendation) {
           this.isUserAlreadyInMembers = this.data.members.some(function(item) {
-            return item.name === currentUser;
+            return item.name === currentUser.name;
           });
         }
       }
@@ -77,7 +83,6 @@
       $scope.$on('closePopup', closePopup);
 
       function addCurrentUserToMembers() {
-        var currentUser = userData.getData();
 
         if (!this.isUserAlreadyInMembers) {
           this.data.members.push(currentUser);
@@ -96,7 +101,6 @@
       function addLike() {
         if (!this.isOwner) {
           var newListInterest;
-          var currentUser = userData.getData();
 
           // check is user already take the like
           var isUserTakeLike = this.data.likes.some(function(item) {
@@ -180,10 +184,8 @@
             self.reload();
           });
         } else {
-          var currentUser = userData.getCurrentUser();
-
           var newMembersArray = this.data.members.filter(function(item) {
-            return item.name !== currentUser;
+            return item.name !== currentUser.name;
           });
 
           this.data.members = newMembersArray;
@@ -224,6 +226,14 @@
         TaskService.query({ list: listID }, function (response) {
           self.data.tasks = response.tasks;
         });
+      }
+
+      function colorFilterHandler(events, data) {
+        self.colorFilter = data.color;
+      }
+
+      function taskVisibilityHandler() {
+        self.completedTask = (self.completedTask === 'visible') ? 'hidden' : 'visible';
       }
     }
 })();

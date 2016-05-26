@@ -1,8 +1,10 @@
 <div>
-  <div class="task-main" ng-class="{ 'task-is-completed': $ctrl.data.completed }" >
+  <div
+    class="task-main"
+    ng-class="{ 'task-is-completed': $ctrl.data.completed }">
     <span class="task-change-position"></span>
     <div class="task-check" ng-click="$ctrl.setTaskCompleted($event)">
-      <span class="task-check-circle" ng-hide="$ctrl.data.completed" ng-class="$ctrl.data.color"></span>
+      <span class="task-check-circle" ng-hide="$ctrl.data.completed" ng-class="'task__color--' + $ctrl.data.color"></span>
       <i class="fa fa-check-circle" ng-show="$ctrl.data.completed"></i>
     </div>
     <!-- This div contain self realisation contenteditable,
@@ -30,33 +32,33 @@
             <div class="task__colors">
               <!-- Maybe it's vary bad code... -->
               <span class="task__color task__color--gray"
-                    ng-click="$ctrl.changeColor($event)"
-                    ng-class="{ 'task__color--active': 'task__color--gray' === $ctrl.data.color}">
+                    ng-click="$ctrl.changeColor('gray')"
+                    ng-class="{ 'task__color--active': 'gray' === $ctrl.data.color}">
                 <i class="fa fa-check task__colorCheckmark"></i>
               </span>
               <span class="task__color task__color--azure"
-                    ng-click="$ctrl.changeColor($event)"
-                    ng-class="{ 'task__color--active': 'task__color--azure' === $ctrl.data.color}">
+                    ng-click="$ctrl.changeColor('azure')"
+                    ng-class="{ 'task__color--active': 'azure' === $ctrl.data.color}">
                 <i class="fa fa-check task__colorCheckmark"></i>
               </span>
               <span class="task__color task__color--golden"
-                    ng-click="$ctrl.changeColor($event)"
-                    ng-class="{ 'task__color--active': 'task__color--golden' === $ctrl.data.color}">
+                    ng-click="$ctrl.changeColor('golden')"
+                    ng-class="{ 'task__color--active': 'golden' === $ctrl.data.color}">
                 <i class="fa fa-check task__colorCheckmark"></i>
               </span>
               <span class="task__color task__color--magenta"
-                    ng-click="$ctrl.changeColor($event)"
-                    ng-class="{ 'task__color--active': 'task__color--magenta' === $ctrl.data.color}">
+                    ng-click="$ctrl.changeColor('magenta')"
+                    ng-class="{ 'task__color--active': 'magenta' === $ctrl.data.color}">
                 <i class="fa fa-check task__colorCheckmark"></i>
               </span>
               <span class="task__color task__color--violet"
-                    ng-click="$ctrl.changeColor($event)"
-                    ng-class="{ 'task__color--active': 'task__color--violet' === $ctrl.data.color}">
+                    ng-click="$ctrl.changeColor('violet')"
+                    ng-class="{ 'task__color--active': 'violet' === $ctrl.data.color}">
                 <i class="fa fa-check task__colorCheckmark"></i>
               </span>
               <span class="task__color task__color--red"
-                    ng-click="$ctrl.changeColor($event)"
-                    ng-class="{ 'task__color--active': 'task__color--red' === $ctrl.data.color}">
+                    ng-click="$ctrl.changeColor('red')"
+                    ng-class="{ 'task__color--active': 'red' === $ctrl.data.color}">
                 <i class="fa fa-check task__colorCheckmark"></i>
               </span>
             </div>

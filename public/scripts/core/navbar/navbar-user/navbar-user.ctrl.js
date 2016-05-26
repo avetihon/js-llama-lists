@@ -13,6 +13,7 @@
       navVm.openDropdown = openDropdown;
       navVm.changeAvatar = changeAvatar;
       navVm.closeDropdown = closeDropdown;
+      navVm.openSettingsSidebar = openSettingsSidebar;
       navVm.username = $window.localStorage.user;
       var listener = $rootScope.$on('reloadNavbar', load);
 
@@ -48,7 +49,12 @@
 
       function logout() {
         delete $window.localStorage.token;
+        delete $window.localStorage.user;
         $state.go('home');
+      }
+
+      function openSettingsSidebar() {
+        navVm.showListSettings = true;
       }
 
       $scope.$on('$destroy', listener);

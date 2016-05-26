@@ -5,13 +5,16 @@
     .module("llamaLists")
     .controller("listsPageCtrl", ListsPageCtrl);
 
-    ListsPageCtrl.$inject = ["$scope", "$rootScope", "$stateParams", "ListsService", 'UserService', 'userData', 'listsFilter', 'ListRecommendationService'];
-    function ListsPageCtrl($scope, $rootScope, $stateParams, ListsService, UserService, userData, listsFilter, ListRecommendationService) {
+    ListsPageCtrl.$inject = ["$scope", "$rootScope", "$stateParams", "ListsService", 'UserService', 'userData', 'listsFilter', 'SearchService', 'ListRecommendationService'];
+    function ListsPageCtrl($scope, $rootScope, $stateParams, ListsService, UserService, userData, listsFilter, SearchService, ListRecommendationService) {
       var listsVm = this;
       var username = $stateParams.username;
+      var isRecommended;
+
       listsVm.showNewList; // check open popup
       listsVm.newListSubmitted; // check press submit button
       listsVm.createNewList = createNewList;
+      listsVm.makeGlobalSearch = makeGlobalSearch;
       listsVm.selectSort = selectSort;
       listsVm.reloadList = reloadList;
       listsVm.isOwner = userData.isOwnerPage();
@@ -39,6 +42,7 @@
       function getRecommendationLists() {
         ListRecommendationService.get(function(response) {
           listsVm.lists = response.lists;
+          listsFilter.isRecommendation(true);
         });
       }
 
@@ -57,6 +61,15 @@
         $rootScope.$emit("showFogOverlay");
       }
 
+      function makeGlobalSearch() {
+        console.log(listsVm.search.title)
+        SearchService.lists({ query: listsVm.search.title }, function(response) {
+          // listsVm.lists = response.lists;
+          console.log(response.lists)
+
+        });
+      }
+
       function reloadList() {
         ListsService.get({ user: username }, function (response) {
           listsVm.lists = response.lists;
@@ -68,6 +81,11 @@
           owner: {}
         };
 
+        if (listsFilter.isRecommendation() && type !== 'recommended') {
+          activate();
+          listsFilter.isRecommendation(false);
+        }
+
         switch(type) {
           case 'all': {
             // listsVm.filter.owner.name = '';
@@ -75,12 +93,12 @@
             break;
           }
           case 'own': {
-            listsVm.filter.owner.name = 'Eugene';
+            listsVm.filter.owner.name = username;
             listsFilter.setIsOwnFilter(true);
             break;
           }
           case 'inbox': {
-            listsVm.filter.owner.name = '!Eugene';
+            listsVm.filter.owner.name = '!' + username;
             listsFilter.setIsOwnFilter(false);
             break;
           }

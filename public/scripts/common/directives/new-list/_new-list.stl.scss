@@ -48,6 +48,11 @@
     margin: 0;
   }
 
+  .popup-list-members {
+    max-height: 125px;
+    overflow: auto;
+  }
+
   .popup-member-title {
     font-size: 0.7em;
     text-transform: uppercase;

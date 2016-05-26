@@ -43,16 +43,10 @@
       }
 
 
-      function changeColor(event) {
-        var className = event.target.className;
-        var target = angular.element(event.target);
-
-        if (!target.hasClass("task__color--active")) {
-          className = className.replace("task__color ", ""); // remove unnecessary part of class name
-
-          TaskService.update({ list: listID, task: taskID }, { color: className }, function (response) {
-            self.data.color = className;
-          });
+      function changeColor(color) {
+        if (color !== this.data.color) {
+          this.data.color = color;
+          TaskService.update({ list: listID, task: taskID }, { task: this.data });
         }
       }
 
@@ -80,15 +74,14 @@
 
       function setTaskCompleted(event) {
         if (this.editMode !== true && this.isOwner) {
-          TaskService.update({ list: listID, task: taskID }, { completed: true }, function (response) {
-            self.data.completed = response.task.completed;
-          });
+          this.data.completed = (this.data.completed) ? false : true;
+          TaskService.update({ list: listID, task: taskID }, { task: this.data });
         }
       }
 
       function saveEditedText() {
         if (this.data.text) {
-          TaskService.update({ list: listID, task: taskID }, { text: this.data.text }, function (response) {
+          TaskService.update({ list: listID, task: taskID }, { task: this.data }, function (response) {
             self.editMode = false;
           });
         } else {

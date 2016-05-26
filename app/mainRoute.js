@@ -52,6 +52,7 @@ module.exports = function(app) {
    * search stuff
    **/
   app.post('/api/search/users', search.getUsers);
+  app.post('/api/search/lists', search.getLists);
 
   // redirect all others router to the index (HTML5 history)
   app.all('/*', function(req, res) {

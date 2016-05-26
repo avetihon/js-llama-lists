@@ -48,6 +48,8 @@ exports.saveUserData = function(req, res) {
             user.interests = req.body.user.interests;
             user.lists_interests = req.body.user.lists_interests;
             user.bio = req.body.user.bio;
+            user.completed = req.body.user.completed;
+            user.color_filter = req.body.user.color_filter;
 
             user.save(function (err) {
               if (err) return handleError(err);

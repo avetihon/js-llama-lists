@@ -1,0 +1,68 @@
+<aside class="listSettings">
+  <h2 class="listSettings__settingsTitle">Settings</h2>
+  <div class="listSettings__wrapperFilter">
+    <ul class="listFilters">
+      <li class="listFilter listFilter__colorGray"
+          ng-click="chooseColorFilter('gray')"
+          ng-class="{'is-active': color === 'gray'}">
+            <i class="fa fa-check listFilter__checkmark" aria-hidden="true"></i>
+          </li>
+      <li class="listFilter listFilter__colorAzure"
+          ng-click="chooseColorFilter('azure')"
+          ng-class="{'is-active': color === 'azure'}">
+            <i class="fa fa-check listFilter__checkmark" aria-hidden="true"></i>
+          </li>
+      <li class="listFilter listFilter__colorGolden"
+          ng-click="chooseColorFilter('golden')"
+          ng-class="{'is-active': color === 'golden'}">
+            <i class="fa fa-check listFilter__checkmark" aria-hidden="true"></i>
+          </li>
+      <li class="listFilter listFilter__colorMagenta"
+          ng-click="chooseColorFilter('magenta')"
+          ng-class="{'is-active': color === 'magenta'}">
+            <i class="fa fa-check listFilter__checkmark" aria-hidden="true"></i>
+          </li>
+      <li class="listFilter listFilter__colorViolet"
+          ng-click="chooseColorFilter('violet')"
+          ng-class="{'is-active': color === 'violet'}">
+            <i class="fa fa-check listFilter__checkmark" aria-hidden="true"></i>
+          </li>
+      <li class="listFilter listFilter__colorRed"
+          ng-click="chooseColorFilter('red')"
+          ng-class="{'is-active': color === 'red'}">
+            <i class="fa fa-check listFilter__checkmark" aria-hidden="true"></i>
+          </li>
+    </ul>
+    <!-- /.listFilters -->
+  </div>
+  <!-- /.listSettings__wrapperFilter -->
+  <div class="listSettings__wrapper">
+    <label for="listSettings__selectAdd">
+      <i class="fa fa-plus listSettings__selectIcon" aria-hidden="true"></i>
+      <span class="listSettings__selectLabel">Add tasks</span>
+    </label>
+    <span class="listSettings__selectWrapper">
+      <select name="" id="listSettings__selectAdd" ng-model="addTask" class="listSettings__select">
+        <option value="top" selected>Top of List</option>
+        <option value="bottom">Bottom of List</option>
+      </select>
+      <!-- /.listSettings__selectAdd -->
+    </span>
+    <!-- /.listSettings__selectAddWrapper -->
+  </div>
+  <!-- /.listSettings__wrapper -->
+  <div class="listSettings__wrapper">
+    <label for="listSettings__selectCompleted">
+      <i class="fa fa-check listSettings__selectIcon" aria-hidden="true"></i>
+      <span class="listSettings__selectLabel">Completed</span>
+    </label>
+    <span class="listSettings__selectWrapper">
+      <select name="" id="listSettings__selectCompleted" class="listSettings__select" ng-model="completed" ng-change="changeCompleted()">
+        <option value="visible">Visible</option>
+        <option value="hidden">Hidden</option>
+      </select>
+      <!-- /.listSettings__selectAdd -->
+    </span>
+  </div>
+  <!-- /.listSettings__wrapper -->
+</aside>

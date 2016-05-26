@@ -1,0 +1,164 @@
+.listSettings {
+  position: absolute;
+  top: 0;
+  right: -300px;
+  width: 300px;
+  height: 100vh;
+  background-color: #f9f9fb;
+  padding: 15px;
+  box-shadow: 0 0 6px rgba(0, 0, 0, .4);
+  transition: right 300ms ease;
+  z-index: 10;
+
+  &.is-opened {
+    right: 0;
+  }
+
+  &__settingsTitle {
+    color: #646f82;
+    text-align: center;
+  }
+
+  &__wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+  }
+
+  &__selectLabel {
+    color: #626262;
+  }
+
+  &__selectIcon {
+    color: #626262;
+  }
+
+  &__selectWrapper {
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    max-width: 100%;
+    box-shadow: inset 0 0 0 1px #d6d6d6;
+    background: #fff;
+    border-radius: 3px;
+
+    &:before {
+      content: '';
+      position: absolute;
+      top: 15px;
+      right: 10px;
+      display: inline-block;
+      width: 0;
+      height: 0;
+      margin-left: 2px;
+      vertical-align: middle;
+      border-top: 4px solid;
+      border-right: 4px solid transparent;
+      border-left: 4px solid transparent;
+    }
+  }
+
+  &__select {
+    width: 130px;
+    outline: 0;
+    appearance: none;
+    border: none;
+    background: none;
+    border-radius: 3px;
+    color: #262626;
+    font-size: 13px;
+    line-height: 17px;
+    padding: 8px 26px 8px 8px;
+
+    &:focus {
+      box-shadow: inset 0 0 0 1px #328ad6;
+      margin-bottom: 0;
+    }
+  }
+}
+
+.listFilters {
+  list-style: none;
+  padding: 0;
+}
+
+.listFilter {
+  position: relative;
+  width: 100%;
+  height: 34px;
+  border-radius: 3px;
+  cursor: pointer;
+  margin: 0 0 4px;
+
+  &:hover {
+    width: calc(100% - 4px);
+    margin-left: 4px;
+  }
+
+  &:hover > &__checkmark {
+    left: 12px;
+  }
+
+  &.is-active > &__checkmark {
+    display: inline-block;
+  }
+
+  &__checkmark {
+    display: none;
+    position: absolute;
+    top: 6px;
+    left: 16px;
+    font-size: 1.3em;
+    color: #fff;
+    text-shadow: 1px 1px #777777;
+  }
+
+  &__colorGray {
+    background-color: #acb2bb;
+
+    &:hover {
+      box-shadow: -8px 0 #c3cad4;
+    }
+  }
+
+  &__colorAzure {
+    background-color: #55d7c7;
+
+    &:hover {
+      box-shadow: -8px 0 #5ff0de;
+    }
+  }
+
+  &__colorGolden {
+    background-color: #ffc603;
+
+    &:hover {
+      box-shadow: -8px 0 #ffb005;
+    }
+  }
+
+  &__colorMagenta {
+    background-color: #ba77ff;
+
+    &:hover {
+      box-shadow: -8px 0 #9760ce;
+    }
+  }
+
+  &__colorViolet {
+    background-color: #8c88ff;
+
+    &:hover {
+      box-shadow: -8px 0 #6764bc;
+    }
+  }
+
+  &__colorRed {
+    background-color: #f36;
+
+    &:hover {
+      box-shadow: -8px 0 #a62142;
+    }
+  }
+}

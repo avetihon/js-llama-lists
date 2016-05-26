@@ -27,7 +27,8 @@ exports.getRecomendationLists = function(req, res) {
       var listInterests = user.lists_interests;
 
       List
-        .find({ tags: { $in: listInterests }})
+        .find({ tags: { $in: listInterests }, owner: { $ne: user._id }})
+        .populate('members owner', '-password')
         .exec(function(err, lists) {
           if (err) throw err;
 

@@ -11,6 +11,13 @@
 
     function listsFilter() {
 
+      this.isRecommendation = function(value) {
+        if (typeof value !== 'undefined') {
+          this.value = value;
+        }
+        return this.value;
+      }
+
       this.setIsOwnFilter = function(type) {
         this.isOwnFilter = type;
       }

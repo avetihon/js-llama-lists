@@ -11,6 +11,9 @@ var userSchema = mongoose.Schema({
   interests:       Array,
   lists_interests: Array,
   bio:             String,
+  completed:       { type: String, default: 'visible' },
+  add_task:        { type: String, default: 'bottom' },
+  color_filter:    { type: String, default: 'none' },
   lists:           { type: mongoose.Schema.Types.ObjectId, ref: 'List' }
 });
 

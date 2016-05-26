@@ -24,7 +24,7 @@
         <div class="userData__dropdown">
           <ul class="userData__dropdownLinks">
             <li><a class="userData__dropdownList" ui-sref="main.profile.account">Edit profile</a></li>
-            <li><a class="userData__dropdownList" href="#">Settings</a></li>
+            <li><a class="userData__dropdownList" href="#" ng-click="navVm.openSettingsSidebar()">Settings</a></li>
             <li><a class="userData__dropdownList" href="#" ng-click="navVm.logout()">Logout</a></li>
           </ul>
           <!-- /.userData__dropdown-links -->
@@ -37,3 +37,6 @@
   </div>
   <!-- /.container -->
 </nav>
+<!-- <div class="userNavbar__settings"> -->
+  <list-settings ng-class="{'is-opened': navVm.showListSettings }"></list-settings>
+<!-- </div> -->

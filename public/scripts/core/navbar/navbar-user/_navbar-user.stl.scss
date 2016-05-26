@@ -1,6 +1,7 @@
 .userNavbar {
   position: relative;
   background-color: #292c3b;
+  // overflow-x: hidden;
   /*background-color: #2b2e36;*/
 
   &__links {
@@ -33,6 +34,12 @@
       color: #fff;
     }
   }
+
+  // &__settings {
+  //   position: relative;
+  //   width: 100%;
+  //   overflow: hidden;
+  // }
 }
 
 .userData {

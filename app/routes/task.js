@@ -8,7 +8,7 @@ exports.getTasks = function(req, res) {
 
   List
     .findById(listId)
-    .select("tasks")
+    .select('tasks')
     .exec(function (err, list) {
       if (err) throw err;
 
@@ -89,25 +89,19 @@ exports.removeTask = function(req, res) {
 exports.updateTask = function(req, res, next) {
   var listId    = req.params.id_list;
   var taskId    = req.params.id_task;
+  var body      = req.body.task;
 
   List
     .findById(listId)
-    .select("tasks")
+    .select('tasks')
     .exec(function (err, list) {
       if (err) throw err;
 
       var task = list.tasks.id(taskId);
 
-      if (req.body.completed) {
-        task.completed = (task.completed)
-          ? false
-          : true;
-      } else if (req.body.color) {
-        task.color = req.body.color;
-      } else if (req.body.text) {
-        task.text = req.body.text;
-      }
-
+      task.completed = body.completed;
+      task.color = body.color;
+      task.text = body.text;
 
       list.save(function (err, done) {
         if (err) return done(err);

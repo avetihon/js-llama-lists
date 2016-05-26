@@ -3,12 +3,16 @@
     <a class="navbar__brand mainSubview__logo" href="#">
       <img class="navbar__image" alt="brand-logo" src="img/brandlogo.png">
     </a>
+    <!-- /.mainSubview__logo -->
     <p class="mainSubview__page">Lists</p>
     <button class="mainSubview__newList" ng-click="listsVm.createNewList()">
       <span class="mainSubview__newListIcon"></span>
     </button>
+    <!-- /.mainSubview__newList -->
   </div>
+  <!-- /.container -->
 </section>
+<!-- /.mainSubview -->
 <section class="userSubview" ng-hide="listsVm.isOwner">
   <div class="container container--fullHeight container--relative">
     <div class="userSubview__elementsWrapper">
@@ -16,8 +20,11 @@
       <p class="userSubview__info" ng-bind="listsVm.user.bio"></p>
       <img class="userSubview__avatar" ng-src="img/users-avatar/{{ listsVm.user.avatar}}" alt="avatar">
     </div>
+    <!-- /.userSubview__elementsWrapper -->
   </div>
+  <!-- /.container -->
 </section>
+<!-- /.userSubview -->
 <section>
   <div class="container">
     <new-list class="ng-hide" ng-show="listsVm.showNewList" lists="listsVm.lists" show="listsVm.showNewList"></new-list>
@@ -27,7 +34,8 @@
         <input type="text"
                placeholder="Start typing to search lists..."
                ng-model="listsVm.search.title"
-               ng-class="{ 'search--active': listsVm.search.title.length }">
+               ng-class="{ 'search--active': listsVm.search.title.length }"
+               ng-change="listsVm.makeGlobalSearch()">
         <span class="icon-close"></span>
       </div>
       <!-- /.list-search -->
@@ -41,12 +49,18 @@
     </div>
     <!-- /.list-toolbar -->
     <div class="lists-wrapper row" >
-      <div class="col-sm-4" ng-repeat="list in listsVm.lists | filter:listsVm.search | filter:listsVm.filter">
+      <div class="col-sm-4" ng-repeat="list in filteredLists = (listsVm.lists | filter:listsVm.search | filter:listsVm.filter) track by list._id">
         <list data="list" reload="listsVm.reloadList()"></list>
       </div>
+      <div class="list-no-result" ng-show="filteredLists.length === 0 && listsVm.search && listsVm.search.title.length !== 0">
+        <h3 class="title-no-result">Sad no result!</h3>
+        <img  class="image-no-result" src="img/no-results.png" alt="no-result">
+      </div>
+
       <!-- /.list-elemnt -->
     </div>
     <!-- /.lists-wrapper -->
   </div>
+  <!-- /.container -->
   <fog></fog>
 </section>

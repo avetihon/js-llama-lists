@@ -184,7 +184,7 @@
 
 .list-title {
   position: relative;
-  max-height: 90px;
+  max-height: 95px;
   display: inline;
   align-self: flex-end;
   white-space: pre-wrap;
@@ -333,6 +333,10 @@
   .list-footer-count-love {
     margin-left: 5px;
     font-size: 0.95em;
+
+    &.has-likes {
+      color: #e52e5c;
+    }
   }
 
   > svg {

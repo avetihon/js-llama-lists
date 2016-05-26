@@ -129,8 +129,8 @@
     function loadUserData($window, UserService, userData) {
       var currentUser = $window.localStorage.user;
 
-      UserService.get({ name: currentUser }, function(response) {
-        userData.setData(response.user);
-      })
+      return UserService.get({ name: currentUser }, function(response) {
+        return userData.setData(response.user);
+      });
     }
 })();
