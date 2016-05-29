@@ -1106,7 +1106,7 @@ img {
       opacity: 0.7; }
 
 .listSettings {
-  position: absolute;
+  position: fixed;
   top: 0;
   right: -300px;
   width: 300px;
@@ -1118,6 +1118,15 @@ img {
   z-index: 10; }
   .listSettings.is-opened {
     right: 0; }
+  .listSettings__close {
+    position: absolute;
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    background-image: url(../img/icon/close.svg);
+    background-size: 100%;
+    background-repeat: no-repeat;
+    cursor: pointer; }
   .listSettings__settingsTitle {
     color: #646f82;
     text-align: center; }
@@ -1126,6 +1135,8 @@ img {
     justify-content: space-between;
     align-items: center;
     margin-top: 15px; }
+  .listSettings__filterTitle {
+    color: #626262; }
   .listSettings__selectLabel {
     color: #626262; }
   .listSettings__selectIcon {
@@ -1192,10 +1203,10 @@ img {
     font-size: 1.3em;
     color: #fff;
     text-shadow: 1px 1px #777777; }
-  .listFilter__colorGray {
-    background-color: #acb2bb; }
-    .listFilter__colorGray:hover {
-      box-shadow: -8px 0 #c3cad4; }
+  .listFilter__colorBlue {
+    background-color: #83c8e7; }
+    .listFilter__colorBlue:hover {
+      box-shadow: -8px 0 #679db5; }
   .listFilter__colorAzure {
     background-color: #55d7c7; }
     .listFilter__colorAzure:hover {
@@ -1350,7 +1361,7 @@ img {
     position: absolute;
     width: 100%;
     height: 100%;
-    background: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.1) 100%); }
+    background: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.3) 100%); }
 
 .list-title {
   position: relative;
@@ -1534,8 +1545,8 @@ img {
   .task-group .task-check {
     position: relative;
     display: inline-block;
-    width: 14px;
-    height: 14px;
+    width: 15px;
+    height: 15px;
     z-index: 3;
     margin-left: 8px; }
     .task-group .task-check > .task-check-circle {
@@ -1701,6 +1712,9 @@ img {
 
 .task__color--gray {
   background-color: #acb2bb; }
+
+.task__color--blue {
+  background-color: #83c8e7; }
 
 .task__color--azure {
   background-color: #55d7c7; }
@@ -2044,6 +2058,17 @@ img {
   height: auto;
   max-width: 60%; }
 
+.lists__searchTitle {
+  color: #646f82; }
+
+.lists__searchSeparator {
+  width: 100%;
+  height: 1px;
+  color: #98a8c5;
+  background-color: #98a8c5;
+  border: 0;
+  box-shadow: 1px 1px 1px 1px rgba(216, 216, 216, 0.23); }
+
 .user-interest__logo {
   text-align: center;
   color: #5e5e73;
@@ -2342,6 +2367,9 @@ img {
   color: #f36; }
 
 /* bootstrap !important */
+.navbar__common {
+  width: 100%; }
+
 .navbar {
   height: 50px; }
 

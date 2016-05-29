@@ -14,7 +14,7 @@ var userSchema = mongoose.Schema({
   completed:       { type: String, default: 'visible' },
   add_task:        { type: String, default: 'bottom' },
   color_filter:    { type: String, default: 'none' },
-  lists:           { type: mongoose.Schema.Types.ObjectId, ref: 'List' }
+  // lists:           { type: mongoose.Schema.Types.ObjectId, ref: 'List' }
 });
 
 // generating a hash

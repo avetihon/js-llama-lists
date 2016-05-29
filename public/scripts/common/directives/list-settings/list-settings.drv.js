@@ -31,12 +31,21 @@
 
         // func
         scope.changeCompleted = changeCompleted;
+        scope.changeTaskAdd = changeTaskAdd;
         scope.chooseColorFilter = chooseColorFilter;
+        scope.closeSidebar = closeSidebar;
 
         function changeCompleted() {
           currentUser.completed = scope.completed;
           UserService.update({}, { user: currentUser }, function(response) {
             scope.$parent.$broadcast('taskVisibility');
+          });
+        }
+
+        function changeTaskAdd() {
+          currentUser.add_task = scope.addTask;
+          UserService.update({}, { user: currentUser }, function(response) {
+            scope.$parent.$broadcast('taskAdd');
           });
         }
 
@@ -50,6 +59,10 @@
             scope.color = color;
             scope.$parent.$broadcast('taskColorFilter', { color: color });
           });
+        }
+
+        function closeSidebar() {
+          scope.navVm.closeSettingsSidebar();
         }
 
       }

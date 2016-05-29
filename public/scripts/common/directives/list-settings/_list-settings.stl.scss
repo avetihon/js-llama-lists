@@ -1,5 +1,5 @@
 .listSettings {
-  position: absolute;
+  position: fixed;
   top: 0;
   right: -300px;
   width: 300px;
@@ -14,6 +14,17 @@
     right: 0;
   }
 
+  &__close {
+    position: absolute;
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    background-image: url(../img/icon/close.svg);
+    background-size: 100%;
+    background-repeat: no-repeat;
+    cursor: pointer;
+  }
+
   &__settingsTitle {
     color: #646f82;
     text-align: center;
@@ -24,6 +35,10 @@
     justify-content: space-between;
     align-items: center;
     margin-top: 15px;
+  }
+
+  &__filterTitle {
+    color: #626262;
   }
 
   &__selectLabel {
@@ -114,11 +129,11 @@
     text-shadow: 1px 1px #777777;
   }
 
-  &__colorGray {
-    background-color: #acb2bb;
+  &__colorBlue {
+    background-color: #83c8e7;
 
     &:hover {
-      box-shadow: -8px 0 #c3cad4;
+      box-shadow: -8px 0 #679db5;
     }
   }
 

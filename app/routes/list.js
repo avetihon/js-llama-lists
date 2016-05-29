@@ -8,12 +8,6 @@ var twitter = require('twitter-text');
  */
 exports.getLists = function(req, res) {
 
-  // var queryList = {
-  //   $and: [
-  //     { members: req.params.id },
-  //     { owner: req.params.id }
-  // ]};
-
   User
     .findOne({ name: req.params.id })
     .exec(function(err, user) {
@@ -21,10 +15,9 @@ exports.getLists = function(req, res) {
       if (!user) {
         res.sendStatus(404);
       } else {
-        var queryList = {
-          $or: [
-            { members: user._id },
-            { owner: user._id }
+        var queryList = { $or: [
+          { members: user._id },
+          { owner: user._id }
         ]};
 
         List
@@ -33,8 +26,6 @@ exports.getLists = function(req, res) {
           .lean() // return plain js object, faster then mongo document
           .exec(function(err, lists) {
             if (err) throw err;
-
-            console.log(lists.tasks)
 
             res.status(200).json({ lists: lists });
         });

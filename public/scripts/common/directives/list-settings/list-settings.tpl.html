@@ -1,10 +1,12 @@
 <aside class="listSettings">
+  <span class="listSettings__close" ng-click="closeSidebar()"></span>
   <h2 class="listSettings__settingsTitle">Settings</h2>
   <div class="listSettings__wrapperFilter">
+    <p class="listSettings__filterTitle">Tasks filters</p>
     <ul class="listFilters">
-      <li class="listFilter listFilter__colorGray"
-          ng-click="chooseColorFilter('gray')"
-          ng-class="{'is-active': color === 'gray'}">
+      <li class="listFilter listFilter__colorBlue"
+          ng-click="chooseColorFilter('blue')"
+          ng-class="{'is-active': color === 'blue'}">
             <i class="fa fa-check listFilter__checkmark" aria-hidden="true"></i>
           </li>
       <li class="listFilter listFilter__colorAzure"
@@ -42,7 +44,7 @@
       <span class="listSettings__selectLabel">Add tasks</span>
     </label>
     <span class="listSettings__selectWrapper">
-      <select name="" id="listSettings__selectAdd" ng-model="addTask" class="listSettings__select">
+      <select name="" class="listSettings__select" id="listSettings__selectAdd" ng-model="addTask" ng-change="changeTaskAdd()">
         <option value="top" selected>Top of List</option>
         <option value="bottom">Bottom of List</option>
       </select>

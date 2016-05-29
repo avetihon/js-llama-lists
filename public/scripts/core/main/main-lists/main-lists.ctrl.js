@@ -62,11 +62,8 @@
       }
 
       function makeGlobalSearch() {
-        console.log(listsVm.search.title)
         SearchService.lists({ query: listsVm.search.title }, function(response) {
-          // listsVm.lists = response.lists;
-          console.log(response.lists)
-
+          listsVm.searchLists = response.lists;
         });
       }
 

@@ -22,14 +22,32 @@ exports.getUsers = function(req, res) {
 
 exports.getLists = function(req, res) {
   var query = req.body.query;
+
+  console.log(query)
   List
     .search({
-      query_string: { query: query }
-    },
-    { hydrate: true },
-    function(err, results) {
-      console.log(results.hits)
+      query_string: { query: query },
+    }, function(err, results) {
 
-      res.status(200).json({ lists: results.hits.hits });
+      var resultsId = results.hits.hits.map(item => item._id);
+
+      List
+        .find({
+          $and: [{ '_id': { $in: resultsId } },
+                 { 'owner': { $ne: req.user._id } },
+                 { 'members': { $ne: req.user._id } }]
+        })
+        .populate({
+          path: 'owner',
+          select: 'name avatar',
+        })
+        .populate({
+          path: 'members',
+          select: 'name',
+        })
+        .exec(function(err, lists) {
+          console.log(lists)
+          res.status(200).json({ lists: lists });
+        })
     });
 }

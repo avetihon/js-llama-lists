@@ -24,13 +24,14 @@
       var self = this;
       var currentUser = userData.getData();
 
+      this.taskAdd = currentUser.add_task;
       this.completedTask = currentUser.completed; // show or hide completed tasks
       this.colorFilter = currentUser.color_filter; // filter tasks on color
       this.listID = this.data._id;
       this.siteUrl = document.location.href;
       this.twitterText = 'I create a new to-do list at page ' + this.siteUrl;
-      this.isRecommendation = listsFilter.isRecommendation();
 
+      $scope.$on('taskAdd', taskAddHandler);
       $scope.$on('taskColorFilter', colorFilterHandler);
       $scope.$on('taskVisibility', taskVisibilityHandler);
 
@@ -59,7 +60,7 @@
           return item === currentUser.name;
         });
 
-        if (!this.isOwnerPage || this.isRecommendation) {
+        if (!this.isOwner) {
           this.isUserAlreadyInMembers = this.data.members.some(function(item) {
             return item.name === currentUser.name;
           });
@@ -97,6 +98,7 @@
        * This function add likes to lists
        * Like - it's a name user, who pressed the button
        * If is like already in list - remove its
+       * Also save or remove liked list tags from user lists interests
        **/
       function addLike() {
         if (!this.isOwner) {
@@ -140,8 +142,15 @@
         if (validation && allowSavingTask) {
           allowSavingTask = false;
 
-          TaskService.save({ list: this.listID }, { text: this.taskText }, function (response) {
-            self.data.tasks.push(response.task);
+          TaskService.save({ list: this.listID }, { text: this.taskText, addTo: self.taskAdd }, function (response) {
+
+            // check how user set save new task
+            if (self.taskAdd === 'bottom') {
+              self.data.tasks.push(response.task);
+            } else {
+              self.data.tasks.unshift(response.task);
+            }
+
             self.taskText = null;
             allowSavingTask = true;
           });
@@ -191,6 +200,7 @@
           this.data.members = newMembersArray;
 
           ListsService.update({ id: self.listID }, { list: this.data }, function (response) {
+            self.isUserAlreadyInMembers = false;
             self.reload();
           });
         }
@@ -226,6 +236,10 @@
         TaskService.query({ list: listID }, function (response) {
           self.data.tasks = response.tasks;
         });
+      }
+
+      function taskAddHandler() {
+        self.taskAdd = (self.taskAdd === 'bottom') ? 'top' : 'bottom';
       }
 
       function colorFilterHandler(events, data) {

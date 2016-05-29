@@ -50,6 +50,7 @@ exports.saveUserData = function(req, res) {
             user.bio = req.body.user.bio;
             user.completed = req.body.user.completed;
             user.color_filter = req.body.user.color_filter;
+            user.add_task = req.body.user.add_task;
 
             user.save(function (err) {
               if (err) return handleError(err);

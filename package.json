@@ -32,7 +32,6 @@
     "express-jwt": "^3.3.0",
     "jsonwebtoken": "^5.5.4",
     "kerberos": "~0.0.17",
-    "masonry-layout": "^4.1.0",
     "mongoosastic": "^4.0.2",
     "mongoose": "^4.3.6",
     "morgan": "^1.6.1",

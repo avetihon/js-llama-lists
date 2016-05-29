@@ -60,8 +60,8 @@
   .task-check {
     position:relative;
     display: inline-block;
-    width: 14px;
-    height: 14px;
+    width: 15px;
+    height: 15px;
     z-index: 3;
     margin-left: 8px;
 
@@ -270,6 +270,10 @@
 
     .task__color--gray {
       background-color: #acb2bb;
+    }
+
+    .task__color--blue {
+      background-color: #83c8e7;
     }
 
     .task__color--azure {

@@ -35,6 +35,7 @@
                placeholder="Start typing to search lists..."
                ng-model="listsVm.search.title"
                ng-class="{ 'search--active': listsVm.search.title.length }"
+               ng-model-options="{ debounce: 400 }"
                ng-change="listsVm.makeGlobalSearch()">
         <span class="icon-close"></span>
       </div>
@@ -60,6 +61,18 @@
       <!-- /.list-elemnt -->
     </div>
     <!-- /.lists-wrapper -->
+
+    <div class="lists__search">
+      <div class="lists__searchTitleWrapper">
+        <p class="lists__searchTitle">Recommended lists</p>
+        <hr class="lists__searchSeparator">
+      </div>
+      <div class="lists-wrapper row" >
+        <div class="col-sm-4" ng-repeat="list in listsVm.searchLists">
+          <list data="list"></list>
+        </div>
+      </div>
+    </div>
   </div>
   <!-- /.container -->
   <fog></fog>

@@ -14,12 +14,12 @@
             // very bad triple condition, but another solution use two filters that's more baddest!
             if (completed === 'hidden') {
               if (color !== 'none') {
-                return item.completed === false && item.color === color;
+                return (item.completed === false && item.color === color) || (item.completed === false && item.color === 'gray');
               } else {
                 return item.completed === false;
               }
             } else {
-              return item.color === color;
+              return item.color === color || item.color === 'gray';
             }
           });
 

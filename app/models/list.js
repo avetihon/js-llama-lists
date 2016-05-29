@@ -9,7 +9,7 @@ var esClient = new es.Client({host: 'localhost:9200'});
 var listSchema = mongoose.Schema({
   title:     { type: String, es_indexed: true },
   tags:      Array,
-  image:     { type: String, default: "list-background-1", es_indexed: true },
+  image:     { type: String, default: "list-background-1" },
   owner:     { type: String, ref: 'User' },
   members:   [{ type: String, ref: 'User' }],
   likes:     Array,

@@ -10,7 +10,9 @@
         <i class="fa fa-picture-o list-edited-picture" ng-click="$ctrl.openBackgroundPopup()" ng-show="$ctrl.isOwner"></i>
         <i class="fa fa-trash list-edited-trash" ng-click="$ctrl.removeList()"></i>
       </div>
-      <div class="list-preference-icon" ng-click="$ctrl.editedState = true" ng-show="!$ctrl.editedState">
+      <div class="list-preference-icon"
+        ng-click="$ctrl.editedState = true"
+        ng-show="(!$ctrl.editedState && $ctrl.isOwner) || (!$ctrl.editedState && $ctrl.isUserAlreadyInMembers)">
         <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
            x="0px" y="0px"
            width="408px" height="408px" viewBox="0 0 408 408" style="enable-background:new 0 0 408 408;" xml:space="preserve">
@@ -59,10 +61,9 @@
   <footer class="list-footer">
     <i
       class="fa fa-plus"
-      ng-class="{'is-active': $ctrl.isUserAlreadyInMembers }"
       ng-click="$ctrl.addCurrentUserToMembers()"
       aria-hidden="true"
-      ng-show="(!$ctrl.isOwner && !$ctrl.isOwnerPage) || $ctrl.isRecommendation"></i>
+      ng-show="!$ctrl.isOwner && !$ctrl.isUserAlreadyInMembers"></i>
     <div class="list-footer-share-icon">
       <i class="fa fa-users" ng-click="$ctrl.invitePeople()" ng-show="$ctrl.isOwner"></i>
       <i class="fa fa-share-alt list-footer-invite" ng-show="$ctrl.isOwner" ng-click="$ctrl.showSocialIcon = !$ctrl.showSocialIcon"></i>

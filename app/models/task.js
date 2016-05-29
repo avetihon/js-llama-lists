@@ -2,13 +2,14 @@
 var mongoose = require('mongoose');
 
 var taskSchema = mongoose.Schema({
-  text:         String,
-  date:         String,
-  description:  String,
-  due_date:     Date,
-  created:      { type: Date, default: Date.now },
-  color:        { type: String, default: 'red' },
-  completed:    { type: Boolean, default: false }
+  text:           String,
+  date:           String,
+  description:    String,
+  due_date:       Date,
+  created:        { type: Date, default: Date.now },
+  add_to:         { type: String, default: 'bottom' },
+  color:          { type: String, default: 'gray' },
+  completed:      { type: Boolean, default: false }
 });
 
 // create the model for todo and expose it to our app

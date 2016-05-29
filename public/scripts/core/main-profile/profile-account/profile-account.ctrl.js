@@ -42,7 +42,7 @@
         reader = new FileReader();
         reader.onload = function (event) {
           UserService.avatar({}, { avatar: event.target.result }, function (response) {
-            vm.avatarImage = response.avatar;
+            vm.user.avatar = response.avatar;
             $rootScope.$emit('reloadNavbar');
           });
         }

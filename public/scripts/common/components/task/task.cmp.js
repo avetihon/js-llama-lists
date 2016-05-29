@@ -46,8 +46,11 @@
       function changeColor(color) {
         if (color !== this.data.color) {
           this.data.color = color;
-          TaskService.update({ list: listID, task: taskID }, { task: this.data });
+        } else {
+          this.data.color = 'gray';
         }
+
+        TaskService.update({ list: listID, task: taskID }, { task: this.data });
       }
 
       function closeEditMode() {

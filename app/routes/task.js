@@ -47,13 +47,18 @@ exports.addTask = function(req, res) {
     .exec(function (err, list) {
       if (err) throw err;
 
-      list.tasks.push({
-        text: req.body.text,
-      });
+      // check how user set save new task
+      if (req.body.addTo === 'bottom') {
+        list.tasks.push({ text: req.body.text });
+      } else {
+        list.tasks.unshift({ text: req.body.text });
+      }
 
       list.save(function(err, done) {
         if (err) return done(err);
-        var newTask = done.tasks[done.tasks.length - 1];
+
+        var idNewTask = (req.body.addTo === 'bottom') ? done.tasks.length - 1 : 0;
+        var newTask = done.tasks[idNewTask];
 
         res.json({ task: newTask });
       });
