@@ -11,6 +11,7 @@
       var username = $stateParams.username;
       var isRecommended;
 
+      listsVm.searchLists = [];
       listsVm.showNewList; // check open popup
       listsVm.newListSubmitted; // check press submit button
       listsVm.createNewList = createNewList;

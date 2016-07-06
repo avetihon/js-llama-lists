@@ -2058,16 +2058,26 @@ img {
   height: auto;
   max-width: 60%; }
 
-.lists__searchTitle {
-  color: #646f82; }
-
-.lists__searchSeparator {
+.lists__search {
+  position: relative;
   width: 100%;
-  height: 1px;
-  color: #98a8c5;
-  background-color: #98a8c5;
-  border: 0;
-  box-shadow: 1px 1px 1px 1px rgba(216, 216, 216, 0.23); }
+  opacity: 1; }
+  .lists__search.ng-hide-add, .lists__search.ng-hide-remove {
+    transition: width .2s, opacity .2s; }
+  .lists__search.ng-hide {
+    width: 0;
+    opacity: 0; }
+  .lists__searchTitle {
+    color: #646f82;
+    font-size: 1.3em;
+    margin-bottom: 0; }
+  .lists__searchSeparator {
+    width: 100%;
+    height: 1px;
+    color: #b4c7e9;
+    background-color: #b4c7e9;
+    border: 0;
+    box-shadow: 1px 1px 1px 1px rgba(216, 216, 216, 0.23); }
 
 .user-interest__logo {
   text-align: center;

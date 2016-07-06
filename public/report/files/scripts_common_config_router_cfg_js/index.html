@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - scripts/common/config/router.cfg.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>scripts/common/config/router.cfg.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">58.72</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">136</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">10.55</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">0.81</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">(function() {
+  &#039;use strict&#039;;
+
+  angular
+    .module(&#039;llamaLists&#039;)
+    .constant(&#039;configRouter&#039;, configRouter);
+
+    function configRouter($locationProvider, $stateProvider, $urlRouterProvider) {
+      $stateProvider
+        .state(&quot;home&quot;, {
+          url: &quot;/&quot;,
+          views: {
+            &quot;navbar&quot;: {
+              templateUrl:  &quot;navbar/navbar-auth/navbar-auth.tpl.html&quot;
+            },
+            &quot;content&quot;: {
+              templateUrl: &quot;home/home.tpl.html&quot;
+            }
+          }
+        })
+        .state(&quot;auth&quot;, {
+          url: &quot;&quot;,
+          abstract: true,
+          resolve: {
+            isUserLogged: isUserLogged
+          }
+        })
+        .state(&quot;auth.login&quot;, {
+          url: &quot;/login&quot;,
+          views: {
+            &quot;content@&quot;: {
+              templateUrl:  &quot;auth/auth-login/auth-login.tpl.html&quot;,
+              controller:   &quot;loginPageCtrl&quot;,
+              controllerAs: &quot;loginVm&quot;
+            }
+          }
+        })
+        .state(&quot;auth.signup&quot;, {
+          url: &quot;/signup&quot;,
+          views: {
+            &quot;content@&quot;: {
+              templateUrl:  &quot;auth/auth-signup/auth-signup.tpl.html&quot;,
+              controller:   &quot;signupPageCtrl&quot;,
+              controllerAs: &quot;signupVm&quot;
+            }
+          }
+        })
+        .state(&quot;main&quot;, {
+          url: &quot;&quot;,
+          abstract: true,
+          views: {
+            &quot;navbar&quot;: {
+              templateUrl:  &quot;navbar/navbar-user/navbar-user.tpl.html&quot;,
+              controller:   &quot;userNavCtrl&quot;,
+              controllerAs: &quot;navVm&quot;
+            }
+          },
+          resolve: {
+            loadUserData: loadUserData
+          }
+        })
+        .state(&quot;main.lists&quot;, {
+          url: &quot;/:username&quot;,
+          views: {
+            &quot;content@&quot;: {
+              templateUrl:  &quot;main/main-lists/main-lists.tpl.html&quot;,
+              controller:   &quot;listsPageCtrl&quot;,
+              controllerAs: &quot;listsVm&quot;
+            }
+          }
+        })
+        .state(&quot;main.interests&quot;, {
+          url: &quot;/interests/&quot;,
+          views: {
+            &quot;content@&quot;: {
+              templateUrl:  &quot;main/main-interests/main-interests.tpl.html&quot;,
+              controller:   &quot;interestsPageCtrl&quot;,
+              controllerAs: &quot;vm&quot;
+            }
+          }
+        })
+        .state(&quot;main.profile&quot;, {
+          url: &quot;/profile&quot;,
+          views: {
+            &quot;content@&quot;: {
+              templateUrl:  &quot;main-profile/main-profile.tpl.html&quot;
+            }
+          }
+        })
+        .state(&quot;main.profile.account&quot;, {
+          url: &quot;/account&quot;,
+          views: {
+            &quot;profile&quot;: {
+              templateUrl:  &quot;main-profile/profile-account/profile-account.tpl.html&quot;,
+              controller:   &quot;accountPageCtrl&quot;,
+              controllerAs: &quot;vm&quot;
+            }
+          }
+        })
+        .state(&quot;main.profile.password&quot;, {
+          url: &quot;/password&quot;,
+          views: {
+            &quot;profile&quot;: {
+              templateUrl:  &quot;main-profile/profile-password/profile-password.tpl.html&quot;,
+              controller:   &quot;passwordPageCtrl&quot;,
+              controllerAs: &quot;vm&quot;
+            }
+          }
+        })
+        .state(&quot;404&quot;, {
+          url: &quot;/404/&quot;,
+          views: {
+            &quot;content&quot;: {
+              templateUrl: &quot;404/404.tpl.html&quot;
+            }
+          }
+        });
+
+      $urlRouterProvider.otherwise(&quot;/404&quot;);
+      $locationProvider.html5Mode(true);
+    }
+
+    isUserLogged.$inject = [&#039;userLogged&#039;];
+    function isUserLogged(userLogged) {
+      return userLogged.logged();
+    }
+
+    loadUserData.$inject = [&#039;$window&#039;, &#039;UserService&#039;, &#039;userData&#039;];
+    function loadUserData($window, UserService, userData) {
+      var currentUser = $window.localStorage.user;
+
+      return UserService.get({ name: currentUser }, function(response) {
+        return userData.setData(response.user);
+      });
+    }
+})();</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>
