@@ -63,9 +63,9 @@
       }
 
       function makeGlobalSearch() {
-        SearchService.lists({ query: listsVm.search.title }, function(response) {
-          listsVm.searchLists = response.lists;
-        });
+        // SearchService.lists({ query: listsVm.search.title }, function(response) {
+        //   listsVm.searchLists = response.lists;
+        // });
       }
 
       function reloadList() {
